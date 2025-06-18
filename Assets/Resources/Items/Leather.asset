@@ -1,27 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e82dc5796f765e42a86e841616c0e32, type: 3}
-  m_Name: Leather
-  m_EditorClassIdentifier: 
-  _itemID: bfc825d1554f75744a17b354d9e8ede7
-  objectName: Leather
-  description: 
-  icon: {fileID: 21300000, guid: d5763e103ba054e43a4c7e457f9426a1, type: 3}
-  stackSize: 1
-  weight: 200
-  volume: 200
-  itemMesh: {fileID: 0}
-  itemMaterial: {fileID: 0}
-  itemType: 2
-  rarity: 0
-  isCraftable: 1
-  staminaUse: 0
+version https://git-lfs.github.com/spec/v1
+oid sha256:e356cac315a0b7533a3b53745d71bd89801dd94cb9487e6a11de595c6ac34a72
+size 708

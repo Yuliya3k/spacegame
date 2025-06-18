@@ -1,16 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd2793a48980ee45a47f4c507f8caa8, type: 3}
-  m_Name: Bathroom drink from the sink
-  m_EditorClassIdentifier: 
-  fullnessThresholdPercent: 100
-  capacityIncreaseAfterDrinking: 100
+version https://git-lfs.github.com/spec/v1
+oid sha256:ade6c3039c18450fc60ca557a1e1e8e2a4cda64ca827557cd6dd5f95ae29b04b
+size 486
