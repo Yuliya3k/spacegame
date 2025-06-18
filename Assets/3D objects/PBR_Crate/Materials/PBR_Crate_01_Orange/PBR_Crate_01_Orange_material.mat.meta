@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 92630b43ae1c4d6409903040c98f56a6
+labels:
+- sb_05d6b5e3cea5404bb26beb35b3078e4d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71632
+  packageName: PBR Crate
+  packageVersion: 1.0
+  assetPath: Assets/PBR_Crate/Materials/PBR_Crate_01_Orange/PBR_Crate_01_Orange_material.mat
+  uploadId: 651878

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504bed9aadd98d34e9b3329a356cacad, type: 3}
+  m_Name: Lemon
+  m_EditorClassIdentifier: 
+  _itemID: b767b08601fc65b4093db42e8629edd9
+  objectName: Lemon
+  description: 'A citrus fruit known for its sour flavor, often used in beverages,
+    sauces, or marinades.
+
+'
+  icon: {fileID: 21300000, guid: daf473b223b59254bae9ac17747dd415, type: 3}
+  stackSize: 100
+  weight: 1
+  volume: 1
+  itemMesh: {fileID: 0}
+  itemMaterial: {fileID: 0}
+  itemType: 0
+  eatableType: 0
+  calories: 0.29
+  healthImpact: 0
+  hydration: 0.01
+  staminaSpentToEat: 1
+  staminaSpentToCraft: 1
+  caloriesSpentToCraft: 0
+  peristalticVelocityImpact: 0
+  timeToEat: 5
+  canEat: 0
+  eatingSound: {fileID: 0}
+  timeToCraft: 0
+  cookingSound: {fileID: 0}
+  itemEffects: []
+  requiredCookingSkill: 0
+  craftingMaterials: []

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ec56a6f86e80b3d4ea1991f077929ed7
+timeCreated: 1478722372
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71632
+  packageName: PBR Crate
+  packageVersion: 1.0
+  assetPath: Assets/PBR_Crate/Prefabs/PBR_Crate_01.prefab
+  uploadId: 651878

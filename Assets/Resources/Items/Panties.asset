@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbae49c7e7ca3fd449b84eb8dc53b642, type: 3}
+  m_Name: Panties
+  m_EditorClassIdentifier: 
+  _itemID: 1f64a0d1cf97a2f48b81fadbe229b334
+  objectName: Panties
+  description: 
+  icon: {fileID: 21300000, guid: 36ed1ebfc401c6a4c990dfd81f24771e, type: 3}
+  stackSize: 1
+  weight: 100
+  volume: 100
+  itemMesh: {fileID: 6546906449788733857, guid: eaff1eff82e57664d8c7f58adc5c2d44, type: 3}
+  itemMaterial: {fileID: 2100000, guid: 249b8d8f0ba051242a200699632d2c5a, type: 2}
+  itemType: 1
+  equipmentSlots: 07000000
+  colliderHeightAdjustment: 0
+  strength: 0
+  agility: 0
+  intelligence: 0
+  vitality: 0
+  staminaSpentToCraft: 0
+  caloriesSpentToCraft: 0
+  timeToCraft: 0
+  statModifiers: []
+  blendShapeModifiers: []
+  craftingMaterials: []

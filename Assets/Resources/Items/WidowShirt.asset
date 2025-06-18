@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbae49c7e7ca3fd449b84eb8dc53b642, type: 3}
+  m_Name: WidowShirt
+  m_EditorClassIdentifier: 
+  _itemID: 99b9e6d0427eacf4fa940c7e26a5a7d7
+  objectName: Widow shirt
+  description: 
+  icon: {fileID: 21300000, guid: 3868c0c53f38f8f40a22f509a5fdc2e4, type: 3}
+  stackSize: 1
+  weight: 100
+  volume: 100
+  itemMesh: {fileID: 2153374746270345406, guid: eaff1eff82e57664d8c7f58adc5c2d44, type: 3}
+  itemMaterial: {fileID: 2100000, guid: ee49f6164396fd346b0bdc6309b29849, type: 2}
+  itemType: 1
+  equipmentSlots: 04000000
+  colliderHeightAdjustment: 0
+  strength: 0
+  agility: 0
+  intelligence: 0
+  vitality: 0
+  staminaSpentToCraft: 0
+  caloriesSpentToCraft: 0
+  timeToCraft: 0
+  statModifiers: []
+  blendShapeModifiers: []
+  craftingMaterials: []

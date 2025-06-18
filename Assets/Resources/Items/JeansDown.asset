@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbae49c7e7ca3fd449b84eb8dc53b642, type: 3}
+  m_Name: JeansDown
+  m_EditorClassIdentifier: 
+  _itemID: b9707d3ac035e094c958e231387fe481
+  objectName: Jeans down
+  description: 
+  icon: {fileID: 21300000, guid: 058924971f937db4ea1f153a57826117, type: 3}
+  stackSize: 1
+  weight: 100
+  volume: 100
+  itemMesh: {fileID: 6162536330725452007, guid: eaff1eff82e57664d8c7f58adc5c2d44, type: 3}
+  itemMaterial: {fileID: 2100000, guid: c226574a90ff4444cbd927340be55ff3, type: 2}
+  itemType: 1
+  equipmentSlots: 07000000
+  colliderHeightAdjustment: 0
+  strength: 0
+  agility: 0
+  intelligence: 0
+  vitality: 0
+  staminaSpentToCraft: 0
+  caloriesSpentToCraft: 0
+  timeToCraft: 0
+  statModifiers: []
+  blendShapeModifiers: []
+  craftingMaterials: []

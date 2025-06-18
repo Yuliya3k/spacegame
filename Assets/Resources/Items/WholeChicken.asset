@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504bed9aadd98d34e9b3329a356cacad, type: 3}
+  m_Name: WholeChicken
+  m_EditorClassIdentifier: 
+  _itemID: b80a26a676c0eb840ac0d168e46cf68b
+  objectName: Baked whole chicken
+  description: 
+  icon: {fileID: 21300000, guid: f074ff645b19e4d7fb06431cd0585b76, type: 3}
+  stackSize: 1
+  weight: 912
+  volume: 912
+  itemMesh: {fileID: 0}
+  itemMaterial: {fileID: 0}
+  itemType: 0
+  eatableType: 1
+  calories: 2021
+  healthImpact: -0.1
+  hydration: -9.2
+  staminaSpentToEat: 5
+  staminaSpentToCraft: 5
+  caloriesSpentToCraft: 24
+  peristalticVelocityImpact: 0
+  timeToEat: 10
+  canEat: 0
+  eatingSound: {fileID: 8300000, guid: 5aea460137e79184ea4e119afc4f616c, type: 3}
+  timeToCraft: 10
+  cookingSound: {fileID: 8300000, guid: 8e400d1c33f938d4f90261129ee866ec, type: 3}
+  itemEffects: []
+  requiredCookingSkill: 40
+  craftingMaterials:
+  - data: {fileID: 11400000, guid: 0de17eefd1ba9374e9cf5519b8237380, type: 2}
+    stackSize: 1500
+  - data: {fileID: 11400000, guid: 31d204d249416644e93c2bd595c5a790, type: 2}
+    stackSize: 20
+  - data: {fileID: 11400000, guid: 6de1eee7e679e1046949d85ac835bfd9, type: 2}
+    stackSize: 17
+  - data: {fileID: 11400000, guid: 24c99a00604c0a14bb235225d02b8888, type: 2}
+    stackSize: 30
+  - data: {fileID: 11400000, guid: 5a5a6fd3f8daaa8418845a97cdf286cf, type: 2}
+    stackSize: 30

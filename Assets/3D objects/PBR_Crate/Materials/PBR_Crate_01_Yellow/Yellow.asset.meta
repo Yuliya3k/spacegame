@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5c86632782cdf11458ad5d3e8ad8e8f9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71632
+  packageName: PBR Crate
+  packageVersion: 1.0
+  assetPath: Assets/PBR_Crate/Materials/PBR_Crate_01_Yellow/Yellow.asset
+  uploadId: 651878

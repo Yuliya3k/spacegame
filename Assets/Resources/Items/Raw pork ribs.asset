@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504bed9aadd98d34e9b3329a356cacad, type: 3}
+  m_Name: Raw pork ribs
+  m_EditorClassIdentifier: 
+  _itemID: 124d45e2b48f647448f8e1c2acf71b10
+  objectName: 'Raw pork ribs '
+  description: 'Flavorful, fatty cuts of pork, commonly slow-cooked or grilled.
+
+'
+  icon: {fileID: 21300000, guid: a25b8629d1728944781af7fa55bca4c6, type: 3}
+  stackSize: 100
+  weight: 1
+  volume: 1
+  itemMesh: {fileID: 0}
+  itemMaterial: {fileID: 0}
+  itemType: 0
+  eatableType: 0
+  calories: 2.94
+  healthImpact: -0.09
+  hydration: -0.02
+  staminaSpentToEat: 1
+  staminaSpentToCraft: 1
+  caloriesSpentToCraft: 0
+  peristalticVelocityImpact: 0
+  timeToEat: 10
+  canEat: 0
+  eatingSound: {fileID: 0}
+  timeToCraft: 0
+  cookingSound: {fileID: 0}
+  itemEffects: []
+  requiredCookingSkill: 0
+  craftingMaterials: []

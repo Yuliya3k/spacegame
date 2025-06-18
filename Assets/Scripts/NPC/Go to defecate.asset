@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b209d10ae92eb54e914241e29b73f27, type: 3}
+  m_Name: Go to defecate
+  m_EditorClassIdentifier: 
+  statName: currentIntFullness
+  conditionOperator: 1
+  useDynamicTarget: 1
+  targetValue: 0
+  targetStatName: intestinesCapacity
+  multiplier: 0.95
+  offset: 0
+  sequenceTasks:
+  - {fileID: 11400000, guid: 82d3c22dea31ecd46b572f552ab6f549, type: 2}
+  - {fileID: 11400000, guid: ad6dd643a3e3b2c46b0ac2d8bd70f542, type: 2}
+  - {fileID: 11400000, guid: c06a1fbf41116ee47b35b5103c7e0615, type: 2}
+  - {fileID: 11400000, guid: e76966f95f1cdbb40be24062a9186db7, type: 2}
+  - {fileID: 11400000, guid: fdac5536c99481845ab668f14fa743b1, type: 2}
+  - {fileID: 11400000, guid: 4094b81794e1b104691a2948f1db288f, type: 2}
+  - {fileID: 11400000, guid: 07fde9169a95c6d469826c235d617807, type: 2}
+  - {fileID: 11400000, guid: c06a1fbf41116ee47b35b5103c7e0615, type: 2}
+  - {fileID: 11400000, guid: e76966f95f1cdbb40be24062a9186db7, type: 2}
+  - {fileID: 11400000, guid: 82d3c22dea31ecd46b572f552ab6f549, type: 2}
+  - {fileID: 11400000, guid: ad6dd643a3e3b2c46b0ac2d8bd70f542, type: 2}
+  - {fileID: 11400000, guid: d97b03b67e9e2d143acc3d3cbe79e950, type: 2}

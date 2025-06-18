@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: 5f22a0e0c4ce46c40b184e23e3840d13
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 196249
+  packageName: Sci-Fi Doors Sound Library
+  packageVersion: 1.0
+  assetPath: Assets/Sci-Fi Doors Sound Library/DoorOpen/Door_Large_Open_03.wav
+  uploadId: 435755

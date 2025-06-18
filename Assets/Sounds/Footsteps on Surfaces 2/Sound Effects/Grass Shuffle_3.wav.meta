@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: cc53d515ceb4943a191f7f2545b1a64c
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 276219
+  packageName: Footsteps on Surfaces 2
+  packageVersion: 1.0
+  assetPath: Assets/Footsteps on Surfaces 2/Sound Effects/Grass Shuffle_3.wav
+  uploadId: 641740

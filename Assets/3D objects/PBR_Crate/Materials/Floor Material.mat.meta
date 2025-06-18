@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0b2a703269617294d99c6ede6ba9821e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71632
+  packageName: PBR Crate
+  packageVersion: 1.0
+  assetPath: Assets/PBR_Crate/Materials/Floor Material.mat
+  uploadId: 651878

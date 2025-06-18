@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c7b147e5457c9b14bb5db25c0e971dac
+timeCreated: 1478723368
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71632
+  packageName: PBR Crate
+  packageVersion: 1.0
+  assetPath: Assets/PBR_Crate/Prefabs/PBR_Crate_01_Physics.prefab
+  uploadId: 651878

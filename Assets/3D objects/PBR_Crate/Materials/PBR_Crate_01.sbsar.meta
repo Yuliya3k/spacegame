@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 2216b32cc7045e049b940aa1b5bc2dae
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _fileAsset: {fileID: 6013892654665635331, guid: 2216b32cc7045e049b940aa1b5bc2dae,
+    type: 3}
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71632
+  packageName: PBR Crate
+  packageVersion: 1.0
+  assetPath: Assets/PBR_Crate/Materials/PBR_Crate_01.sbsar
+  uploadId: 651878

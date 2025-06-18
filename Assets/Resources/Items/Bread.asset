@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504bed9aadd98d34e9b3329a356cacad, type: 3}
+  m_Name: Bread
+  m_EditorClassIdentifier: 
+  _itemID: 73050f5f95b8f72448d9fab2cf70e75e
+  objectName: Bread
+  description: 'A staple food made from flour and water, baked and used in many cuisines.
+
+'
+  icon: {fileID: 21300000, guid: aade2bb124668cf46b0c653a8ba6f11a, type: 3}
+  stackSize: 1
+  weight: 3
+  volume: 3
+  itemMesh: {fileID: 0}
+  itemMaterial: {fileID: 0}
+  itemType: 0
+  eatableType: 1
+  calories: 10.9
+  healthImpact: 0
+  hydration: -0
+  staminaSpentToEat: 0
+  staminaSpentToCraft: 0
+  caloriesSpentToCraft: 0
+  peristalticVelocityImpact: 0
+  timeToEat: 5
+  canEat: 0
+  eatingSound: {fileID: 8300000, guid: 5aea460137e79184ea4e119afc4f616c, type: 3}
+  timeToCraft: 20
+  cookingSound: {fileID: 0}
+  itemEffects: []
+  requiredCookingSkill: 0
+  craftingMaterials:
+  - data: {fileID: 11400000, guid: de7d64d285742624ba2702e888ca3c05, type: 2}
+    stackSize: 500
+  - data: {fileID: 11400000, guid: d8ef33f8c42f82a4eb1024d79a81b116, type: 2}
+    stackSize: 1
+  - data: {fileID: 11400000, guid: fcdafcae789615f4b98e685711d9d380, type: 2}
+    stackSize: 15
+  - data: {fileID: 11400000, guid: d7425a0eba8f7d142951a5b8915e6ee8, type: 2}
+    stackSize: 25

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1cc3ea7c69fffce4c9be802526ec4f9e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71632
+  packageName: PBR Crate
+  packageVersion: 1.0
+  assetPath: Assets/PBR_Crate/Materials/PBR_Crate_01_White/White.asset
+  uploadId: 651878

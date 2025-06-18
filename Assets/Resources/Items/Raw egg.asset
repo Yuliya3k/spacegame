@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504bed9aadd98d34e9b3329a356cacad, type: 3}
+  m_Name: Raw egg
+  m_EditorClassIdentifier: 
+  _itemID: 8309a5174c1f1e24caee0a06ca0014b0
+  objectName: Raw egg
+  description: 'A protein-rich food from poultry, commonly used in baking, frying,
+    or boiling.
+
+'
+  icon: {fileID: 21300000, guid: 1e811f5489a8ba342a88549bfbad72d6, type: 3}
+  stackSize: 100
+  weight: 1
+  volume: 1
+  itemMesh: {fileID: 0}
+  itemMaterial: {fileID: 0}
+  itemType: 0
+  eatableType: 0
+  calories: 1.55
+  healthImpact: 0
+  hydration: -0.01
+  staminaSpentToEat: 1
+  staminaSpentToCraft: 1
+  caloriesSpentToCraft: 0
+  peristalticVelocityImpact: 0
+  timeToEat: 5
+  canEat: 0
+  eatingSound: {fileID: 0}
+  timeToCraft: 0
+  cookingSound: {fileID: 0}
+  itemEffects: []
+  requiredCookingSkill: 0
+  craftingMaterials: []

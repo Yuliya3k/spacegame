@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504bed9aadd98d34e9b3329a356cacad, type: 3}
+  m_Name: SinkWater
+  m_EditorClassIdentifier: 
+  _itemID: 3cfa349e2c6d7df479591323c500292b
+  objectName: Sink water
+  description: 'The most essential drink, containing no calories, keeping you hydrated.
+
+'
+  icon: {fileID: 21300000, guid: 69da9f8266a372846bd1e79d1d072710, type: 3}
+  stackSize: 1
+  weight: 15
+  volume: 15
+  itemMesh: {fileID: 0}
+  itemMaterial: {fileID: 0}
+  itemType: 0
+  eatableType: 1
+  calories: 0
+  healthImpact: 0.1
+  hydration: 1
+  staminaSpentToEat: 0.001
+  staminaSpentToCraft: 0
+  caloriesSpentToCraft: 0.001
+  peristalticVelocityImpact: 0
+  timeToEat: 0
+  canEat: 0
+  eatingSound: {fileID: 8300000, guid: ea0f8d05c7162a04aa9c7a4e66dddee2, type: 3}
+  timeToCraft: 0
+  cookingSound: {fileID: 0}
+  itemEffects: []
+  requiredCookingSkill: 0
+  craftingMaterials: []

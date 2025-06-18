@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: da0e630883d597e4cb5d5480cf86f821
+labels:
+- sb_145e2276cbdd414e9ea9db65a520a9ea
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71632
+  packageName: PBR Crate
+  packageVersion: 1.0
+  assetPath: Assets/PBR_Crate/Materials/PBR_Crate_01_Yellow/PBR_Crate_01_Yellow_material.mat
+  uploadId: 651878

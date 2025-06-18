@@ -1,0 +1,183 @@
+####################################################################
+#  Unity – code-only / ScriptableObject-only .gitignore
+#  Keeps:  *.cs   *.asset   *.meta   *.asmdef   (and a couple tiny
+#          ProjectSettings files so the project opens cleanly)
+#  Ignores: ALL heavyweight content — textures, models, audio,
+#           video, scenes, prefabs, materials, etc.
+####################################################################
+
+########################
+# Core Unity junk
+########################
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild*/
+[Bb]in/
+[Ll]ogs/
+[Mm]emoryCaptures/
+CrashHandler.log
+sysinfo.txt
+
+########################
+# IDE / tooling noise
+########################
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.unityproj
+*.user
+*.pidb
+.ReSharper*/
+*.suo
+*.opendb
+
+########################
+# OS cruft
+########################
+.DS_Store
+Thumbs.db
+
+########################
+# *****  BIG FILE TYPES TO IGNORE  *****
+# (split by category so you can comment-out anything you decide to keep)
+########################
+
+# ── 3-D models ─────────────────────────────────────────────
+*.fbx
+*.obj
+*.blend
+*.3ds
+*.dae
+*.stl
+*.ply
+*.gltf
+*.glb
+*.ma
+*.mb
+*.max
+
+# ── Textures / images ─────────────────────────────────────
+*.png
+*.jpg
+*.jpeg
+*.tga
+*.psd
+*.tif
+*.tiff
+*.bmp
+*.gif
+*.exr
+*.hdr
+*.dds
+*.ktx
+*.crn
+*.heic
+*.webp
+
+# ── Spritesheets & atlases ─────────────────────────────────
+*.spriteatlas
+*.atlas
+*.atlas.png
+
+# ── Audio ─────────────────────────────────────────────────
+*.wav
+*.ogg
+*.mp3
+*.aiff
+*.flac
+*.aac
+*.m4a
+
+# ── Video ─────────────────────────────────────────────────
+*.mp4
+*.mov
+*.avi
+*.mpeg
+*.mpg
+*.wmv
+*.mkv
+*.webm
+
+# ── Materials, shaders, VFX ───────────────────────────────
+*.mat
+*.shader
+*.cginc
+*.shadergraph
+*.shadervariants
+*.vfx
+*.vfxgraph
+*.spritediffuseprofile
+*.physicMaterial
+
+# ── Prefabs, scenes, animation controllers ────────────────
+*.prefab
+*.unity
+*.anim
+*.controller
+*.overrideController
+*.playable
+*.timeline
+*.mask
+
+# ── Lighting / baked data ─────────────────────────────────
+Lightmap-*.exr
+LightProbes.asset
+ReflectionProbe-*.exr
+Occlusion*.data
+*.lighting
+*.giparams
+*.terrain
+*.terrainlayer
+
+# ── Binary plugins & packages ─────────────────────────────
+*.dll
+*.pdb
+*.so
+*.jar
+*.aar
+*.bundle
+*.framework
+*.xcframework
+*.apk
+*.ipa
+*.unitypackage
+
+# ── Misc project-sidecar formats you don’t want ───────────
+*.assetbundle
+*.json
+*.xml
+*.csv
+*.bytes
+*.txt~
+
+########################
+# *****  KEEP RULES  *****
+#  These reopen just the tiny bits you still need.
+########################
+
+# — C# source & its meta
+!**/*.cs
+!**/*.cs.meta
+
+# — ScriptableObjects (& their meta) – .asset is also used for
+#   lots of other things, but we can’t distinguish extension-wise,
+#   so leave it tracked.  Delete any unwanted .asset files manually.
+!**/*.asset
+!**/*.asset.meta
+
+# — Assembly Definition files (handy, tiny JSON)
+!**/*.asmdef
+!**/*.asmdef.meta
+
+# — Unity meta files in general (they’re all a few KB)
+!**/*.meta
+
+# — Minimal project settings so others can open the project
+!/ProjectSettings/ProjectVersion.txt
+!/ProjectSettings/EditorBuildSettings.asset
+
+########################
+# End of file
+########################

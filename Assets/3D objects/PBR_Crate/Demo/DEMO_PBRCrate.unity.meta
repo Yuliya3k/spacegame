@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 67e074aaf7516f1418ce60621ee3b025
+timeCreated: 1480878582
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 71632
+  packageName: PBR Crate
+  packageVersion: 1.0
+  assetPath: Assets/PBR_Crate/Demo/DEMO_PBRCrate.unity
+  uploadId: 651878
