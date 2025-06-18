@@ -112,14 +112,8 @@ Thumbs.db
 *.physicMaterial
 
 # ── Prefabs, scenes, animation controllers ────────────────
-*.prefab
-*.unity
-*.anim
-*.controller
-*.overrideController
-*.playable
-*.timeline
-*.mask
+
+
 
 # ── Lighting / baked data ─────────────────────────────────
 Lightmap-*.exr
