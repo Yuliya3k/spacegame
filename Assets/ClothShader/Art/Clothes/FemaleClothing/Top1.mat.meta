@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 617d5c7717f613549ab70718b0ca9757
+timeCreated: 1549203114
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Clothes/FemaleClothing/Top1.mat
+  uploadId: 293068

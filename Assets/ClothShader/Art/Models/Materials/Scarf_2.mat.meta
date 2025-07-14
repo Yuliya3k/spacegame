@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8119c978a223bd740b2f44525207f597
+timeCreated: 1547402247
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Scarf_2.mat
+  uploadId: 293068

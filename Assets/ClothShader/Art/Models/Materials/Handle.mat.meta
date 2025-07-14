@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d9d2ccfafb671b74f8a25e04242aaf3d
+timeCreated: 1547402265
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Handle.mat
+  uploadId: 293068

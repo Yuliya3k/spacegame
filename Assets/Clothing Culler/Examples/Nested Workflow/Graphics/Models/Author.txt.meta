@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ca72b85028485c34c815718eaf5a6c54
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Examples/Nested Workflow/Graphics/Models/Author.txt
+  uploadId: 692612

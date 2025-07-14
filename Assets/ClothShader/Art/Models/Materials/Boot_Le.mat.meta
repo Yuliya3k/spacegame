@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 30f564bdf0f0fd943a6612bc30537ab6
+timeCreated: 1547402266
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Boot_Le.mat
+  uploadId: 293068

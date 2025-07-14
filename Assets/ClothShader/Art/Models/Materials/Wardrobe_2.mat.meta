@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5d175dc8ecc2fd94fa0113c74ad93d62
+timeCreated: 1547402265
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Wardrobe_2.mat
+  uploadId: 293068

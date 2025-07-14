@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9fbd1b7e7ae1c17478df9bfc08310dc7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67724
+  packageName: URP - Skin Shaders
+  packageVersion: 2020.1
+  assetPath: Assets/Ciconia Studio/Shaders/SSS Skin Shaders/BuiltIn/Demo Scene/Sources/Models/Challenger/Materials/Head_CS
+    Skin Shader Specular.mat
+  uploadId: 478180

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 66b3679b3c82c7a4b89bc682819968fe
+timeCreated: 1547402266
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Rivet_L.mat
+  uploadId: 293068

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4c40f5b48d6967a409afcb12f59584b3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Code/Components/Classes/CullableLOD.cs
+  uploadId: 692612

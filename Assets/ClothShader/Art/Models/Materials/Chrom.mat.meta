@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e8ba70c48fdfa0d499f83e486ba8355c
+timeCreated: 1547402246
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Chrom.mat
+  uploadId: 293068

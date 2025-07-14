@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: da9a8516d36f5354d8167fdedec0d176
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Code/Configuration/Classes/MeshOcclusionData.cs
+  uploadId: 692612

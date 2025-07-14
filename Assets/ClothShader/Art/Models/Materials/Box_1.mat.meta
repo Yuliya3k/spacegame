@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0bbac1729d46a7640a55cd8e6d254dcb
+timeCreated: 1547402247
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Box_1.mat
+  uploadId: 293068

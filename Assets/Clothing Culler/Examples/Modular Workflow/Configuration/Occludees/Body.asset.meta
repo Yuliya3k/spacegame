@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c8cb817f71f019945a479441c3852c2e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Examples/Modular Workflow/Configuration/Occludees/Body.asset
+  uploadId: 692612

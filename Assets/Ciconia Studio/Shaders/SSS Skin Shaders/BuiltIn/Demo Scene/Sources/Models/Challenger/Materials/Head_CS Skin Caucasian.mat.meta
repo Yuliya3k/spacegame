@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ddb62e858b8d8874b92f875c419dad44
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67724
+  packageName: URP - Skin Shaders
+  packageVersion: 2020.1
+  assetPath: Assets/Ciconia Studio/Shaders/SSS Skin Shaders/BuiltIn/Demo Scene/Sources/Models/Challenger/Materials/Head_CS
+    Skin Caucasian.mat
+  uploadId: 478180

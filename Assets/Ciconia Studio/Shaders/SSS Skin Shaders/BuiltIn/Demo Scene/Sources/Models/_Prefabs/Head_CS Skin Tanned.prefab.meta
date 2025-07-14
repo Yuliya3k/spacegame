@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ce3e4d1d97165204288ef978bd1962c9
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67724
+  packageName: URP - Skin Shaders
+  packageVersion: 2020.1
+  assetPath: Assets/Ciconia Studio/Shaders/SSS Skin Shaders/BuiltIn/Demo Scene/Sources/Models/_Prefabs/Head_CS
+    Skin Tanned.prefab
+  uploadId: 478180

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Abort the commit if any staged file is larger than 100 MB (104 857 600 bytes)
+
+limit=$((100 * 1024 * 1024))   # 100 MB in bytes
+
+fail=0
+while read -r mode type object sha stage path; do
+  # only look at "added" or "modified" paths (mode starts with 1)
+  [ "${mode:0:1}" = "1" ] || continue
+
+  # size in bytes of the file in the working tree
+  if [ -f "$path" ]; then
+    size=$(stat -c%s "$path" 2>/dev/null || stat -f%z "$path")
+    if [ "$size" -gt "$limit" ]; then
+      echo "✖ ERROR: $path is $(du -h "$path" | cut -f1) – exceeds 100 MB"
+      fail=1
+    fi
+  fi
+done < <(git diff --cached --numstat --diff-filter=AM | awk '{print $2}')
+
+if [ "$fail" -ne 0 ]; then
+  echo "Add these files to Git LFS or keep them out of Git."
+  exit 1
+fi

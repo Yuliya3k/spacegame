@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ea8149d08dbca57468ae11213c320541
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Examples/Modular Workflow/Code/ModularClothingSpawner.cs
+  uploadId: 692612

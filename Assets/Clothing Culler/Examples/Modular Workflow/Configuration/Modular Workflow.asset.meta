@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 0680956f74664c94588382e84dbc3018
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Examples/Modular Workflow/Configuration/Modular
+    Workflow.asset
+  uploadId: 692612

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ec140c81c421c564e8501f832298c8be
+timeCreated: 1547402256
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Coat.mat
+  uploadId: 293068

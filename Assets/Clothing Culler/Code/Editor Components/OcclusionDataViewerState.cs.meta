@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c5366a474df3e6a43a30fef7d0fe6df6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Code/Editor Components/OcclusionDataViewerState.cs
+  uploadId: 692612

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 628ae193c1c05cb4c8f8ab8d6e443c50
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Code/Components/ClothingCuller.cs
+  uploadId: 692612

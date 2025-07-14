@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: fa40a7713031f5347bd1907758b154a3
+timeCreated: 1547402246
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Gloves.mat
+  uploadId: 293068

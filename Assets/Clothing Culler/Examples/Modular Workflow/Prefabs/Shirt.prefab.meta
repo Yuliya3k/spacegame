@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 124ca8fa487c7b2418a3b55dbfe25e86
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Examples/Modular Workflow/Prefabs/Shirt.prefab
+  uploadId: 692612

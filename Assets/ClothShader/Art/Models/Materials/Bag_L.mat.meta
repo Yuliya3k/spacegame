@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8a003f67548e6754ba0ec3e1d9846afb
+timeCreated: 1547402242
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Bag_L.mat
+  uploadId: 293068

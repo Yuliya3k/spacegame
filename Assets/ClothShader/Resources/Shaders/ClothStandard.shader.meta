@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 35a7cf5db3a3d934b885dd190622a5ec
+timeCreated: 1516114943
+licenseType: Store
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Resources/Shaders/ClothStandard.shader
+  uploadId: 293068

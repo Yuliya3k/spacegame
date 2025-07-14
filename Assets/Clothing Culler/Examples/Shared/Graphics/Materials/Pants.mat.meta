@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d460db306b2469e46b75807ba16ffd23
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Examples/Shared/Graphics/Materials/Pants.mat
+  uploadId: 692612

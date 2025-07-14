@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 54079d7ec5ff61049b4daf81d29067c6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67724
+  packageName: URP - Skin Shaders
+  packageVersion: 2020.1
+  assetPath: Assets/Ciconia Studio/Shaders/SSS Skin Shaders/BuiltIn/Demo Scene/Sources/Models/Challenger/Materials/Head_CS
+    Skin Tanned.mat
+  uploadId: 478180
