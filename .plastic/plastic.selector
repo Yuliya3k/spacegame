@@ -1,4 +1,4 @@
-repository "FirstGame@yuliya3k@cloud"
+repository "Cloud Repositories/FirstGame@10170834195644@cloud"
   path "/"
     br "/main"
     co "/main"

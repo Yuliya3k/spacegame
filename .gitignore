@@ -44,6 +44,9 @@ Thumbs.db
 # (split by category so you can comment-out anything you decide to keep)
 ########################
 
+# Scene lighting caches stay out of Git
+Assets/_Project/Scenes/**/LightingData.asset
+
 # ── 3-D models ─────────────────────────────────────────────
 *.fbx
 *.obj
@@ -151,7 +154,11 @@ Occlusion*.data
 #  These reopen just the tiny bits you still need.
 ########################
 
+# keep all repo hooks Unix-style
+tools/git-hooks/* text eol=lf
+
 # — C# source & its meta
+!*.cs
 !**/*.cs
 !**/*.cs.meta
 
