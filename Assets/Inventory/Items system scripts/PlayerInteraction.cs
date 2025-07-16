@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.Profiling;
@@ -53,74 +54,74 @@ public class PlayerInteraction : MonoBehaviour
             }
         
 
-            // Check for InteractableUIOpener first
-            var uiOpener = hit.collider.GetComponent<InteractableUIOpener>();
-            if (uiOpener != null)
-            {
-                if (lastInteractableObject != hitObject)
-                {
-                    lastInteractableObject = hitObject;
-                    TooltipManager.instance.ShowTooltipIndefinitely(
-                        uiOpener.actionText,
-                        uiOpener.locationText,
-                        uiOpener.objectName
-                    );
-                }
+            //// Check for InteractableUIOpener first
+            //var uiOpener = hit.collider.GetComponent<InteractableUIOpener>();
+            //if (uiOpener != null)
+            //{
+            //    if (lastInteractableObject != hitObject)
+            //    {
+            //        lastInteractableObject = hitObject;
+            //        TooltipManager.instance.ShowTooltipIndefinitely(
+            //            uiOpener.actionText,
+            //            uiOpener.locationText,
+            //            uiOpener.objectName
+            //        );
+            //    }
 
-                if (interactPressed)
-                {
-                    uiOpener.Interact();
-                }
-                interactPressed = false;
-                Profiler.EndSample();
-                return;  // Exit to avoid further checks
-            }
+            //    if (interactPressed)
+            //    {
+            //        uiOpener.Interact();
+            //    }
+            //    interactPressed = false;
+            //    Profiler.EndSample();
+            //    return;  // Exit to avoid further checks
+            //}
 
-            // Check for StorageContainer
-            var storageContainer = hit.collider.GetComponent<StorageContainer>();
-            if (storageContainer != null)
-            {
-                if (lastInteractableObject != hitObject)
-                {
-                    lastInteractableObject = hitObject;
-                    TooltipManager.instance.ShowTooltipIndefinitely(
-                        "Press E to open",
-                        storageContainer.locationText,
-                        storageContainer.objectName
-                    );
-                }
+            //// Check for StorageContainer
+            //var storageContainer = hit.collider.GetComponent<StorageContainer>();
+            //if (storageContainer != null)
+            //{
+            //    if (lastInteractableObject != hitObject)
+            //    {
+            //        lastInteractableObject = hitObject;
+            //        TooltipManager.instance.ShowTooltipIndefinitely(
+            //            "Press E to open",
+            //            storageContainer.locationText,
+            //            storageContainer.objectName
+            //        );
+            //    }
 
-                if (interactPressed)
-                {
-                    storageContainer.Interact();  // Open storage UI
-                }
-                interactPressed = false;
-                Profiler.EndSample();
-                return;  // Exit to avoid further checks
-            }
+            //    if (interactPressed)
+            //    {
+            //        storageContainer.Interact();  // Open storage UI
+            //    }
+            //    interactPressed = false;
+            //    Profiler.EndSample();
+            //    return;  // Exit to avoid further checks
+            //}
 
-            // Check for DisposableContainer
-            var disposableContainer = hit.collider.GetComponent<DisposableContainer>();
-            if (disposableContainer != null)
-            {
-                if (lastInteractableObject != hitObject)
-                {
-                    lastInteractableObject = hitObject;
-                    TooltipManager.instance.ShowTooltipIndefinitely(
-                        "Press E to open",
-                        disposableContainer.locationText,
-                        disposableContainer.objectName
-                    );
-                }
+            //// Check for DisposableContainer
+            //var disposableContainer = hit.collider.GetComponent<DisposableContainer>();
+            //if (disposableContainer != null)
+            //{
+            //    if (lastInteractableObject != hitObject)
+            //    {
+            //        lastInteractableObject = hitObject;
+            //        TooltipManager.instance.ShowTooltipIndefinitely(
+            //            "Press E to open",
+            //            disposableContainer.locationText,
+            //            disposableContainer.objectName
+            //        );
+            //    }
 
-                if (interactPressed)
-                {
-                    disposableContainer.Interact();
-                }
-                interactPressed = false;
-                Profiler.EndSample();
-                return;  // Exit after detecting interaction
-            }
+            //    if (interactPressed)
+            //    {
+            //        disposableContainer.Interact();
+            //    }
+            //    interactPressed = false;
+            //    Profiler.EndSample();
+            //    return;  // Exit after detecting interaction
+            //}
 
             // Check for InteractableObject
             var interactableObject = hit.collider.GetComponent<InteractableObject>();
@@ -145,74 +146,74 @@ public class PlayerInteraction : MonoBehaviour
                 return;  // Exit to avoid further checks
             }
 
-            // Check for InteractableToilet
-            var toilet = hit.collider.GetComponent<InteractableToilet>();
-            if (toilet != null)
-            {
-                if (lastInteractableObject != hitObject)
-                {
-                    lastInteractableObject = hitObject;
-                    TooltipManager.instance.ShowTooltipIndefinitely(
-                        toilet.actionText,
-                        toilet.locationText,
-                        toilet.objectName
-                    );
-                }
+            //// Check for InteractableToilet
+            //var toilet = hit.collider.GetComponent<InteractableToilet>();
+            //if (toilet != null)
+            //{
+            //    if (lastInteractableObject != hitObject)
+            //    {
+            //        lastInteractableObject = hitObject;
+            //        TooltipManager.instance.ShowTooltipIndefinitely(
+            //            toilet.actionText,
+            //            toilet.locationText,
+            //            toilet.objectName
+            //        );
+            //    }
 
-                if (interactPressed)
-                {
-                    toilet.Interact();
-                }
-                interactPressed = false;
-                Profiler.EndSample();
-                return; // Exit to avoid further checks
-            }
+            //    if (interactPressed)
+            //    {
+            //        toilet.Interact();
+            //    }
+            //    interactPressed = false;
+            //    Profiler.EndSample();
+            //    return; // Exit to avoid further checks
+            //}
 
 
-            // Check for Interactablesink
-            var sink = hit.collider.GetComponent<InteractableSink>();
-            if (sink != null)
-            {
-                if (lastInteractableObject != hitObject)
-                {
-                    lastInteractableObject = hitObject;
-                    TooltipManager.instance.ShowTooltipIndefinitely(
-                        sink.actionText,
-                        sink.locationText,
-                        sink.objectName
-                    );
-                }
+            //// Check for Interactablesink
+            //var sink = hit.collider.GetComponent<InteractableSink>();
+            //if (sink != null)
+            //{
+            //    if (lastInteractableObject != hitObject)
+            //    {
+            //        lastInteractableObject = hitObject;
+            //        TooltipManager.instance.ShowTooltipIndefinitely(
+            //            sink.actionText,
+            //            sink.locationText,
+            //            sink.objectName
+            //        );
+            //    }
 
-                if (interactPressed)
-                {
-                    sink.Interact();
-                }
-                Profiler.EndSample();
-                interactPressed = false;
-                return; // Exit to avoid further checks
-            }
+            //    if (interactPressed)
+            //    {
+            //        sink.Interact();
+            //    }
+            //    Profiler.EndSample();
+            //    interactPressed = false;
+            //    return; // Exit to avoid further checks
+            //}
 
-            var MuscleTraining = hit.collider.GetComponent<InteractableExerciseMachine>();
-            if (MuscleTraining != null)
-            {
-                if (lastInteractableObject != hitObject)
-                {
-                    lastInteractableObject = hitObject;
-                    TooltipManager.instance.ShowTooltipIndefinitely(
-                        MuscleTraining.actionText,
-                        MuscleTraining.locationText,
-                        MuscleTraining.objectName
-                    );
-                }
+            //var MuscleTraining = hit.collider.GetComponent<InteractableExerciseMachine>();
+            //if (MuscleTraining != null)
+            //{
+            //    if (lastInteractableObject != hitObject)
+            //    {
+            //        lastInteractableObject = hitObject;
+            //        TooltipManager.instance.ShowTooltipIndefinitely(
+            //            MuscleTraining.actionText,
+            //            MuscleTraining.locationText,
+            //            MuscleTraining.objectName
+            //        );
+            //    }
 
-                if (interactPressed)
-                {
-                    MuscleTraining.Interact();
-                }
-                Profiler.EndSample();
-                interactPressed = false;
-                return; // Exit to avoid further checks
-            }
+            //    if (interactPressed)
+            //    {
+            //        MuscleTraining.Interact();
+            //    }
+            //    Profiler.EndSample();
+            //    interactPressed = false;
+            //    return; // Exit to avoid further checks
+            //}
 
 
             // Check for SlidingDoorController
@@ -269,83 +270,99 @@ public class PlayerInteraction : MonoBehaviour
                 return;  // Exit to avoid further checks
             }
 
-            // If raycast hits something else, hide the tooltip if it was previously showing
-            if (lastInteractableObject != null)
-            {
-                lastInteractableObject = null;
-                TooltipManager.instance.HideTooltip();
-            }
+            // Generic IInteractable handling
+            var interactable = hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
 
-            
+            //// If raycast hits something else, hide the tooltip if it was previously showing
+            //if (lastInteractableObject != null)
+            //{
+            //    lastInteractableObject = null;
+            //    TooltipManager.instance.HideTooltip();
+            //}
 
-            var shower = hit.collider.GetComponent<InteractableShower>();
-            if (shower != null)
+
+
+            //var shower = hit.collider.GetComponent<InteractableShower>();
+            //if (shower != null)
             {
                 if (lastInteractableObject != hitObject)
                 {
                     lastInteractableObject = hitObject;
-                    TooltipManager.instance.ShowTooltipIndefinitely(
-                        shower.actionText,
-                        shower.locationText,
-                        shower.objectName
-                    );
+                    string actionText = GetStringField(interactable, "actionText", "Press E to interact");
+                    string locationText = GetStringField(interactable, "locationText", "");
+                    string objectName = GetStringField(interactable, "objectName", hitObject.name);
+                    TooltipManager.instance.ShowTooltipIndefinitely(actionText, locationText, objectName);
+                    //TooltipManager.instance.ShowTooltipIndefinitely(
+                    //    shower.actionText,
+                    //    shower.locationText,
+                    //    shower.objectName
+                    //);
                 }
 
                 if (interactPressed)
                 {
-                    shower.Interact();
+                    interactable.Interact();
+                    //shower.Interact();
                 }
                 interactPressed = false;
                 Profiler.EndSample();
                 return;
             }
 
-            var bed = hit.collider.GetComponent<InteractableBed>();
-            if (bed != null)
+            //var bed = hit.collider.GetComponent<InteractableBed>();
+            //if (bed != null)
             {
-                if (lastInteractableObject != hitObject)
+
+                //if (lastInteractableObject != hitObject)
+                //{
+                //    lastInteractableObject = hitObject;
+                //    TooltipManager.instance.ShowTooltipIndefinitely(
+                //        bed.actionText,
+                //        bed.locationText,
+                //        bed.objectName
+                //    );
+                //}
+
+                //if (interactPressed)
+                //{
+                //    bed.Interact();
+                //}
+                //interactPressed = false;
+                //Profiler.EndSample();
+                //return;
+
+                // If raycast hits something else, hide the tooltip if it was previously showing
+                if (lastInteractableObject != null)
                 {
-                    lastInteractableObject = hitObject;
-                    TooltipManager.instance.ShowTooltipIndefinitely(
-                        bed.actionText,
-                        bed.locationText,
-                        bed.objectName
-                    );
+                    lastInteractableObject = null;
+                    TooltipManager.instance.HideTooltip();
                 }
 
-                if (interactPressed)
-                {
-                    bed.Interact();
-                }
-                interactPressed = false;
-                Profiler.EndSample();
-                return;
+
+            //var sofa = hit.collider.GetComponent<InteractableRestPlace>();
+            //if (sofa != null)
+            //{
+            //    if (lastInteractableObject != hitObject)
+            //    {
+            //        lastInteractableObject = hitObject;
+            //        TooltipManager.instance.ShowTooltipIndefinitely(
+            //            sofa.actionText,
+            //            sofa.locationText,
+            //            sofa.objectName
+            //        );
+            //    }
+
+            //    if (interactPressed)
+            //    {
+            //        sofa.Interact();
+            //    }
+            //    interactPressed = false;
+            //    Profiler.EndSample();
+            //    return;
+            //}
+
             }
-
-
-            var sofa = hit.collider.GetComponent<InteractableRestPlace>();
-            if (sofa != null)
-            {
-                if (lastInteractableObject != hitObject)
-                {
-                    lastInteractableObject = hitObject;
-                    TooltipManager.instance.ShowTooltipIndefinitely(
-                        sofa.actionText,
-                        sofa.locationText,
-                        sofa.objectName
-                    );
-                }
-
-                if (interactPressed)
-                {
-                    sofa.Interact();
-                }
-                interactPressed = false;
-                Profiler.EndSample();
-                return;
-            }
-
-        }
         else
         {
             // No valid hit found; hide the tooltip if it was previously showing
@@ -371,6 +388,22 @@ public class PlayerInteraction : MonoBehaviour
             current = current.parent;
         }
         return false;
+    }
+
+    private string GetStringField(object obj, string fieldName, string defaultValue)
+    {
+        var type = obj.GetType();
+        var field = type.GetField(fieldName);
+        if (field != null && field.FieldType == typeof(string))
+        {
+            return field.GetValue(obj) as string ?? defaultValue;
+        }
+        var prop = type.GetProperty(fieldName);
+        if (prop != null && prop.PropertyType == typeof(string))
+        {
+            return prop.GetValue(obj) as string ?? defaultValue;
+        }
+        return defaultValue;
     }
 
     // Existing methods...

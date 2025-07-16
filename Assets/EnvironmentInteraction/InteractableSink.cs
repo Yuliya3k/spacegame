@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InteractableSink : MonoBehaviour
+public class InteractableSink : MonoBehaviour, IInteractable
 {
     [Header("Sink Interaction Settings")]
     public string actionText = "Press E to use sink";

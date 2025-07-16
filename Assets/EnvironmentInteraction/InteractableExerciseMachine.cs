@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class InteractableExerciseMachine : MonoBehaviour
+public class InteractableExerciseMachine : MonoBehaviour, IInteractable
 {
     [Header("Exercise Machine Interaction Settings")]
     public string actionText = "Press E to exercise";

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class InteractableUIOpener : MonoBehaviour
+public class InteractableUIOpener : MonoBehaviour, IInteractable
 {
     public string objectName = "Object";
     public string locationText = "Location";
