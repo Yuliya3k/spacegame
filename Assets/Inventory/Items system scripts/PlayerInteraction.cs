@@ -312,7 +312,7 @@ public class PlayerInteraction : MonoBehaviour
 
             //var bed = hit.collider.GetComponent<InteractableBed>();
             //if (bed != null)
-            {
+            //{
 
                 //if (lastInteractableObject != hitObject)
                 //{
