@@ -114,12 +114,12 @@ public class InGameTimeManager : MonoBehaviour
     }
 
 
-    void FixedUpdate()
-    {
-        // Use fixed time step instead of deltaTime
-        double secondsToAdd = Time.fixedDeltaTime * timeMultiplier * timeScale;
-        inGameDateTime = inGameDateTime.AddSeconds(secondsToAdd);
-    }
+    //void FixedUpdate()
+    //{
+    //    // Use fixed time step instead of deltaTime
+    //    double secondsToAdd = Time.fixedDeltaTime * timeMultiplier * timeScale;
+    //    inGameDateTime = inGameDateTime.AddSeconds(secondsToAdd);
+    //}
 
 
 

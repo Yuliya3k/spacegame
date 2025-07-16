@@ -1,11 +1,16 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using UnityEngine.Profiling;
 
 public class PlayerInteraction : MonoBehaviour
 {
     public Camera playerCamera;   // Camera reference
     public float interactionDistance = 10f;  // Interaction range
+
+    [Tooltip("Layer mask for interactable raycasts.")]
+    public LayerMask interactionLayerMask = Physics.DefaultRaycastLayers;
+
 
     private GameObject lastInteractableObject; // Keep track of the last interactable GameObject
 
@@ -22,38 +27,31 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
+        // Begin profiler sample to measure allocations in this method
+        Profiler.BeginSample("PlayerInteraction.Update");
+
         // Create a ray from the center of the camera's viewport
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-        // Perform the raycast and get all hits within the interaction distance
-        RaycastHit[] hits = Physics.RaycastAll(ray, interactionDistance);
+        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactionLayerMask))
 
-        // Filter the hits to exclude objects in the ignore list
-        RaycastHit? closestValidHit = null;
-        float closestDistance = Mathf.Infinity;
-
-        foreach (var hit in hits)
+            
         {
             GameObject hitObject = hit.collider.gameObject;
 
             // Check if the hit object or its parent is in the ignore list
             if (objectsToIgnore.Contains(hitObject) || IsInIgnoreList(hitObject))
             {
-                continue; // Skip this hit
+                if (lastInteractableObject != null)
+                {
+                    lastInteractableObject = null;
+                    TooltipManager.instance.HideTooltip();
+                }
+                interactPressed = false;
+                Profiler.EndSample();
+                return;
             }
-
-            // Check if this hit is closer than the previous closest
-            if (hit.distance < closestDistance)
-            {
-                closestValidHit = hit;
-                closestDistance = hit.distance;
-            }
-        }
-
-        if (closestValidHit.HasValue)
-        {
-            RaycastHit hit = closestValidHit.Value;
-            GameObject hitObject = hit.collider.gameObject;
+        
 
             // Check for InteractableUIOpener first
             var uiOpener = hit.collider.GetComponent<InteractableUIOpener>();
@@ -74,6 +72,7 @@ public class PlayerInteraction : MonoBehaviour
                     uiOpener.Interact();
                 }
                 interactPressed = false;
+                Profiler.EndSample();
                 return;  // Exit to avoid further checks
             }
 
@@ -96,6 +95,7 @@ public class PlayerInteraction : MonoBehaviour
                     storageContainer.Interact();  // Open storage UI
                 }
                 interactPressed = false;
+                Profiler.EndSample();
                 return;  // Exit to avoid further checks
             }
 
@@ -118,6 +118,7 @@ public class PlayerInteraction : MonoBehaviour
                     disposableContainer.Interact();
                 }
                 interactPressed = false;
+                Profiler.EndSample();
                 return;  // Exit after detecting interaction
             }
 
@@ -140,6 +141,7 @@ public class PlayerInteraction : MonoBehaviour
                     interactableObject.OnPickup(); // Handle pickup
                 }
                 interactPressed = false;
+                Profiler.EndSample();
                 return;  // Exit to avoid further checks
             }
 
@@ -162,6 +164,7 @@ public class PlayerInteraction : MonoBehaviour
                     toilet.Interact();
                 }
                 interactPressed = false;
+                Profiler.EndSample();
                 return; // Exit to avoid further checks
             }
 
@@ -184,6 +187,7 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     sink.Interact();
                 }
+                Profiler.EndSample();
                 interactPressed = false;
                 return; // Exit to avoid further checks
             }
@@ -205,6 +209,7 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     MuscleTraining.Interact();
                 }
+                Profiler.EndSample();
                 interactPressed = false;
                 return; // Exit to avoid further checks
             }
@@ -260,6 +265,7 @@ public class PlayerInteraction : MonoBehaviour
                     NPCInteractionUIManager.instance.OpenNPCInteraction(npcController);
                 }
                 interactPressed = false;
+                Profiler.EndSample();
                 return;  // Exit to avoid further checks
             }
 
@@ -290,6 +296,7 @@ public class PlayerInteraction : MonoBehaviour
                     shower.Interact();
                 }
                 interactPressed = false;
+                Profiler.EndSample();
                 return;
             }
 
@@ -311,6 +318,7 @@ public class PlayerInteraction : MonoBehaviour
                     bed.Interact();
                 }
                 interactPressed = false;
+                Profiler.EndSample();
                 return;
             }
 
@@ -333,6 +341,7 @@ public class PlayerInteraction : MonoBehaviour
                     sofa.Interact();
                 }
                 interactPressed = false;
+                Profiler.EndSample();
                 return;
             }
 
@@ -345,6 +354,7 @@ public class PlayerInteraction : MonoBehaviour
                 lastInteractableObject = null;
                 TooltipManager.instance.HideTooltip();
             }
+            Profiler.EndSample();
         }
     }
 
