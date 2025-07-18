@@ -62,6 +62,8 @@ Assets/_Project/Scenes/**/LightingData.asset
 *.max
 
 # ── Textures / images ─────────────────────────────────────
+*.psd
+*.exr
 *.png
 *.jpg
 *.jpeg
