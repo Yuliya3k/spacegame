@@ -253,11 +253,23 @@ public class PlayerInteraction : MonoBehaviour
                 if (lastInteractableObject != hitObject)
                 {
                     lastInteractableObject = hitObject;
-                    TooltipManager.instance.ShowTooltipIndefinitely(
-                        "Press E to interact",
-                        npcController.npcName,
-                        npcController.locationText.text
-                    );
+                    NPCDialogueComponent npcDialogue = npcController.GetComponent<NPCDialogueComponent>();
+                    if (npcDialogue != null)
+                    {
+                        TooltipManager.instance.ShowTooltipIndefinitely(
+                            npcDialogue.actionText,
+                            npcDialogue.locationText,
+                            npcDialogue.objectName
+                        );
+                    }
+                    else
+                    {
+                        TooltipManager.instance.ShowTooltipIndefinitely(
+                            "Press E to interact",
+                            npcController.npcName,
+                            npcController.locationText != null ? npcController.locationText.text : npcController.npcName
+                        );
+                    }
                 }
 
                 if (interactPressed)

@@ -84,11 +84,10 @@ public class NPCInteractionUIManager : MonoBehaviour
 
         HideGameScreenUIs();
 
-        // Unlock the cursor and freeze player movement
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        DisablePlayerControl();  // Disable player control
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.FreezePlayerAndCursor();
+        }
 
         ClearUI();
 
@@ -149,10 +148,10 @@ public class NPCInteractionUIManager : MonoBehaviour
 
         ShowGameScreenUIs();
 
-        // Lock the cursor and enable player movement
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        EnablePlayerControl();  // Enable player control
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
 
         // Hide any active tooltips
         if (InventoryTooltipManager.instance != null)
