@@ -4,6 +4,9 @@ public class NPCSinkTrigger : MonoBehaviour
 {
     // This script should be attached to your sink object.
     // Ensure the sink’s collider has "Is Trigger" enabled.
+    [Header("Debug")]
+    [Tooltip("Enable verbose logging for sink triggers.")]
+    public bool verboseLogging = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,7 +16,10 @@ public class NPCSinkTrigger : MonoBehaviour
         if (sinkManager != null && !sinkManager.IsPerformingAction())
         {
             sinkManager.StartDrinkingForNPC();
-            Debug.Log("NPCSinkTrigger: Drinking action started (OnTriggerEnter).");
+            if (verboseLogging)
+            {
+                Debug.Log("NPCSinkTrigger: Trigger entered by " + other.name);
+            }
         }
     }
 
@@ -24,7 +30,10 @@ public class NPCSinkTrigger : MonoBehaviour
         if (sinkManager != null && !sinkManager.IsPerformingAction())
         {
             sinkManager.StartDrinkingForNPC();
-            Debug.Log("NPCSinkTrigger: Drinking action started (OnTriggerStay).");
+            if (verboseLogging)
+            {
+                Debug.Log("NPCSinkTrigger: Trigger entered by " + other.name);
+            }
         }
     }
 
@@ -36,7 +45,10 @@ public class NPCSinkTrigger : MonoBehaviour
         {
             // For example, you might want to force the NPC to end the drinking action when they exit.
             // sinkManager.StopCurrentAction();
-            Debug.Log("NPCSinkTrigger: NPC exited sink trigger: " + other.name);
+            if (verboseLogging)
+            {
+                Debug.Log("NPCSinkTrigger: Trigger entered by " + other.name);
+            }
         }
     }
 }

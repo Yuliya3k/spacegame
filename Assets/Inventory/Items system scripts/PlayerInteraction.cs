@@ -262,8 +262,10 @@ public class PlayerInteraction : MonoBehaviour
 
                 if (interactPressed)
                 {
-                    // Open NPC interaction UI
-                    NPCInteractionUIManager.instance.OpenNPCInteraction(npcController);
+                    if (RadialMenuUI.instance != null && !RadialMenuUI.instance.IsOpen)
+                    {
+                        RadialMenuUI.instance.OpenMenu(npcController);
+                    }
                 }
                 interactPressed = false;
                 Profiler.EndSample();
