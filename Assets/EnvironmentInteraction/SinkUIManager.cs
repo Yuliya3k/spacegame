@@ -92,7 +92,7 @@ public class SinkUIManager : MonoBehaviour
         {
             InputFreezeManager.instance.FreezePlayerAndCursor();
         }
-    }
+    
 
         // Hide specified UIs
         foreach (var ui in uisToHideOnSinkUse)

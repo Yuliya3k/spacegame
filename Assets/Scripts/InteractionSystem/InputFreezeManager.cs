@@ -4,11 +4,16 @@ public class InputFreezeManager : MonoBehaviour
 {
     public static InputFreezeManager instance;
 
+    private bool isFrozen = false;
+
+    public bool IsFrozen => isFrozen;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -16,6 +21,15 @@ public class InputFreezeManager : MonoBehaviour
         }
     }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void EnsureInstance()
+    {
+        if (instance == null)
+        {
+            var obj = new GameObject(nameof(InputFreezeManager));
+            instance = obj.AddComponent<InputFreezeManager>();
+        }
+    }
     public void FreezePlayerAndCursor()
     {
         if (PlayerControllerCode.instance != null)
@@ -30,6 +44,8 @@ public class InputFreezeManager : MonoBehaviour
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        isFrozen = true;
     }
 
     public void UnfreezePlayerAndCursor()
@@ -46,5 +62,7 @@ public class InputFreezeManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        isFrozen = false;
     }
 }

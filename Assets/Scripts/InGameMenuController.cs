@@ -87,18 +87,28 @@ public class InGameMenuController : MonoBehaviour
 
         // Manage cursor visibility and lock state
         if (isMenuActive)
-        {           
-
+        {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
             // Disable opening CharacterUI
             UIManager.instance.DisableCharacterUIOpening();
         }
         else
-        {  
+        {
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            bool keepCursorVisible = InputFreezeManager.instance != null && InputFreezeManager.instance.IsFrozen;
+
+            if (!keepCursorVisible)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
             // Re-enable opening CharacterUI
             UIManager.instance.EnableCharacterUIOpening();
         }
