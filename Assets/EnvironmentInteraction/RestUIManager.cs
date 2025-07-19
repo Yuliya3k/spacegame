@@ -76,11 +76,6 @@ public class RestUIManager : MonoBehaviour
         // Activate the UI panel first
         restUIPanel.SetActive(true);
 
-        // Disable player control
-        playerController.DisablePlayerControl();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
         restSlider.value = restSlider.minValue; // Default rest hours
         OnSliderValueChanged(restSlider.value);
 
@@ -101,10 +96,10 @@ public class RestUIManager : MonoBehaviour
         // Hide the tooltip
         TooltipManager.instance.HideTooltip();
 
-        // Disable player control
-        playerController.DisablePlayerControl();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.FreezePlayerAndCursor();
+        }
 
         UIManager.instance.DisableCharacterUIOpening();
 
@@ -129,10 +124,10 @@ public class RestUIManager : MonoBehaviour
         if (playerInteraction != null)
             playerInteraction.enabled = true;
 
-        // Enable player control
-        playerController.EnablePlayerControl();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
 
         // Re-enable opening CharacterUI
         UIManager.instance.EnableCharacterUIOpening();

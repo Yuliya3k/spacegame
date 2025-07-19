@@ -69,13 +69,10 @@ public class ShowerUIManager : MonoBehaviour
         // Hide tooltip if needed
         TooltipManager.instance.HideTooltip();
 
-        // Disable player control and enable cursor
-        playerController.DisablePlayerControl();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        // Disable camera control
-        cameraController.DisableCameraControl();
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.FreezePlayerAndCursor();
+        }
 
         // Hide specified UIs
         foreach (var ui in uisToHideOnShowerUse)
@@ -94,10 +91,10 @@ public class ShowerUIManager : MonoBehaviour
         if (playerInteraction != null)
             playerInteraction.enabled = true;
 
-        // Enable player control and lock cursor
-        playerController.EnablePlayerControl();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
 
         // Enable camera control
         cameraController.EnableCameraControl();
@@ -154,13 +151,10 @@ public class ShowerUIManager : MonoBehaviour
         if (playerInteraction != null)
             playerInteraction.enabled = true;
 
-        // Enable player control and lock cursor
-        playerController.EnablePlayerControl();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        // Enable camera control
-        cameraController.EnableCameraControl();
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
 
         // Restore hidden UI
         foreach (var ui in uisToHideOnShowerUse)
