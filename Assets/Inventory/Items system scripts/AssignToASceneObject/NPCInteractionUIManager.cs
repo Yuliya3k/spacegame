@@ -29,6 +29,7 @@ public class NPCInteractionUIManager : MonoBehaviour
     public List<GameObject> gameScreenUIs;  // Register UIs to be hidden when opening the NPC UI
 
     private NPCInventory currentNPCInventory;  // Reference to the current NPC's inventory
+    private NPCController currentNPCController;  // Reference to the active NPC
     private List<GameObject> npcSlots = new List<GameObject>();  // UI slots for NPC items
     private List<GameObject> inventorySlots = new List<GameObject>();  // UI slots for player inventory items
     private InventoryItem selectedItem;  // Reference to the selected item
@@ -54,6 +55,13 @@ public class NPCInteractionUIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // Ensure the NPC interaction UI is hidden when the game starts
+        if (npcInteractionUI != null)
+        {
+            npcInteractionUI.SetActive(false);
+
+        }
+
         // Initialize UI elements
         if (transferDialogueWindow != null)
         {
@@ -72,6 +80,7 @@ public class NPCInteractionUIManager : MonoBehaviour
 
     public void OpenNPCInteraction(NPCController npcController)
     {
+        currentNPCController = npcController;
         // Get the NPC's inventory
         currentNPCInventory = npcController.GetComponent<NPCInventory>();
         if (currentNPCInventory == null)
@@ -87,6 +96,11 @@ public class NPCInteractionUIManager : MonoBehaviour
         if (InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.FreezePlayerAndCursor();
+        }
+
+        if (currentNPCController != null)
+        {
+            currentNPCController.Freeze();
         }
 
         ClearUI();
@@ -151,6 +165,18 @@ public class NPCInteractionUIManager : MonoBehaviour
         if (InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
+
+        if (currentNPCInventory != null)
+        {
+            var npcCtrl = currentNPCInventory.GetComponent<NPCController>();
+            npcCtrl?.Unfreeze();
+        }
+
+        if (currentNPCController != null)
+        {
+            currentNPCController.Unfreeze();
+            currentNPCController = null;
         }
 
         // Hide any active tooltips

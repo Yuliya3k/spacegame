@@ -43,11 +43,17 @@ public class RadialMenuUI : MonoBehaviour
             return;
 
         currentNPC = npc;
+        
         menuRoot.SetActive(true);
         if (InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.FreezePlayerAndCursor();
         }
+        if (currentNPC != null)
+        {
+            currentNPC.Freeze();
+        }
+
     }
 
     public void CloseMenu()
@@ -56,6 +62,10 @@ public class RadialMenuUI : MonoBehaviour
             return;
 
         menuRoot.SetActive(false);
+        if (currentNPC != null)
+        {
+            currentNPC.Unfreeze();
+        }
         if (InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
@@ -65,10 +75,11 @@ public class RadialMenuUI : MonoBehaviour
 
     private void OnTalkSelected()
     {
+        var npc = currentNPC;
         CloseMenu();
-        if (currentNPC != null)
+        if (npc != null)
         {
-            var dialogueComponent = currentNPC.GetComponent<NPCDialogueComponent>();
+            var dialogueComponent = npc.GetComponent<NPCDialogueComponent>();
             if (dialogueComponent != null && DialogueManager.instance != null)
             {
                 DialogueManager.instance.StartDialogue(dialogueComponent.startingLine);
@@ -78,10 +89,11 @@ public class RadialMenuUI : MonoBehaviour
 
     private void OnTradeSelected()
     {
+        NPCController npcToTrade = currentNPC;
         CloseMenu();
-        if (NPCInteractionUIManager.instance != null && currentNPC != null)
+        if (NPCInteractionUIManager.instance != null && npcToTrade != null)
         {
-            NPCInteractionUIManager.instance.OpenNPCInteraction(currentNPC);
+            NPCInteractionUIManager.instance.OpenNPCInteraction(npcToTrade);
         }
     }
 

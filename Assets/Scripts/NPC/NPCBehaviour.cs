@@ -98,7 +98,7 @@ public class NPCBehaviour : MonoBehaviour
         }
     }
 
-    private void ChangeState(NPCState newState)
+    public void ChangeState(NPCState newState)
     {
         currentState = newState;
         stateTimer = idleTime;

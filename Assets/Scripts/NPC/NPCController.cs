@@ -25,6 +25,9 @@ public class NPCController : MonoBehaviour
 
     public Vector3 plannedDestination;
 
+    private NPCBehaviour npcBehaviour;
+    private NPCBehaviour.NPCState previousState;
+
     private void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -34,6 +37,13 @@ public class NPCController : MonoBehaviour
         {
             characterStats = GetComponent<CharacterStats>();
         }
+
+        npcBehaviour = GetComponent<NPCBehaviour>();
+        if (npcBehaviour != null)
+        {
+            previousState = npcBehaviour.currentState;
+        }
+
     }
 
     private void Start()
@@ -151,6 +161,77 @@ public class NPCController : MonoBehaviour
         // Example logic: use Physics.OverlapSphere or Raycast to detect a door and call its OpenDoors() method.
         Debug.Log("NPCController: Attempting to open nearby door.");
         // Your door-opening logic goes here.
+    }
+
+    /// <summary>
+    /// Freeze the NPC in place.
+    /// </summary>
+    /// <param name="disableAnimator">If true the animator will be disabled while frozen.</param>
+    /// <param name="facePlayer">If true the NPCBehaviour will switch to the Interact state so the NPC faces the player.</param>
+    //public void Freeze(bool disableAnimator = false, bool facePlayer = false)
+    //{
+    //    if (navAgent != null)
+    //    {
+    //        navAgent.isStopped = true;
+    //    }
+
+    //    if (disableAnimator && animator != null)
+    //    {
+    //        animator.enabled = false;
+    //    }
+
+    //    if (facePlayer)
+    //    {
+    //        var behaviour = GetComponent<NPCBehaviour>();
+    //        if (behaviour != null)
+    //        {
+    //            behaviour.ChangeState(NPCBehaviour.NPCState.Interact);
+    //        }
+    //    }
+    //}
+
+    ///// <summary>
+    ///// Resume normal behaviour after being frozen.
+    ///// </summary>
+    //public void Unfreeze()
+    //{
+    //    if (navAgent != null)
+    //    {
+    //        navAgent.isStopped = false;
+    //    }
+
+    //    if (animator != null)
+    //    {
+    //        animator.enabled = true;
+    //    }
+    //}
+
+
+    public void Freeze()
+    {
+        if (navAgent != null)
+        {
+            navAgent.isStopped = true;
+        }
+
+        if (npcBehaviour != null)
+        {
+            previousState = npcBehaviour.currentState;
+            npcBehaviour.currentState = NPCBehaviour.NPCState.Interact;
+        }
+    }
+
+    public void Unfreeze()
+    {
+        if (navAgent != null)
+        {
+            navAgent.isStopped = false;
+        }
+
+        if (npcBehaviour != null)
+        {
+            npcBehaviour.currentState = previousState;
+        }
     }
 
 }
