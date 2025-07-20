@@ -220,7 +220,7 @@ public class NPCController : MonoBehaviour
     //    }
     //}
 
-
+    private Coroutine facePlayerCoroutine;
     public void Freeze()
     {
         if (navAgent != null)
@@ -234,7 +234,7 @@ public class NPCController : MonoBehaviour
             npcBehaviour.currentState = NPCBehaviour.NPCState.Interact;
         }
 
-        FacePlayer();
+        FacePlayerSmoothly();
     }
 
     public void Unfreeze()
@@ -273,6 +273,38 @@ public class NPCController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction);
     }
 
+    private void FacePlayerSmoothly()
+    {
+        if (facePlayerCoroutine != null)
+        {
+            StopCoroutine(facePlayerCoroutine);
+        }
+        facePlayerCoroutine = StartCoroutine(RotateTowardsPlayer());
+    }
+
+    private IEnumerator RotateTowardsPlayer()
+    {
+        var player = PlayerControllerCode.instance;
+        if (player == null)
+            yield break;
+
+        Vector3 direction = player.transform.position - transform.position;
+        direction.y = 0f;
+        if (direction.sqrMagnitude < 0.001f)
+            yield break;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            yield return null;
+            direction = player.transform.position - transform.position;
+            direction.y = 0f;
+            targetRotation = Quaternion.LookRotation(direction);
+        }
+        transform.rotation = targetRotation;
+    }
+
     public void SetInteractionAnimation(string trigger)
     {
         if (animator == null)
@@ -283,6 +315,14 @@ public class NPCController : MonoBehaviour
         previousAnimNormalizedTime = info.normalizedTime;
         animator.SetTrigger(trigger);
 
+    }
+
+    public void ReturnToDefaultAnimation()
+    {
+        if (animator != null && !string.IsNullOrEmpty(defaultAnimationTrigger))
+        {
+            animator.SetTrigger(defaultAnimationTrigger);
+        }
     }
 
     //public void SetInteractionAnimation(string trigger)
