@@ -28,6 +28,11 @@ public class NPCController : MonoBehaviour
     [Header("Animation Settings")]
     public string defaultAnimationTrigger = "Idle";
 
+    [Tooltip("Animator trigger name for Talk interactions")]
+    public string talkAnimationTrigger = "Talk";
+    [Tooltip("Animator trigger name for Trade interactions")]
+    public string tradeAnimationTrigger = "Trade";
+
     private NPCBehaviour npcBehaviour;
     private NPCBehaviour.NPCState previousState;
     private int previousAnimHash;

@@ -80,7 +80,7 @@ public class RadialMenuUI : MonoBehaviour
         if (npc != null)
         {
             npc.Freeze();
-            npc.SetInteractionAnimation("Talk");
+            npc.SetInteractionAnimation(npc.talkAnimationTrigger);
             var dialogueComponent = npc.GetComponent<NPCDialogueComponent>();
             if (dialogueComponent != null && DialogueManager.instance != null)
             {
@@ -96,7 +96,7 @@ public class RadialMenuUI : MonoBehaviour
         if (npcToTrade != null)
         {
             npcToTrade.Freeze();
-            npcToTrade.SetInteractionAnimation("Trade");
+            npcToTrade.SetInteractionAnimation(npcToTrade.tradeAnimationTrigger);
         }
         if (NPCInteractionUIManager.instance != null && npcToTrade != null)
         {
