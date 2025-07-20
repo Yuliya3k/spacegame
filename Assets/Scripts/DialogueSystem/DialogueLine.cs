@@ -8,7 +8,7 @@ public class DialogueLine : ScriptableObject
     [Header("Animation")] public string animationTrigger;
 
     [Header("Facial Expressions")]
-    public FacialExpressionSetting[] facialExpressions;
+    public BlendShapeSetting[] facialExpressions;
 
     public DialogueResponse[] responses;
 }
@@ -18,13 +18,14 @@ public class DialogueResponse
 {
     public string responseText;
     public string animationTrigger;
-    public FacialExpressionSetting[] facialExpressions;
+    public BlendShapeSetting[] facialExpressions;
     public DialogueLine nextLine;
 }
 
-[System.Serializable]
-public class FacialExpressionSetting
-{
-    public string blendShapeName;
-    public float value = 0f;
-}
+//[System.Serializable]
+//public class FacialExpressionSetting
+//{
+//    public string blendShapeName;
+//    public float value = 0f;
+//    public float durationInGameMinutes = 0.5f;
+//}

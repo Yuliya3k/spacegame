@@ -71,11 +71,6 @@ public class DialogueManager : MonoBehaviour
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
         }
 
-        if (currentNPC != null)
-        {
-            currentNPC.Unfreeze();
-            currentNPC = null;
-        }
     }
 
     private void ShowCurrentLine()
@@ -90,7 +85,7 @@ public class DialogueManager : MonoBehaviour
                 foreach (var exp in currentLine.facialExpressions)
                 {
                     SaveBlendShape(exp.blendShapeName);
-                    currentNPC.characterStats.SetFacialExpression(exp.blendShapeName, exp.value);
+                    currentNPC.characterStats.SetFacialExpression(exp.blendShapeName, exp.value, exp.durationInGameMinutes);
                 }
             }
         }
@@ -129,7 +124,7 @@ public class DialogueManager : MonoBehaviour
                 foreach (var exp in response.facialExpressions)
                 {
                     SaveBlendShape(exp.blendShapeName);
-                    currentNPC.characterStats.SetFacialExpression(exp.blendShapeName, exp.value);
+                    currentNPC.characterStats.SetFacialExpression(exp.blendShapeName, exp.value, exp.durationInGameMinutes);
                 }
             }
         }

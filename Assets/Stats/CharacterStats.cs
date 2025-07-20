@@ -1705,10 +1705,10 @@ public class CharacterStats : MonoBehaviour
     }
 
 
-    
 
 
-    public void SetFacialExpression(string blendShapeName, float targetValue)
+
+    public void SetFacialExpression(string blendShapeName, float targetValue, float durationInGameMinutes = 0.5f)
     {
         // Find the blend shape data for the expression
         BlendShapeData blendShape = facialExpressionBlendShapes.FirstOrDefault(bs => bs.blendShapeName == blendShapeName);
@@ -1722,7 +1722,7 @@ public class CharacterStats : MonoBehaviour
             }
 
             // Start coroutine to transition the blend shape value
-            blendShape.blendShapeCoroutine = StartCoroutine(FacialExpressionTransition(blendShape, targetValue));
+            blendShape.blendShapeCoroutine = StartCoroutine(FacialExpressionTransition(blendShape, targetValue, durationInGameMinutes));
         }
         else
         {
@@ -1730,10 +1730,10 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    private IEnumerator FacialExpressionTransition(BlendShapeData blendShape, float targetValue)
+    private IEnumerator FacialExpressionTransition(BlendShapeData blendShape, float targetValue, float durationInGameMinutes)
     {
-        // Get the real-time duration for 0.5 game minutes
-        float duration = timeManager.GetRealTimeDurationForGameMinutes(0.5f);
+        // Get the real-time duration for the specified in-game minutes
+        float duration = timeManager.GetRealTimeDurationForGameMinutes(durationInGameMinutes);
 
         float elapsedTime = 0f;
         float startingValue = blendShape.renderer.GetBlendShapeWeight(blendShape.blendShapeIndex);
