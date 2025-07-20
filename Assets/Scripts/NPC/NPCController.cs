@@ -96,6 +96,14 @@ public class NPCController : MonoBehaviour
         return navAgent != null && navAgent.velocity.magnitude > 0.1f;
     }
 
+    public bool IsFrozen => navAgent != null && navAgent.isStopped;
+
+    //public IEnumerator WaitWhileFrozen()
+    //{
+    //    while (IsFrozen)
+    //        yield return null;
+    //}
+
     // New: Extend GetSaveData to include nav destination and current animation
     public NPCSaveData GetSaveData()
     {
@@ -146,6 +154,7 @@ public class NPCController : MonoBehaviour
             navAgent.SetDestination(destination);
             while (navAgent.pathPending || navAgent.remainingDistance > stoppingDistance)
             {
+                yield return WaitWhileFrozen();
                 yield return null;
             }
         }
@@ -232,6 +241,20 @@ public class NPCController : MonoBehaviour
         {
             npcBehaviour.currentState = previousState;
         }
+    }
+
+
+    /// <summary>
+    /// Waits until the global input freeze is lifted.
+    /// </summary>
+    public IEnumerator WaitWhileFrozen()
+    {
+        if (InputFreezeManager.instance == null)
+            yield break;
+
+        yield return new WaitUntil(() => !InputFreezeManager.instance.IsFrozen);
+
+
     }
 
 }

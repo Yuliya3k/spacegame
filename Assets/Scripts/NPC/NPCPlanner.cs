@@ -32,9 +32,15 @@ public class NPCPlanner : MonoBehaviour
                 currentTaskIndex = i;
                 if (tasks[i] != null)
                 {
+                    if (npcController != null)
+                        yield return npcController.WaitWhileFrozen();
+
                     tasks[i].ResetTask();
                     Debug.Log("NPCPlanner: Executing task: " + tasks[i].name);
                     yield return StartCoroutine(tasks[i].Execute(npcController));
+
+                    if (npcController != null)
+                        yield return npcController.WaitWhileFrozen();
                 }
                 else
                 {
