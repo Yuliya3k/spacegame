@@ -101,6 +101,7 @@ public class NPCInteractionUIManager : MonoBehaviour
         if (currentNPCController != null)
         {
             currentNPCController.Freeze();
+            currentNPCController.SetInteractionAnimation("Trade");
         }
 
         ClearUI();

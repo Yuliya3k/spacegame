@@ -12,7 +12,8 @@ public class NPCDialogueComponent : MonoBehaviour, IInteractable
     {
         if (DialogueManager.instance != null)
         {
-            DialogueManager.instance.StartDialogue(startingLine);
+            var npc = GetComponent<NPCController>();
+            DialogueManager.instance.StartDialogue(startingLine, npc);
         }
     }
 }

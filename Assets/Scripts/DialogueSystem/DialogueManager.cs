@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class DialogueManager : MonoBehaviour
     public Button responseButtonPrefab;
 
     private DialogueLine currentLine;
+    private NPCController currentNPC;
+    private Dictionary<string, float> savedBlendShapes = new Dictionary<string, float>();
 
     private void Awake()
     {
@@ -24,13 +27,18 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
     }
 
-    public void StartDialogue(DialogueLine startingLine)
+    public void StartDialogue(DialogueLine startingLine, NPCController npc)
     {
         if (startingLine == null)
             return;
-
+        currentNPC = npc;
         currentLine = startingLine;
+        currentNPC = npc;
         ShowCurrentLine();
+        if (currentNPC != null)
+        {
+            currentNPC.SetInteractionAnimation(currentLine.animationTrigger);
+        }
         dialoguePanel.SetActive(true);
         if (InputFreezeManager.instance != null)
         {
@@ -43,16 +51,49 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         foreach (Transform child in responsesParent)
             Destroy(child.gameObject);
+        if (currentNPC != null)
+        {
+            if (currentNPC.characterStats != null)
+            {
+                foreach (var kvp in savedBlendShapes)
+                {
+                    currentNPC.characterStats.SetBlendShapeValue(kvp.Key, kvp.Value);
+                }
+            }
+            currentNPC.Unfreeze();
+            currentNPC.ReturnToDefaultAnimation();
+            currentNPC = null;
+            savedBlendShapes.Clear();
+        }
 
         if (InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
+
+        if (currentNPC != null)
+        {
+            currentNPC.Unfreeze();
+            currentNPC = null;
         }
     }
 
     private void ShowCurrentLine()
     {
         dialogueText.text = currentLine.lineText;
+
+        if (currentNPC != null)
+        {
+            currentNPC.SetInteractionAnimation(currentLine.animationTrigger);
+            if (currentLine.facialExpressions != null)
+            {
+                foreach (var exp in currentLine.facialExpressions)
+                {
+                    SaveBlendShape(exp.blendShapeName);
+                    currentNPC.characterStats.SetFacialExpression(exp.blendShapeName, exp.value);
+                }
+            }
+        }
 
         foreach (Transform child in responsesParent)
             Destroy(child.gameObject);
@@ -76,6 +117,23 @@ public class DialogueManager : MonoBehaviour
 
     private void OnResponseSelected(DialogueResponse response)
     {
+        if (currentNPC != null)
+        {
+            if (!string.IsNullOrEmpty(response.animationTrigger))
+            {
+                currentNPC.SetInteractionAnimation(response.animationTrigger);
+            }
+
+            if (response.facialExpressions != null)
+            {
+                foreach (var exp in response.facialExpressions)
+                {
+                    SaveBlendShape(exp.blendShapeName);
+                    currentNPC.characterStats.SetFacialExpression(exp.blendShapeName, exp.value);
+                }
+            }
+        }
+
         if (response.nextLine == null)
         {
             EndDialogue();
@@ -86,4 +144,17 @@ public class DialogueManager : MonoBehaviour
             ShowCurrentLine();
         }
     }
+
+    private void SaveBlendShape(string blendShapeName)
+    {
+        if (currentNPC == null || currentNPC.characterStats == null)
+            return;
+
+        if (!savedBlendShapes.ContainsKey(blendShapeName))
+        {
+            float value = currentNPC.characterStats.GetBlendShapeValue(blendShapeName);
+            savedBlendShapes[blendShapeName] = value;
+        }
+    }
+
 }

@@ -25,8 +25,13 @@ public class NPCController : MonoBehaviour
 
     public Vector3 plannedDestination;
 
+    [Header("Animation Settings")]
+    public string defaultAnimationTrigger = "Idle";
+
     private NPCBehaviour npcBehaviour;
     private NPCBehaviour.NPCState previousState;
+    private int previousAnimHash;
+    private float previousAnimNormalizedTime;
 
     private void Awake()
     {
@@ -228,6 +233,8 @@ public class NPCController : MonoBehaviour
             previousState = npcBehaviour.currentState;
             npcBehaviour.currentState = NPCBehaviour.NPCState.Interact;
         }
+
+        FacePlayer();
     }
 
     public void Unfreeze()
@@ -241,7 +248,69 @@ public class NPCController : MonoBehaviour
         {
             npcBehaviour.currentState = previousState;
         }
+
+        if (animator != null && previousAnimHash != 0)
+        {
+            animator.Play(previousAnimHash, 0, previousAnimNormalizedTime);
+            previousAnimHash = 0;
+            previousAnimNormalizedTime = 0f;
+        }
     }
+
+
+
+    private void FacePlayer()
+    {
+        var player = PlayerControllerCode.instance;
+        if (player == null)
+            return;
+
+        Vector3 direction = player.transform.position - transform.position;
+        direction.y = 0f;
+        if (direction.sqrMagnitude < 0.001f)
+            return;
+
+        transform.rotation = Quaternion.LookRotation(direction);
+    }
+
+    public void SetInteractionAnimation(string trigger)
+    {
+        if (animator == null)
+            return;
+
+        AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+        previousAnimHash = info.fullPathHash;
+        previousAnimNormalizedTime = info.normalizedTime;
+        animator.SetTrigger(trigger);
+
+    }
+
+    //public void SetInteractionAnimation(string trigger)
+    //{
+    //    Freeze();
+    //    if (animator != null && !string.IsNullOrEmpty(trigger))
+    //    {
+    //        animator.SetTrigger(trigger);
+    //    }
+    //}
+
+    //public void ReturnToDefaultAnimation()
+    //{
+    //    if (animator != null && !string.IsNullOrEmpty(defaultAnimationTrigger))
+    //    {
+    //        animator.SetTrigger(defaultAnimationTrigger);
+    //    }
+    //}
+
+    //public void SetInteractionAnimation(string animationName)
+    //{
+    //    if (animator != null && !string.IsNullOrEmpty(animationName))
+    //    {
+    //        animator.Play(animationName);
+    //    }
+    //}
+
+
 
 
     /// <summary>
