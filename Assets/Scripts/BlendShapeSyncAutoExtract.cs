@@ -2,6 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.PostProcessing.HistogramMonitor;
 
+
+/// <summary>
+/// Synchronises blend shape weights from a source <see cref="SkinnedMeshRenderer"/>
+/// to one or more targets.
+///
+/// Renderers are expected to be named using the pattern "&lt;Tag&gt;.Shape". The
+/// same tag prefix is also applied to their blend shape names. When a renderer
+/// does not contain ".Shape", <see cref="defaultRendererTagPrefix"/> can be used
+/// as the fallback tag.
+/// </summary>
+/// 
+
 public class BlendShapeSyncAutoExtract : MonoBehaviour
 {
     [Header("Source Skinned Mesh Renderer")]
@@ -11,6 +23,11 @@ public class BlendShapeSyncAutoExtract : MonoBehaviour
     [Header("Target Skinned Mesh Renderers")]
     [Tooltip("List of target renderers to synchronize.")]
     public List<SkinnedMeshRenderer> targetRenderers = new List<SkinnedMeshRenderer>();
+
+    [Header("Naming")]
+    [Tooltip("Optional prefix to use when a renderer name does not contain '.Shape'.")]
+    public string defaultRendererTagPrefix = string.Empty;
+
 
     // Add this flag to control synchronization
     [HideInInspector]
@@ -200,11 +217,15 @@ public class BlendShapeSyncAutoExtract : MonoBehaviour
         {
             return rendererName.Substring(0, index);
         }
-        else
+        if (!string.IsNullOrEmpty(defaultRendererTagPrefix))
         {
-            Debug.LogWarning($"Renderer name '{rendererName}' does not contain '.Shape'. Using the full name as tag.");
-            return rendererName;
+            Debug.LogWarning($"Renderer name '{rendererName}' does not contain '.Shape'. Using configured prefix '{defaultRendererTagPrefix}'.");
+            return defaultRendererTagPrefix;
         }
+
+        Debug.LogWarning($"Renderer name '{rendererName}' does not contain '.Shape'. Using the full name as tag.");
+        return rendererName;
+        
     }
 
     // Helper method to remove the prefix (tag) from the blend shape name
