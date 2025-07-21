@@ -845,7 +845,7 @@ public class CharacterStats : MonoBehaviour
 
 
         // Add equipped mesh renderers
-        if (equipmentManager != null)
+        if (equipmentManager != null && equipmentManager.equippedMeshRenderers != null)
         {
             renderersToUpdate.AddRange(equipmentManager.equippedMeshRenderers);
         }
@@ -1031,7 +1031,7 @@ public class CharacterStats : MonoBehaviour
 
 
         // Add equipped mesh renderers
-        if (equipmentManager != null)
+        if (equipmentManager != null && equipmentManager.equippedMeshRenderers != null)
         {
             renderersToUpdate.AddRange(equipmentManager.equippedMeshRenderers);
         }
@@ -1689,14 +1689,14 @@ public class CharacterStats : MonoBehaviour
                 renderer.SetBlendShapeWeight(index, value);
             }
 
-            // Update the blend shape on all relevant renderers
-            SetBlendShapeWeightOnAllRenderers(blendShapeName, value);
+        }
+        // Update the blend shape on all relevant renderers
+        SetBlendShapeWeightOnAllRenderers(blendShapeName, value);
 
-            // Ensure blend shapes are synchronized
-            if (blendShapeSyncScript != null)
-            {
-                blendShapeSyncScript.shouldSync = true;
-            }
+        // Ensure blend shapes are synchronized
+        if (blendShapeSyncScript != null)
+        {
+            blendShapeSyncScript.shouldSync = true;
         }
         //else
         //{

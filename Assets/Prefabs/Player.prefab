@@ -13460,6 +13460,7 @@ MonoBehaviour:
   - {fileID: 2329214382858658936}
   - {fileID: 34213901752812239}
   shouldSync: 0
+  alwaysSync: 1
 --- !u!114 &520201828751459594
 MonoBehaviour:
   m_ObjectHideFlags: 0

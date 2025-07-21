@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using static UnityEngine.Rendering.PostProcessing.HistogramMonitor;
 
 public class BlendShapeSyncAutoExtract : MonoBehaviour
 {
@@ -15,44 +16,31 @@ public class BlendShapeSyncAutoExtract : MonoBehaviour
     [HideInInspector]
     public bool shouldSync = false;
 
+    [Tooltip("When enabled, synchronization runs every frame")]
+    public bool alwaysSync = false;
+
+    private float[] previousWeights;
+
+
+    // Cache mapping from source blend shape names to indices
+    private Dictionary<string, int> sourceBlendShapeMapping = new Dictionary<string, int>();
+
+    // Cache mapping from target renderers to the corresponding source indices
+    private Dictionary<SkinnedMeshRenderer, int[]> targetIndexMapping = new Dictionary<SkinnedMeshRenderer, int[]>();
+
+
     void Start()
     {
-        
-
-        // Set shouldSync to true to synchronize once at the start
-        shouldSync = true;
-        
-    }
-
-    void LateUpdate()
-    {
-
-        // Only synchronize when shouldSync is true
-        if (!shouldSync)
-            return;
-
-        // Reset the flag
-        shouldSync = false;
-
         if (sourceRenderer == null || sourceRenderer.sharedMesh == null)
         {
             Debug.LogWarning("Source Renderer or its mesh is not assigned.");
             return;
         }
 
-        if (targetRenderers == null || targetRenderers.Count == 0)
-            return;
-
-        // Extract the sourceTag from the sourceRenderer's name
-        string sourceRendererName = sourceRenderer.name;
-        string sourceTag = GetTagFromRendererName(sourceRendererName);
-
+        // Build mapping from source blend shape names to indices
+        string sourceTag = GetTagFromRendererName(sourceRenderer.name);
         int blendShapeCount = sourceRenderer.sharedMesh.blendShapeCount;
-
-        // Create a mapping from modified blend shape names to their indices in the source mesh
-        Dictionary<string, int> sourceBlendShapeMapping = new Dictionary<string, int>();
-
-        // Build the source blend shape mapping
+        sourceBlendShapeMapping.Clear();
         for (int i = 0; i < blendShapeCount; i++)
         {
             string sourceBlendShapeName = sourceRenderer.sharedMesh.GetBlendShapeName(i);
@@ -63,7 +51,8 @@ public class BlendShapeSyncAutoExtract : MonoBehaviour
             }
         }
 
-        // Iterate over each target renderer
+        // Build index mapping for each target renderer
+        targetIndexMapping.Clear();
         foreach (SkinnedMeshRenderer targetRenderer in targetRenderers)
         {
             if (targetRenderer == null || targetRenderer.sharedMesh == null)
@@ -72,29 +61,135 @@ public class BlendShapeSyncAutoExtract : MonoBehaviour
                 continue;
             }
 
-            // Extract the targetTag from the targetRenderer's name
-            string targetRendererName = targetRenderer.name;
-            string targetTag = GetTagFromRendererName(targetRendererName);
-
+            string targetTag = GetTagFromRendererName(targetRenderer.name);
             int targetBlendShapeCount = targetRenderer.sharedMesh.blendShapeCount;
-
-            // Iterate over each blend shape in the target mesh
+            int[] mapping = new int[targetBlendShapeCount];
             for (int i = 0; i < targetBlendShapeCount; i++)
             {
                 string targetBlendShapeName = targetRenderer.sharedMesh.GetBlendShapeName(i);
                 string modifiedTargetName = RemovePrefix(targetBlendShapeName, targetTag);
-
-                // Check if the modified target blend shape exists in the source mapping
                 if (sourceBlendShapeMapping.TryGetValue(modifiedTargetName, out int sourceIndex))
                 {
-                    // Get the weight from the source blend shape
+                    mapping[i] = sourceIndex;
+                }
+                else
+                {
+                    mapping[i] = -1;
+                }
+            }
+            targetIndexMapping[targetRenderer] = mapping;
+        }
+
+
+        // Set shouldSync to true to synchronize once at the start
+        shouldSync = true;
+
+        if (sourceRenderer != null && sourceRenderer.sharedMesh != null)
+        {
+            int count = sourceRenderer.sharedMesh.blendShapeCount;
+            previousWeights = new float[count];
+            for (int i = 0; i < count; i++)
+            {
+                previousWeights[i] = sourceRenderer.GetBlendShapeWeight(i);
+            }
+        }
+
+
+    }
+
+    void LateUpdate()
+    {
+
+        // Run when explicitly requested or when alwaysSync is enabled
+        if (!alwaysSync && !shouldSync)
+            return;
+
+        bool changed = shouldSync;
+        // Reset the flag
+        shouldSync = false;
+
+        if (sourceRenderer == null || sourceRenderer.sharedMesh == null)
+        {
+            Debug.LogWarning("Source Renderer or its mesh is not assigned.");
+            return;
+        }
+
+        int blendShapeCount = sourceRenderer.sharedMesh.blendShapeCount;
+
+        // If we didn't explicitly request a sync, check if weights changed
+        if (!changed && previousWeights != null && previousWeights.Length == blendShapeCount)
+        {
+            for (int i = 0; i < blendShapeCount; i++)
+            {
+                float weight = sourceRenderer.GetBlendShapeWeight(i);
+                if (!Mathf.Approximately(weight, previousWeights[i]))
+                {
+                    changed = true;
+                    break;
+                }
+            }
+        }
+
+        if (!changed)
+            return;
+
+        if (targetRenderers == null || targetRenderers.Count == 0)
+            return;
+
+        //// Extract the sourceTag from the sourceRenderer's name
+        //string sourceRendererName = sourceRenderer.name;
+        //string sourceTag = GetTagFromRendererName(sourceRendererName);
+
+        ////int blendShapeCount = sourceRenderer.sharedMesh.blendShapeCount;
+
+        //// Create a mapping from modified blend shape names to their indices in the source mesh
+        //Dictionary<string, int> sourceBlendShapeMapping = new Dictionary<string, int>();
+
+        //// Build the source blend shape mapping
+        //for (int i = 0; i < blendShapeCount; i++)
+        //{
+        //    string sourceBlendShapeName = sourceRenderer.sharedMesh.GetBlendShapeName(i);
+        //    string modifiedSourceName = RemovePrefix(sourceBlendShapeName, sourceTag);
+        //    if (!sourceBlendShapeMapping.ContainsKey(modifiedSourceName))
+        //    {
+        //        sourceBlendShapeMapping.Add(modifiedSourceName, i);
+        //    }
+        //}
+
+        //// Iterate over each target renderer
+        foreach (SkinnedMeshRenderer targetRenderer in targetRenderers)
+        {
+            if (targetRenderer == null || targetRenderer.sharedMesh == null)
+            {
+                Debug.LogWarning("Target Renderer or its mesh is not assigned.");
+                continue;
+            }
+
+            if (!targetIndexMapping.TryGetValue(targetRenderer, out int[] mapping))
+                continue;
+
+            int targetBlendShapeCount = targetRenderer.sharedMesh.blendShapeCount;
+
+
+            for (int i = 0; i < targetBlendShapeCount; i++)
+            {
+                int sourceIndex = mapping[i];
+                if (sourceIndex >= 0)
+                {
+                    
                     float weight = sourceRenderer.GetBlendShapeWeight(sourceIndex);
 
-                    // Set the weight on the target blend shape
+                    
                     targetRenderer.SetBlendShapeWeight(i, weight);
                 }
             }
         }
+        // Store current weights for change detection next frame
+        if (previousWeights == null || previousWeights.Length != blendShapeCount)
+            previousWeights = new float[blendShapeCount];
+
+        for (int i = 0; i < blendShapeCount; i++)
+            previousWeights[i] = sourceRenderer.GetBlendShapeWeight(i);
     }
 
     // Helper method to extract the tag from the renderer's name
