@@ -57,7 +57,7 @@ public class DialogueManager : MonoBehaviour
             {
                 foreach (var kvp in savedBlendShapes)
                 {
-                    currentNPC.characterStats.SetBlendShapeValue(kvp.Key, kvp.Value);
+                    currentNPC.characterStats.SetFacialExpression(kvp.Key, kvp.Value, 0f);
                 }
             }
             currentNPC.Unfreeze();

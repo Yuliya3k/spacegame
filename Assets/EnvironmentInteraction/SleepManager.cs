@@ -227,7 +227,7 @@ public class SleepManager : MonoBehaviour
             }
 
             // Set the facial expression
-            characterStats.SetFacialExpression(blendShapeSetting.blendShapeName, blendShapeSetting.value);
+            characterStats.SetFacialExpression(blendShapeSetting.blendShapeName, blendShapeSetting.value, blendShapeSetting.durationInGameMinutes);
         }
     }
 
@@ -236,7 +236,7 @@ public class SleepManager : MonoBehaviour
         foreach (var kvp in originalBlendShapeValues)
         {
             // Restore the facial expression
-            characterStats.SetFacialExpression(kvp.Key, kvp.Value);
+            characterStats.SetFacialExpression(kvp.Key, kvp.Value, -1f);
         }
 
         // Clear the dictionary

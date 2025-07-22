@@ -9,7 +9,7 @@ public class BlendShapeData
 {
     public string blendShapeName = "BlendShape";
     [Tooltip("Speed at which the blend shape value changes.")]
-    public float morphSpeed = 1f;
+    public float morphSpeed = 1f; // Used as fallback duration for facial expression transitions
     [Tooltip("Categories that affect this blend shape (e.g., Weight, Fullness, Equipment, Muscles).")]
     public List<string> categories = new List<string>();
 
@@ -1708,6 +1708,10 @@ public class CharacterStats : MonoBehaviour
 
 
 
+    /// <summary>
+    /// Sets a facial expression blend shape to the desired value.
+    /// If durationInGameMinutes is negative the blend shape's morphSpeed acts as the fallback duration for the transition.
+    /// </summary>
     public void SetFacialExpression(string blendShapeName, float targetValue, float durationInGameMinutes = 0.5f)
     {
         // Find the blend shape data for the expression
@@ -1722,7 +1726,10 @@ public class CharacterStats : MonoBehaviour
             }
 
             // Start coroutine to transition the blend shape value
-            blendShape.blendShapeCoroutine = StartCoroutine(FacialExpressionTransition(blendShape, targetValue, durationInGameMinutes));
+            // morphSpeed acts as the fallback duration for facial expression transitions
+            float duration = durationInGameMinutes >= 0f ? durationInGameMinutes : blendShape.morphSpeed;
+            // Start coroutine to transition the blend shape value
+            blendShape.blendShapeCoroutine = StartCoroutine(FacialExpressionTransition(blendShape, targetValue, duration));
         }
         else
         {

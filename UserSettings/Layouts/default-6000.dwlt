@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1956
     height: 2053
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 223
+  controlID: 126
   draggingID: 0
 --- !u!114 &3
 MonoBehaviour:
@@ -69,8 +69,8 @@ MonoBehaviour:
     y: 0
     width: 621
     height: 1997
-  m_MinSize: {x: 276, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -96,8 +96,8 @@ MonoBehaviour:
     y: 0
     width: 386
     height: 1197
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -559,9 +559,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 479}
-    m_SelectedIDs: 62520100
-    m_LastClickedID: 86626
-    m_ExpandedIDs: 00000000525201005452010056520100585201005a5201005c5201005e520100605201006252010000ca9a3bffffff7f
+    m_SelectedIDs: 66520100
+    m_LastClickedID: 86630
+    m_ExpandedIDs: 0000000056520100585201005a5201005c5201005e5201006052010062520100645201006652010000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -590,7 +590,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000525201005452010056520100585201005a5201005c5201005e5201006052010062520100
+    m_ExpandedIDs: 0000000056520100585201005a5201005c5201005e52010060520100625201006452010066520100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -691,7 +691,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 2815
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -736,8 +736,8 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: c6b50000
-      m_LastClickedID: 0
+      m_SelectedIDs: c21e0100
+      m_LastClickedID: 73410
       m_ExpandedIDs: e8faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
@@ -1342,9 +1342,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 1193.384, y: 95.84384, z: 0.3147196}
+    m_Target: {x: 979.364, y: 212.77705, z: 0.6152716}
     speed: 2
-    m_Value: {x: 1193.384, y: 95.84384, z: 0.3147196}
+    m_Value: {x: 979.364, y: 212.77705, z: 0.6152716}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1394,9 +1394,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 667.9008
+    m_Target: 637.8453
     speed: 2
-    m_Value: 667.9008
+    m_Value: 637.8453
   m_Ortho:
     m_Target: 1
     speed: 2
