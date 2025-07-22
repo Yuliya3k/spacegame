@@ -65,6 +65,7 @@ Assets/_Project/Scenes/**/LightingData.asset
 *.psd
 *.exr
 *.png
+# !Assets/Inventory/Items/Eatables/Ingredients/IconsMy/*.png
 *.jpg
 *.jpeg
 *.tga

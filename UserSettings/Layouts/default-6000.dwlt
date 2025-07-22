@@ -69,8 +69,8 @@ MonoBehaviour:
     y: 0
     width: 621
     height: 1997
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 76}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -96,8 +96,8 @@ MonoBehaviour:
     y: 0
     width: 386
     height: 1197
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 226}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -516,8 +516,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1876
-    y: 1284
+    x: 0
+    y: 1221
     width: 1334
     height: 774
   m_SerializedDataModeController:
@@ -561,7 +561,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 447}
     m_SelectedIDs: b29f0200
     m_LastClickedID: 171954
-    m_ExpandedIDs: 0000000056520100585201005a5201005c5201005e520100605201006252010064520100665201006c57010000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000056520100585201005a5201005c5201005e52010060520100625201006452010066520100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -669,8 +669,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 3211
-    y: 87
+    x: 1336
+    y: 24
     width: 620
     height: 1971
   m_SerializedDataModeController:
@@ -718,8 +718,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Hierarchy\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1876
-    y: 87
+    x: 0
+    y: 24
     width: 385
     height: 1171
   m_SerializedDataModeController:
@@ -736,7 +736,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 5ac90000
+      m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: e8faffff
       m_RenameOverlay:
@@ -784,8 +784,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 2262
-    y: 87
+    x: 387
+    y: 24
     width: 947
     height: 1171
   m_SerializedDataModeController:

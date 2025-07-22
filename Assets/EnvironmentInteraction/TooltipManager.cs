@@ -12,6 +12,7 @@ public class TooltipManager : MonoBehaviour
     public Image tooltipImage;                // Tooltip image (background)
     public TextMeshProUGUI tooltipText;       // Action prompt text
     public TextMeshProUGUI locationText;      // Location text
+    public GameObject locationBG;
     public TextMeshProUGUI objectNameText;    // Object name text
     public Image iconImage;                   // Optional icon image
 
@@ -67,6 +68,10 @@ public class TooltipManager : MonoBehaviour
         tooltipText.text = actionText;
         locationText.text = location;
         locationText.gameObject.SetActive(!string.IsNullOrEmpty(location));
+        if (locationBG != null)
+        {
+            locationBG.SetActive(!string.IsNullOrEmpty(location));
+        }
         objectNameText.text = objectName;
         if (iconImage != null)
         {
