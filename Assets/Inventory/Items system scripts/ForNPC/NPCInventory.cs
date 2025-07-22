@@ -9,6 +9,8 @@ public class NPCInventory : Inventory
     public CharacterEquipmentManager equipmentManager;
     public AudioSource audioSource;
     public List<ItemDataEquipment> startingEquipment;
+    public List<ItemData> startingResources;
+    public List<ItemData> startingIngredients;
 
     protected override void Awake()
     {
@@ -18,6 +20,27 @@ public class NPCInventory : Inventory
 
     void Start()
     {
+        // Add starting ingredients
+        if (startingIngredients != null && startingIngredients.Count > 0)
+        {
+            foreach (var item in startingIngredients)
+            {
+                AddItem(item);
+            }
+        }
+
+        // Add starting resources
+        if (startingResources != null && startingResources.Count > 0)
+        {
+            foreach (var item in startingResources)
+            {
+                AddItem(item);
+            }
+        }
+
+        // Rebuild dictionaries in case lists were modified in the editor or loaded from save data
+        RebuildDictionaries();
+
         // Equip starting equipment
         if (startingEquipment != null && startingEquipment.Count > 0)
         {
@@ -195,6 +218,13 @@ public class NPCInventory : Inventory
             // Optionally, hide the corresponding slot if needed
         }
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        RebuildDictionaries();
+    }
+#endif
 
     // Additional NPC-specific methods can be added here
 }

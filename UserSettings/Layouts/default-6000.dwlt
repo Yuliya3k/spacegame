@@ -542,7 +542,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Resources/Items
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -552,16 +552,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Resources/Items
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Unity\Projects\FirstGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 479}
-    m_SelectedIDs: 66520100
-    m_LastClickedID: 86630
-    m_ExpandedIDs: 0000000056520100585201005a5201005c5201005e5201006052010062520100645201006652010000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 447}
+    m_SelectedIDs: b29f0200
+    m_LastClickedID: 171954
+    m_ExpandedIDs: 0000000056520100585201005a5201005c5201005e520100605201006252010064520100665201006c57010000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -618,7 +618,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000f269060000d607003ad8070028c10500f6b2030026230100dc300100e2580100882401000e1e0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -691,7 +691,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 2815
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -736,8 +736,8 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: c21e0100
-      m_LastClickedID: 73410
+      m_SelectedIDs: 5ac90000
+      m_LastClickedID: 0
       m_ExpandedIDs: e8faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0

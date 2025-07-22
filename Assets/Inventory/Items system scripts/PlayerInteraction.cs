@@ -258,15 +258,16 @@ public class PlayerInteraction : MonoBehaviour
                     {
                         TooltipManager.instance.ShowTooltipIndefinitely(
                             npcDialogue.actionText,
-                            npcDialogue.locationText,
-                            npcDialogue.objectName
+                            "",
+                            npcDialogue.objectName,
+                            npcDialogue.npcIcon
                         );
                     }
                     else
                     {
                         TooltipManager.instance.ShowTooltipIndefinitely(
                             "Press E to interact",
-                            npcController.npcName,
+                            "",
                             npcController.locationText != null ? npcController.locationText.text : npcController.npcName
                         );
                     }
@@ -277,6 +278,8 @@ public class PlayerInteraction : MonoBehaviour
                     if (RadialMenuUI.instance != null && !RadialMenuUI.instance.IsOpen)
                     {
                         RadialMenuUI.instance.OpenMenu(npcController);
+
+                        TooltipManager.instance.HideTooltip();
                     }
                 }
                 interactPressed = false;

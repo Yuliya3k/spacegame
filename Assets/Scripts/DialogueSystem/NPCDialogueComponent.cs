@@ -6,6 +6,7 @@ public class NPCDialogueComponent : MonoBehaviour, IInteractable
     public string objectName = "NPC";
     public string locationText = "";
     public string actionText = "Press E to talk";
+    public Sprite npcIcon;
     public DialogueLine startingLine;
 
     public void Interact()
