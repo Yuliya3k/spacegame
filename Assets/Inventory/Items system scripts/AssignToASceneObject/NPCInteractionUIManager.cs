@@ -78,6 +78,11 @@ public class NPCInteractionUIManager : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        if (instance == this) instance = null;
+    }
+
     public void OpenNPCInteraction(NPCController npcController)
     {
         currentNPCController = npcController;

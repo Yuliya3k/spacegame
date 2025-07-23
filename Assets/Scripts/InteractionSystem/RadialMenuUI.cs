@@ -98,7 +98,9 @@ public class RadialMenuUI : MonoBehaviour
             npcToTrade.Freeze();
             npcToTrade.SetInteractionAnimation(npcToTrade.tradeAnimationTrigger);
         }
-        if (NPCInteractionUIManager.instance != null && npcToTrade != null)
+        if (NPCInteractionUIManager.instance != null &&
+            NPCInteractionUIManager.instance.isActiveAndEnabled &&
+            npcToTrade != null)
         {
             NPCInteractionUIManager.instance.OpenNPCInteraction(npcToTrade);
         }

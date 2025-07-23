@@ -11,6 +11,8 @@
 ########################
 [Ll]ibrary/
 [Tt]emp/
+.utmp/
+[Uu]ser[Ss]ettings/
 [Oo]bj/
 [Bb]uild*/
 [Bb]in/
@@ -24,6 +26,7 @@ sysinfo.txt
 ########################
 .vscode/
 .idea/
+.vs/
 *.csproj
 *.sln
 *.unityproj
