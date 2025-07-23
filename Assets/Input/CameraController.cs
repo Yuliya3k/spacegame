@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
     public CameraProfile profile2;
     public CameraProfile profile3;
     public CameraProfile profileSleep;
-    public CameraProfile profileFirstPerson; // new first-person profile
+    //public CameraProfile profileFirstPerson; // new first-person profile
 
     // Current profile values
     float distance;
@@ -184,10 +184,10 @@ public class CameraController : MonoBehaviour
         inputActions.Player.SwitchToCameraProfile1.performed += ctx => SwitchToProfile(profile1);
         inputActions.Player.SwitchToCameraProfile2.performed += ctx => SwitchToProfile(profile2);
         inputActions.Player.SwitchToCameraProfile3.performed += ctx => SwitchToProfile(profile3);
-        
+
         if (Input.GetKeyDown(KeyCode.V))
         {
-            SwitchToProfile(profileFirstPerson);
+            SwitchToProfile(profile1);
         }
 
         // Handle camera rotation and positioning
@@ -208,6 +208,9 @@ public class CameraController : MonoBehaviour
     private IEnumerator TransitionToProfile(CameraProfile profile)
     {
         currentProfile = profile;
+        // Apply the settings from the selected profile
+        distance = profile.distance;
+        cameraHeight = profile.cameraHeight;
 
         float startDistance = distance;
         float startHeight = cameraHeight;
@@ -222,7 +225,7 @@ public class CameraController : MonoBehaviour
         invertX = profile.invertX;
         invertY = profile.invertY;
         viewDistance = profile.viewDistance;
-
+        horizontalOffset = profile.horizontalOffset; // **Assign horizontalOffset**
 
         SetHeadVisible(!profile.hideHead);
 
