@@ -177,12 +177,17 @@ public class NPCInteractionUIManager : MonoBehaviour
         if (currentNPCInventory != null)
         {
             var npcCtrl = currentNPCInventory.GetComponent<NPCController>();
-            npcCtrl?.Unfreeze();
+            if (npcCtrl != null)
+            {
+                npcCtrl.Unfreeze();
+                npcCtrl.ReturnToDefaultAnimation();
+            }
         }
 
         if (currentNPCController != null)
         {
             currentNPCController.Unfreeze();
+            currentNPCController.ReturnToDefaultAnimation();
             currentNPCController = null;
         }
 

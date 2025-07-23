@@ -27,6 +27,7 @@ public class CameraController : MonoBehaviour
         public float viewDistance = 50f;          // Adjustable view distance per profile
         public float interactionDistance = 3f;    // Interaction distance
         public float horizontalOffset = 0f;       // **New parameter for horizontal offset**
+        public bool hideHead = false;             // Hide head when this profile is active
     }
 
     [Header("Camera Profiles")]
@@ -34,6 +35,7 @@ public class CameraController : MonoBehaviour
     public CameraProfile profile2;
     public CameraProfile profile3;
     public CameraProfile profileSleep;
+    public CameraProfile profileFirstPerson; // new first-person profile
 
     // Current profile values
     float distance;
@@ -76,7 +78,11 @@ public class CameraController : MonoBehaviour
     [Header("UI Panels that Freeze Camera")]
     public List<GameObject> freezeCameraUIs = new List<GameObject>();
 
+    [Header("First Person Settings")]
+    public List<Renderer> headRenderers = new List<Renderer>();
+    public float profileTransitionDuration = 0.5f;
 
+    private Coroutine profileTransitionCoroutine;
 
 
     private void Awake()
@@ -120,6 +126,7 @@ public class CameraController : MonoBehaviour
 
         // Initialize with Profile 1 by default
         SwitchToProfile(profile1);
+        SetHeadVisible(!profile1.hideHead);
 
         // Initialize rotationY to match the character's Y rotation
         rotationY = followTarget.eulerAngles.y;
@@ -177,9 +184,11 @@ public class CameraController : MonoBehaviour
         inputActions.Player.SwitchToCameraProfile1.performed += ctx => SwitchToProfile(profile1);
         inputActions.Player.SwitchToCameraProfile2.performed += ctx => SwitchToProfile(profile2);
         inputActions.Player.SwitchToCameraProfile3.performed += ctx => SwitchToProfile(profile3);
-        //if (Input.GetKeyDown(KeyCode.Alpha1)) { SwitchToProfile(profile1); }
-        //if (Input.GetKeyDown(KeyCode.Alpha2)) { SwitchToProfile(profile2); }
-        //if (Input.GetKeyDown(KeyCode.Alpha3)) { SwitchToProfile(profile3); }
+        
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            SwitchToProfile(profileFirstPerson);
+        }
 
         // Handle camera rotation and positioning
         HandleCameraRotation();
@@ -187,12 +196,25 @@ public class CameraController : MonoBehaviour
     }
 
     private void SwitchToProfile(CameraProfile profile)
+
+    {
+        if (profileTransitionCoroutine != null)
+        {
+            StopCoroutine(profileTransitionCoroutine);
+        }
+        profileTransitionCoroutine = StartCoroutine(TransitionToProfile(profile));
+    }
+
+    private IEnumerator TransitionToProfile(CameraProfile profile)
     {
         currentProfile = profile;
 
-        // Apply the settings from the selected profile
-        distance = profile.distance;
-        cameraHeight = profile.cameraHeight;
+        float startDistance = distance;
+        float startHeight = cameraHeight;
+        float startOffset = horizontalOffset;
+        float elapsed = 0f;
+
+        // Apply non-lerped settings immediately
         rotationSpeed = profile.rotationSpeed;
         minVerticalAngle = profile.minVerticalAngle;
         maxVerticalAngle = profile.maxVerticalAngle;
@@ -200,13 +222,28 @@ public class CameraController : MonoBehaviour
         invertX = profile.invertX;
         invertY = profile.invertY;
         viewDistance = profile.viewDistance;
-        horizontalOffset = profile.horizontalOffset; // **Assign horizontalOffset**
 
-        // Update the interaction distance in PlayerInteraction
+
+        SetHeadVisible(!profile.hideHead);
+
         if (playerInteraction != null)
         {
             playerInteraction.SetInteractionDistance(profile.interactionDistance);
         }
+
+        while (elapsed < profileTransitionDuration)
+        {
+            float t = elapsed / profileTransitionDuration;
+            distance = Mathf.Lerp(startDistance, profile.distance, t);
+            cameraHeight = Mathf.Lerp(startHeight, profile.cameraHeight, t);
+            horizontalOffset = Mathf.Lerp(startOffset, profile.horizontalOffset, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        distance = profile.distance;
+        cameraHeight = profile.cameraHeight;
+        horizontalOffset = profile.horizontalOffset;
     }
 
     private void HandleCameraRotation()
@@ -310,6 +347,17 @@ public class CameraController : MonoBehaviour
         else
         {
             lookInput = Vector2.zero;
+        }
+    }
+
+    private void SetHeadVisible(bool visible)
+    {
+        foreach (var r in headRenderers)
+        {
+            if (r != null)
+            {
+                r.enabled = visible;
+            }
         }
     }
 

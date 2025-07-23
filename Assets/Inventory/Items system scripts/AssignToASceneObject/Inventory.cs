@@ -283,12 +283,43 @@ public class Inventory : MonoBehaviour
     // IMPLEMENTATION OF RebuildDictionaries()
     public void RebuildDictionaries()
     {
-        // Clear all dictionaries
-        ingredientDictionary.Clear();
-        resourceDictionary.Clear();
-        dishDictionary.Clear();
-        inventoryDictionary.Clear();
-        equipmentDictionary.Clear();
+        // Ensure lists exist before rebuilding
+        if (ingredients == null)
+            ingredients = new List<InventoryItem>();
+        if (resources == null)
+            resources = new List<InventoryItem>();
+        if (dishes == null)
+            dishes = new List<InventoryItem>();
+        if (inventory == null)
+            inventory = new List<InventoryItem>();
+        if (equipment == null)
+            equipment = new List<InventoryItem>();
+
+        // Ensure dictionaries exist and then clear them
+        if (ingredientDictionary == null)
+            ingredientDictionary = new Dictionary<ItemData, InventoryItem>();
+        else
+            ingredientDictionary.Clear();
+
+        if (resourceDictionary == null)
+            resourceDictionary = new Dictionary<ItemData, InventoryItem>();
+        else
+            resourceDictionary.Clear();
+
+        if (dishDictionary == null)
+            dishDictionary = new Dictionary<ItemData, InventoryItem>();
+        else
+            dishDictionary.Clear();
+
+        if (inventoryDictionary == null)
+            inventoryDictionary = new Dictionary<ItemData, InventoryItem>();
+        else
+            inventoryDictionary.Clear();
+
+        if (equipmentDictionary == null)
+            equipmentDictionary = new Dictionary<EquipmentType, InventoryItem>();
+        else
+            equipmentDictionary.Clear();
 
         // Rebuild ingredient dictionary
         foreach (var item in ingredients)
