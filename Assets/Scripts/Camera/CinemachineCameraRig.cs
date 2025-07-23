@@ -1,11 +1,11 @@
-using Cinemachine;
+using CinemachineCamera;
 using Unity.Cinemachine;
 using UnityEngine;
 
 public class CinemachineCameraRig : MonoBehaviour
 {
-    public CinemachineVirtualCamera thirdPersonCamera;
-    public CinemachineVirtualCamera firstPersonCamera;
+    public CinemachineCamera thirdPersonCamera;
+    public CinemachineCamera firstPersonCamera;
 
     private bool inFirstPerson = false;
 

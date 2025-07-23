@@ -184,6 +184,8 @@ tools/git-hooks/* text eol=lf
 # — Minimal project settings so others can open the project
 !/ProjectSettings/ProjectVersion.txt
 !/ProjectSettings/EditorBuildSettings.asset
+# Keep Unity package manifest for dependency management
+!/Packages/manifest.json
 
 ########################
 # End of file
