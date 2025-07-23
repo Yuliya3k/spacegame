@@ -118,31 +118,16 @@ public class NPCInteractionUIManager : MonoBehaviour
             {
                 GameObject slotPrefab = GetSlotPrefabForItem(item.data);
                 GameObject newSlot = Instantiate(slotPrefab, npcInventorySlotParent);
-                // Try to setup using UI_NPCSlot first
                 UI_NPCSlot itemSlot = newSlot.GetComponent<UI_NPCSlot>();
                 if (itemSlot != null)
                 {
                     itemSlot.SetupSlot(item, true);  // Set true for NPC slot
                 }
-                else
-                {
-                    // Fallback to generic UI_ItemSlot if specific component is missing
-                    UI_ItemSlot genericSlot = newSlot.GetComponent<UI_ItemSlot>();
-                    if (genericSlot != null)
-                    {
-                        genericSlot.SetupSlot(item, true);
-                    }
-                    else
-                    {
-                        Debug.LogError("Slot prefab lacks UI_NPCSlot/UI_ItemSlot component.");
-                    }
-                }
-
                 npcSlots.Add(newSlot);
             }
             else
             {
-                Debug.LogError("Invalid InventoryItem found in NPC inventory.");
+                Debug.LogError("Slot prefab does not have UI_NPCSlot component.");
             }
         }
 
@@ -154,7 +139,13 @@ public class NPCInteractionUIManager : MonoBehaviour
             {
                 GameObject slotPrefab = GetSlotPrefabForItem(item.data);
                 GameObject newSlot = Instantiate(slotPrefab, playerInventorySlotParent);
-                // Try to setup using UI_NPCSlot first
+
+
+
+
+
+
+
                 UI_NPCSlot itemSlot = newSlot.GetComponent<UI_NPCSlot>();
                 if (itemSlot != null)
                 {
@@ -162,17 +153,9 @@ public class NPCInteractionUIManager : MonoBehaviour
                 }
                 else
                 {
-                    // Fallback to generic UI_ItemSlot if specific component is missing
-                    UI_ItemSlot genericSlot = newSlot.GetComponent<UI_ItemSlot>();
-                    if (genericSlot != null)
-                    {
-                        genericSlot.SetupSlot(item, false);
-                    }
-                    else
-                    {
-                        Debug.LogError("Slot prefab lacks UI_NPCSlot/UI_ItemSlot component.");
-                    }
+                    Debug.LogError("Slot prefab does not have UI_NPCSlot component.");
                 }
+
 
                 inventorySlots.Add(newSlot);
             }
@@ -262,6 +245,8 @@ public class NPCInteractionUIManager : MonoBehaviour
             if (!ui.activeSelf) ui.SetActive(true);  // Show game screen UIs again
         }
     }
+
+    
 
     private GameObject GetSlotPrefabForItem(ItemData itemData)
     {
