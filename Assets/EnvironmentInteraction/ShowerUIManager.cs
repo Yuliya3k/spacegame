@@ -24,7 +24,7 @@ public class ShowerUIManager : MonoBehaviour
 
     private PlayerControllerCode playerController;
     private PlayerInteraction playerInteraction;
-    private CameraController cameraController;
+    private CinemachineCameraController cameraController;
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class ShowerUIManager : MonoBehaviour
             Debug.LogError("ShowerUIManager: PlayerControllerCode.instance is null.");
         }
 
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         if (cameraController == null)
         {
             Debug.LogError("ShowerUIManager: CameraController not found in the scene.");

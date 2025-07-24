@@ -50,7 +50,23 @@ public class TouchRegionInput : MonoBehaviour, IPointerDownHandler, IDragHandler
         {
             // For camera look, leave the axes as is
             inputDir = delta * sensitivity;
-            CameraController.instance.SetLookInput(inputDir);
+            ICameraControl cam = null;
+            foreach (var mb in FindObjectsOfType<MonoBehaviour>())
+            {
+                if (mb is ICameraControl control)
+                {
+                    cam = control;
+                    break;
+                }
+            }
+            if (cam is CameraController cc)
+            {
+                cc.SetLookInput(inputDir);
+            }
+            else if (cam is CinemachineCameraController cine)
+            {
+                cine.SetLookInput(inputDir);
+            }
         }
     }
 
@@ -65,7 +81,23 @@ public class TouchRegionInput : MonoBehaviour, IPointerDownHandler, IDragHandler
         }
         else
         {
-            CameraController.instance.SetLookInput(Vector2.zero);
+            ICameraControl cam = null;
+            foreach (var mb in FindObjectsOfType<MonoBehaviour>())
+            {
+                if (mb is ICameraControl control)
+                {
+                    cam = control;
+                    break;
+                }
+            }
+            if (cam is CameraController cc)
+            {
+                cc.SetLookInput(Vector2.zero);
+            }
+            else if (cam is CinemachineCameraController cine)
+            {
+                cine.SetLookInput(Vector2.zero);
+            }
         }
     }
 }

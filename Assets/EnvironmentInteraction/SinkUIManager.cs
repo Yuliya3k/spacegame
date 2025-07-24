@@ -27,7 +27,7 @@ public class SinkUIManager : MonoBehaviour
     private PlayerControllerCode playerController;
     private PlayerInteraction playerInteraction;
 
-    private CameraController cameraController;
+    private CinemachineCameraController cameraController;
 
     private void Awake()
     {
@@ -52,10 +52,10 @@ public class SinkUIManager : MonoBehaviour
         }
 
         // Find the CameraController
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         if (cameraController == null)
         {
-            Debug.LogError("SinkUIManager: CameraController not found in the scene.");
+            Debug.LogError("SinkUIManager: CinemachineCameraController not found in the scene.");
         }
     }
 

@@ -26,7 +26,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         public float maxVerticalAngle = 45;
         public Vector3 framingOffset = new Vector3(0, 1, 0);
         public bool invertX = false;
-        public bool invertY = true;
+        public bool invertY = false;
         public float viewDistance = 50f;          // Adjustable view distance per profile
         public float interactionDistance = 3f;    // Interaction distance
         public float horizontalOffset = 0f;       // **New parameter for horizontal offset**
@@ -404,6 +404,16 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         Debug.Log("CinemachineCameraController - SetMouseSensitivity called with sensitivity: " + sensitivity);
         mouseSensitivityMultiplier = sensitivity;
     }
+
+    public void SetInvertY(bool invert)
+    {
+        invertY = invert;
+        if (currentProfile != null)
+        {
+            currentProfile.invertY = invert;
+        }
+    }
+
 
     public void SetLookInput(Vector2 look)
     {

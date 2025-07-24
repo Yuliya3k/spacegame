@@ -18,7 +18,7 @@ public class RestManager : MonoBehaviour
     private InGameTimeManager timeManager;
 
     private PlayerControllerCode playerController;
-    private CameraController cameraController;
+    private CinemachineCameraController cameraController;
 
 
     public GameObject playerPhysicsObject;
@@ -62,7 +62,7 @@ public class RestManager : MonoBehaviour
         timeManager = FindObjectOfType<InGameTimeManager>();
 
         playerController = PlayerControllerCode.instance;
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         playerInteraction = playerController.GetComponent<PlayerInteraction>();
 
         if (characterStats == null)

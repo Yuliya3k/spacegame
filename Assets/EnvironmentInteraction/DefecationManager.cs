@@ -9,7 +9,7 @@ public class DefecationManager : MonoBehaviour
     private InGameTimeManager timeManager;
 
     private PlayerControllerCode playerController;
-    private CameraController cameraController;
+    private CinemachineCameraController cameraController;
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -53,7 +53,7 @@ public class DefecationManager : MonoBehaviour
         timeManager = FindObjectOfType<InGameTimeManager>();
 
         playerController = PlayerControllerCode.instance;
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         playerInteraction = playerController.GetComponent<PlayerInteraction>();
 
         if (characterStats == null)

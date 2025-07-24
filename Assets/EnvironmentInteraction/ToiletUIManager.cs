@@ -20,7 +20,7 @@ public class ToiletUIManager : MonoBehaviour
     private PlayerControllerCode playerController;
     private PlayerInteraction playerInteraction;
 
-    private CameraController cameraController;
+    private CinemachineCameraController cameraController;
 
 
     private void Awake()
@@ -44,7 +44,7 @@ public class ToiletUIManager : MonoBehaviour
         }
 
         // Find the CameraController
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         if (cameraController == null)
         {
             Debug.LogError("ToiletUIManager: CameraController not found in the scene.");
