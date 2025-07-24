@@ -107,11 +107,17 @@ public class CameraController : MonoBehaviour
     private void OnEnable()
     {
         inputActions.Player.Enable();
+        inputActions.Player.SwitchToCameraProfile1.performed += OnSwitchToCameraProfile1;
+        inputActions.Player.SwitchToCameraProfile2.performed += OnSwitchToCameraProfile2;
+        inputActions.Player.SwitchToCameraProfile3.performed += OnSwitchToCameraProfile3;
     }
 
     private void OnDisable()
     {
         inputActions.Player.Disable();
+        inputActions.Player.SwitchToCameraProfile1.performed -= OnSwitchToCameraProfile1;
+        inputActions.Player.SwitchToCameraProfile2.performed -= OnSwitchToCameraProfile2;
+        inputActions.Player.SwitchToCameraProfile3.performed -= OnSwitchToCameraProfile3;
     }
 
 
@@ -180,15 +186,15 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        // Handle switching between profiles
-        inputActions.Player.SwitchToCameraProfile1.performed += ctx => SwitchToProfile(profile1);
-        inputActions.Player.SwitchToCameraProfile2.performed += ctx => SwitchToProfile(profile2);
-        inputActions.Player.SwitchToCameraProfile3.performed += ctx => SwitchToProfile(profile3);
+        //// Handle switching between profiles
+        //inputActions.Player.SwitchToCameraProfile1.performed += ctx => SwitchToProfile(profile1);
+        //inputActions.Player.SwitchToCameraProfile2.performed += ctx => SwitchToProfile(profile2);
+        //inputActions.Player.SwitchToCameraProfile3.performed += ctx => SwitchToProfile(profile3);
 
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            SwitchToProfile(profile1);
-        }
+        //if (Input.GetKeyDown(KeyCode.V))
+        //{
+        //    SwitchToProfile(profile1);
+        //}
 
         // Handle camera rotation and positioning
         HandleCameraRotation();
@@ -351,6 +357,21 @@ public class CameraController : MonoBehaviour
         {
             lookInput = Vector2.zero;
         }
+    }
+
+    private void OnSwitchToCameraProfile1(InputAction.CallbackContext context)
+    {
+        SwitchToProfile(profile1);
+    }
+
+    private void OnSwitchToCameraProfile2(InputAction.CallbackContext context)
+    {
+        SwitchToProfile(profile2);
+    }
+
+    private void OnSwitchToCameraProfile3(InputAction.CallbackContext context)
+    {
+        SwitchToProfile(profile3);
     }
 
     private void SetHeadVisible(bool visible)
