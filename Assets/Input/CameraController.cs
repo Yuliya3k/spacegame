@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour, ICameraControl
 {
     [SerializeField] Transform followTarget;
 
@@ -153,7 +153,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("CameraUpdate");
+        //Debug.Log("CameraUpdate");
         // Update camera's far clip plane based on the current profile
         mainCamera.farClipPlane = viewDistance;
 
@@ -387,7 +387,7 @@ public class CameraController : MonoBehaviour
 
     public void SetMouseSensitivity(float sensitivity)
     {
-        Debug.Log("CameraController - SetMouseSensitivity called with sensitivity: " + sensitivity);
+        //Debug.Log("CameraController - SetMouseSensitivity called with sensitivity: " + sensitivity);
         mouseSensitivityMultiplier = sensitivity;
     }
 

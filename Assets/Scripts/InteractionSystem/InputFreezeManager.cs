@@ -6,6 +6,8 @@ public class InputFreezeManager : MonoBehaviour
 
     private bool isFrozen = false;
 
+    private ICameraControl cameraControl;
+
     public bool IsFrozen => isFrozen;
 
     private void Awake()
@@ -14,10 +16,23 @@ public class InputFreezeManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            FindCameraControl();
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void FindCameraControl()
+    {
+        foreach (var mb in FindObjectsOfType<MonoBehaviour>())
+        {
+            if (mb is ICameraControl control)
+            {
+                cameraControl = control;
+                break;
+            }
         }
     }
 
@@ -37,10 +52,12 @@ public class InputFreezeManager : MonoBehaviour
             PlayerControllerCode.instance.DisablePlayerControl();
         }
 
-        if (CameraController.instance != null)
+        if (cameraControl == null)
         {
-            CameraController.instance.DisableCameraControl();
+            FindCameraControl();
         }
+
+        cameraControl?.DisableCameraControl();
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -55,10 +72,12 @@ public class InputFreezeManager : MonoBehaviour
             PlayerControllerCode.instance.EnablePlayerControl();
         }
 
-        if (CameraController.instance != null)
+        if (cameraControl == null)
         {
-            CameraController.instance.EnableCameraControl();
+            FindCameraControl();
         }
+
+        cameraControl?.EnableCameraControl();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

@@ -295,7 +295,7 @@ public class OptionsManager : MonoBehaviour
 
     public void SetMouseSensitivity(float sensitivity)
     {
-        Debug.Log("SetMouseSensitivity called with sensitivity: " + sensitivity);
+        //Debug.Log("SetMouseSensitivity called with sensitivity: " + sensitivity);
 
         if (CameraController.instance != null)
         {
