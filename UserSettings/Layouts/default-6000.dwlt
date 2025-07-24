@@ -542,7 +542,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Camera
+    - Assets/Input
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -552,16 +552,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Camera
+  - Assets/Input
   m_LastFoldersGridSize: 16
   m_LastProjectPath: D:\Unity\Projects\FirstGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 387}
-    m_SelectedIDs: 50570100
-    m_LastClickedID: 87888
-    m_ExpandedIDs: 0000000006530100085301000a5301000c5301000e53010010530100125301001453010016530100
+    scrollPos: {x: 0, y: 335}
+    m_SelectedIDs: 1a580100
+    m_LastClickedID: 88090
+    m_ExpandedIDs: 00000000a24f0100a44f0100a64f0100a84f0100aa4f0100ac4f0100ae4f0100b04f0100b24f0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -590,7 +590,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000006530100085301000a5301000c5301000e53010010530100125301001453010016530100
+    m_ExpandedIDs: 00000000a24f0100a44f0100a64f0100a84f0100aa4f0100ac4f0100ae4f0100b04f0100b24f0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -616,9 +616,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 74490000
-    m_LastClickedInstanceID: 18804
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: ae1d0100
+    m_LastClickedInstanceID: 73134
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000f269060000d607003ad8070028c10500f6b2030026230100dc300100e2580100882401000e1e0100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -738,7 +738,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: e8fafffffc130100
+      m_ExpandedIDs: 56b5ffffe8faffff92f60000700a0100e612010004140100fc150100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1394,9 +1394,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.0035003112, y: 0.9762451, z: -0.21606317, w: -0.015815567}
   m_Size:
-    m_Target: 9.179487
+    m_Target: 9.592565
     speed: 2
-    m_Value: 9.179487
+    m_Value: 9.592565
   m_Ortho:
     m_Target: 0
     speed: 2

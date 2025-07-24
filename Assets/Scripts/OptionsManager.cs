@@ -297,13 +297,18 @@ public class OptionsManager : MonoBehaviour
     {
         //Debug.Log("SetMouseSensitivity called with sensitivity: " + sensitivity);
 
-        if (CameraController.instance != null)
+        var cam = FindObjectOfType<ICameraControl>();
+        if (cam is CameraController legacy)
         {
-            CameraController.instance.SetMouseSensitivity(sensitivity);
+            legacy.SetMouseSensitivity(sensitivity);
+        }
+        else if (cam is CinemachineCameraController cine)
+        {
+            cine.SetMouseSensitivity(sensitivity);
         }
         else
         {
-            Debug.LogWarning("CameraController instance is not available.");
+            Debug.LogWarning("No camera controller available.");
         }
 
         mouseSensitivityValueText.text = sensitivity.ToString("F1");

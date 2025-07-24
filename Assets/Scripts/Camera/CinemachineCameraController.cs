@@ -26,7 +26,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         public float maxVerticalAngle = 45;
         public Vector3 framingOffset = new Vector3(0, 1, 0);
         public bool invertX = false;
-        public bool invertY = false;
+        public bool invertY = true;
         public float viewDistance = 50f;          // Adjustable view distance per profile
         public float interactionDistance = 3f;    // Interaction distance
         public float horizontalOffset = 0f;       // **New parameter for horizontal offset**
@@ -101,7 +101,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
             return;
         }
 
-
+        Debug.Log("CinemachineCameraController Awake");
         inputActions = new PlayerInputActions();
 
         inputActions.Player.Look.performed += OnLook;
@@ -110,6 +110,18 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
 
     private void OnEnable()
     {
+        Debug.Log("CinemachineCameraController OnEnable - script enabled: " + enabled);
+
+        // Disable any PlayerInput components that might interfere with these actions
+        foreach (var pi in FindObjectsOfType<UnityEngine.InputSystem.PlayerInput>())
+        {
+            if (pi != null && pi.enabled)
+            {
+                Debug.LogWarning("Disabling interfering PlayerInput component on " + pi.gameObject.name);
+                pi.enabled = false;
+            }
+        }
+
         inputActions.Player.Enable();
         inputActions.Player.SwitchToCameraProfile1.performed += OnSwitchToCameraProfile1;
         inputActions.Player.SwitchToCameraProfile2.performed += OnSwitchToCameraProfile2;
@@ -118,6 +130,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
 
     private void OnDisable()
     {
+        Debug.Log("CinemachineCameraController OnDisable");
         inputActions.Player.Disable();
         inputActions.Player.SwitchToCameraProfile1.performed -= OnSwitchToCameraProfile1;
         inputActions.Player.SwitchToCameraProfile2.performed -= OnSwitchToCameraProfile2;

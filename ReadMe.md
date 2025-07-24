@@ -1,4 +1,4 @@
-# CinemachineCameraController
+<!-- # CinemachineCameraController
 
 This component mirrors the existing `CameraController` but drives a `CinemachineCamera`.  It exposes the same camera profile fields and input actions so existing options continue to work.  The controller also implements `ICameraControl` which allows `InputFreezeManager` to disable or enable camera input at runtime.
 
@@ -9,8 +9,16 @@ Attach a `CinemachineCameraRig` and assign it to the controller's **cameraRig** 
 Other scripts should depend on the `ICameraControl` interface when interacting with a camera controller.  For example:
 
 ```csharp
-ICameraControl cam = FindObjectOfType<ICameraControl>();
+ICameraControl cam = null;
+foreach (var mb in FindObjectsOfType<MonoBehaviour>())
+{
+    if (mb is ICameraControl control)
+    {
+        cam = control;
+        break;
+    }
+}
 cam?.DisableCameraControl();
 ```
 
-This works for both `CameraController` and `CinemachineCameraController`.
+This works for both `CameraController` and `CinemachineCameraController`. -->
