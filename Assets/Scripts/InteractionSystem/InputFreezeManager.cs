@@ -30,8 +30,12 @@ public class InputFreezeManager : MonoBehaviour
         {
             if (mb is ICameraControl control)
             {
-                cameraControl = control;
-                break;
+                var behaviour = mb as Behaviour;
+                if (behaviour != null && behaviour.isActiveAndEnabled)
+                {
+                    cameraControl = control;
+                    break;
+                }
             }
         }
     }
