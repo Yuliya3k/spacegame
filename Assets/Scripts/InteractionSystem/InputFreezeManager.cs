@@ -4,11 +4,11 @@ public class InputFreezeManager : MonoBehaviour
 {
     public static InputFreezeManager instance;
 
-    private bool isFrozen = false;
+    private int freezeCount = 0;
 
     private ICameraControl cameraControl;
 
-    public bool IsFrozen => isFrozen;
+    public bool IsFrozen => freezeCount > 0;
 
     private void Awake()
     {
@@ -51,41 +51,50 @@ public class InputFreezeManager : MonoBehaviour
     }
     public void FreezePlayerAndCursor()
     {
-        if (PlayerControllerCode.instance != null)
+        freezeCount++;
+
+        if (freezeCount == 1)
         {
-            PlayerControllerCode.instance.DisablePlayerControl();
+            if (PlayerControllerCode.instance != null)
+            {
+                PlayerControllerCode.instance.DisablePlayerControl();
+            }
+
+            if (cameraControl == null)
+            {
+                FindCameraControl();
+            }
+
+            cameraControl?.DisableCameraControl();
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
-
-        if (cameraControl == null)
-        {
-            FindCameraControl();
-        }
-
-        cameraControl?.DisableCameraControl();
-
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        isFrozen = true;
     }
 
     public void UnfreezePlayerAndCursor()
     {
-        if (PlayerControllerCode.instance != null)
+        if (freezeCount == 0)
+            return;
+
+        freezeCount--;
+
+        if (freezeCount == 0)
         {
-            PlayerControllerCode.instance.EnablePlayerControl();
+            if (PlayerControllerCode.instance != null)
+            {
+                PlayerControllerCode.instance.EnablePlayerControl();
+            }
+
+            if (cameraControl == null)
+            {
+                FindCameraControl();
+            }
+
+            cameraControl?.EnableCameraControl();
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
-
-        if (cameraControl == null)
-        {
-            FindCameraControl();
-        }
-
-        cameraControl?.EnableCameraControl();
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        isFrozen = false;
     }
 }

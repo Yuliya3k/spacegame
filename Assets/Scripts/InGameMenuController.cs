@@ -140,11 +140,7 @@ public class InGameMenuController : MonoBehaviour
         //inGameMenuUI.SetActive(true);
         isOptionsMenuActive = false;
 
-        // Cursor state managed by InputFreezeManager
-        if (InputFreezeManager.instance != null)
-        {
-            InputFreezeManager.instance.FreezePlayerAndCursor();
-        }
+        // Cursor state remains managed by the main menu
     }
 
 
