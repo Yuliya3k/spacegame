@@ -1,0 +1,164 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+/// <summary>
+/// Drives idle facial blendshapes such as small muscle twitches and blinking.
+/// Blendshape groups are chosen at random and played at random speeds. Blinking
+/// runs on its own timer and is not affected by the randomisation of other
+/// groups.
+/// </summary>
+public class IdleMimicBlendshapes : MonoBehaviour
+{
+    [System.Serializable]
+    public class BlendshapeEntry
+    {
+        public string blendshapeName;
+        [Range(0f, 100f)]
+        public float minWeight = 0f;
+        [Range(0f, 100f)]
+        public float maxWeight = 100f;
+    }
+
+    [System.Serializable]
+    public class BlendshapeGroup
+    {
+        public string groupName;
+        public BlendshapeEntry[] blendshapes;
+    }
+
+    [Header("Renderer")]
+    public SkinnedMeshRenderer skinnedRenderer;
+
+    [Header("Blink Settings")]
+    public string blinkLeft = "Eye_Blink_L";
+    public string blinkRight = "Eye_Blink_R";
+    public float blinkInterval = 4f;
+    public float blinkDuration = 0.1f;
+
+    [Header("Random Groups")]
+    public BlendshapeGroup[] groups;
+    public float minGroupInterval = 2f;
+    public float maxGroupInterval = 5f;
+    public float minSpeed = 1f;
+    public float maxSpeed = 2f;
+
+    private readonly Dictionary<string, int> _indexCache = new();
+
+    private void Awake()
+    {
+        if (skinnedRenderer == null)
+        {
+            skinnedRenderer = GetComponent<SkinnedMeshRenderer>();
+        }
+        CacheIndices();
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(BlinkRoutine());
+        StartCoroutine(RandomGroupRoutine());
+    }
+
+    private void CacheIndices()
+    {
+        if (skinnedRenderer == null || skinnedRenderer.sharedMesh == null)
+            return;
+
+        _indexCache.Clear();
+        Mesh mesh = skinnedRenderer.sharedMesh;
+        for (int i = 0; i < mesh.blendShapeCount; i++)
+        {
+            string name = mesh.GetBlendShapeName(i);
+            if (!_indexCache.ContainsKey(name))
+                _indexCache.Add(name, i);
+        }
+    }
+
+    private IEnumerator BlinkRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(blinkInterval);
+            yield return StartCoroutine(PlayBlink());
+        }
+    }
+
+    private IEnumerator PlayBlink()
+    {
+        float timer = 0f;
+        while (timer < blinkDuration)
+        {
+            float t = timer / blinkDuration;
+            SetBlendshape(blinkLeft, Mathf.Lerp(0f, 100f, t));
+            SetBlendshape(blinkRight, Mathf.Lerp(0f, 100f, t));
+            timer += Time.deltaTime * 1f;
+            yield return null;
+        }
+        timer = 0f;
+        while (timer < blinkDuration)
+        {
+            float t = timer / blinkDuration;
+            SetBlendshape(blinkLeft, Mathf.Lerp(100f, 0f, t));
+            SetBlendshape(blinkRight, Mathf.Lerp(100f, 0f, t));
+            timer += Time.deltaTime * 1f;
+            yield return null;
+        }
+        SetBlendshape(blinkLeft, 0f);
+        SetBlendshape(blinkRight, 0f);
+    }
+
+    private IEnumerator RandomGroupRoutine()
+    {
+        if (groups == null || groups.Length == 0)
+            yield break;
+
+        while (true)
+        {
+            float wait = Random.Range(minGroupInterval, maxGroupInterval);
+            yield return new WaitForSeconds(wait);
+            BlendshapeGroup group = groups[Random.Range(0, groups.Length)];
+            yield return StartCoroutine(PlayGroup(group));
+        }
+    }
+
+    private IEnumerator PlayGroup(BlendshapeGroup group)
+    {
+        float speed = Random.Range(minSpeed, maxSpeed);
+        float timer = 0f;
+        while (timer < 1f)
+        {
+            float t = timer;
+            foreach (var b in group.blendshapes)
+            {
+                float weight = Mathf.Lerp(0f, Random.Range(b.minWeight, b.maxWeight), t);
+                SetBlendshape(b.blendshapeName, weight);
+            }
+            timer += Time.deltaTime * speed;
+            yield return null;
+        }
+        timer = 0f;
+        while (timer < 1f)
+        {
+            float t = timer;
+            foreach (var b in group.blendshapes)
+            {
+                float target = 0f;
+                float startWeight = Random.Range(b.minWeight, b.maxWeight);
+                float weight = Mathf.Lerp(startWeight, target, t);
+                SetBlendshape(b.blendshapeName, weight);
+            }
+            timer += Time.deltaTime * speed;
+            yield return null;
+        }
+        foreach (var b in group.blendshapes)
+            SetBlendshape(b.blendshapeName, 0f);
+    }
+
+    private void SetBlendshape(string name, float weight)
+    {
+        if (!_indexCache.TryGetValue(name, out int index))
+            return;
+        skinnedRenderer.SetBlendShapeWeight(index, weight);
+    }
+}
