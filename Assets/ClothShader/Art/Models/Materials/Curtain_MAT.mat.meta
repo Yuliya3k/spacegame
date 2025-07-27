@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 3a8d94d1abae79549a04bc338d4ec82d
+timeCreated: 1547984481
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Curtain_MAT.mat
+  uploadId: 293068

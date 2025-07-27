@@ -30,6 +30,17 @@ public class ExerciseUIManager : MonoBehaviour
 
     private void Awake()
     {
+        if (exerciseUIPanel == null || exerciseInProgressUIPanel == null)
+        {
+            if (exerciseUIPanel == null)
+                Debug.LogError("ExerciseUIManager: exerciseUIPanel reference is not assigned.");
+
+            if (exerciseInProgressUIPanel == null)
+                Debug.LogError("ExerciseUIManager: exerciseInProgressUIPanel reference is not assigned.");
+
+            return;
+        }
+
         exerciseUIPanel.SetActive(false);
         exerciseInProgressUIPanel.SetActive(false);
 
@@ -90,10 +101,10 @@ public class ExerciseUIManager : MonoBehaviour
         // Hide the tooltip
         TooltipManager.instance.HideTooltip();
 
-        // Disable player control
-        playerController.DisablePlayerControl();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.FreezePlayerAndCursor();
+        }
 
         // Hide specified UIs
         foreach (var ui in uisToHideOnExercise)
@@ -111,9 +122,10 @@ public class ExerciseUIManager : MonoBehaviour
         if (playerInteraction != null)
             playerInteraction.enabled = true;
 
-        playerController.EnablePlayerControl();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
 
         foreach (var ui in uisToHideOnExercise)
         {

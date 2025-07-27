@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: a670c24144097594a92220b3bae480f5
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67724
+  packageName: URP - Skin Shaders
+  packageVersion: 2020.1
+  assetPath: Assets/Ciconia Studio/Shaders/SSS Skin Shaders/BuiltIn/CS_Skin (Specular
+    setup) Opaque.shader
+  uploadId: 478180

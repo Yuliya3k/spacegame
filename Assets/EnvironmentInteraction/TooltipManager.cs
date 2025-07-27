@@ -12,7 +12,9 @@ public class TooltipManager : MonoBehaviour
     public Image tooltipImage;                // Tooltip image (background)
     public TextMeshProUGUI tooltipText;       // Action prompt text
     public TextMeshProUGUI locationText;      // Location text
+    public GameObject locationBG;
     public TextMeshProUGUI objectNameText;    // Object name text
+    public Image iconImage;                   // Optional icon image
 
     [Header("Fade Settings")]
     public float fadeInTime = 0.1f;    // Time to fade in
@@ -48,7 +50,7 @@ public class TooltipManager : MonoBehaviour
     }
 
     // Method to show the tooltip indefinitely for interaction case
-    public void ShowTooltipIndefinitely(string actionText, string location, string objectName)
+    public void ShowTooltipIndefinitely(string actionText, string location, string objectName, Sprite icon = null)
     {
         //Debug.Log($"ShowTooltipIndefinitely: actionText={actionText}, location={location}, objectName={objectName}");
 
@@ -65,7 +67,17 @@ public class TooltipManager : MonoBehaviour
         // Update tooltip content
         tooltipText.text = actionText;
         locationText.text = location;
+        locationText.gameObject.SetActive(!string.IsNullOrEmpty(location));
+        if (locationBG != null)
+        {
+            locationBG.SetActive(!string.IsNullOrEmpty(location));
+        }
         objectNameText.text = objectName;
+        if (iconImage != null)
+        {
+            iconImage.sprite = icon;
+            iconImage.gameObject.SetActive(icon != null);
+        }
 
         // Ensure the tooltip is fully visible indefinitely
         tooltipUI.SetActive(true);

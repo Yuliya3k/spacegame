@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6b741f21043544748acd9801d049ed69
+timeCreated: 1547402247
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Coat_Button.mat
+  uploadId: 293068

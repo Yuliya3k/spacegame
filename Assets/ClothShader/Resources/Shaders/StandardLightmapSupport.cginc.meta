@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 74ac3dbb07231aa40b82b89dfea2d9d1
+timeCreated: 1549212281
+licenseType: Store
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Resources/Shaders/StandardLightmapSupport.cginc
+  uploadId: 293068

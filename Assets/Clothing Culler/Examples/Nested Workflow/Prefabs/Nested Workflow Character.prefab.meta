@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c737a1b2e481b4344bf8d69cba678065
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Examples/Nested Workflow/Prefabs/Nested Workflow
+    Character.prefab
+  uploadId: 692612

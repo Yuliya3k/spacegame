@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 799401c8855116f40bb65f8b8e0a6f70
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67724
+  packageName: URP - Skin Shaders
+  packageVersion: 2020.1
+  assetPath: Assets/Ciconia Studio/Shaders/SSS Skin Shaders/BuiltIn/Demo Scene/Sources/Models/_Prefabs/Head_CS
+    Skin Extra.prefab
+  uploadId: 478180

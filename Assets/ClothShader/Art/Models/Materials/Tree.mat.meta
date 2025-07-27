@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 5a2c75ce93ece58448c839a6dc24aa78
+timeCreated: 1548090050
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Tree.mat
+  uploadId: 293068

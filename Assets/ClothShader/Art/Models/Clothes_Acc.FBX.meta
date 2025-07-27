@@ -1,0 +1,270 @@
+fileFormatVersion: 2
+guid: c6af67b877889e34b9c9ad6980d92356
+timeCreated: 1547402267
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bag
+    100002: Bag_6
+    100004: Boot_L
+    100006: Boot_L_GR
+    100008: Boot_R
+    100010: Boot_R_GR
+    100012: Box_1
+    100014: Box_2
+    100016: Brush
+    100018: Brush_copy
+    100020: Chain_1
+    100022: Chain_2
+    100024: //RootNode
+    100026: Coat_1
+    100028: Coat_1_GR
+    100030: Coat_1_MeshPart0
+    100032: Coat_1_MeshPart1
+    100034: Coat_2
+    100036: Coat_2 1
+    100038: Coat_2 1_MeshPart0
+    100040: Coat_2 1_MeshPart1
+    100042: Coat_Button_1
+    100044: Coat_Button_2
+    100046: Coat_D_1
+    100048: Coat_D_2
+    100050: Gloves
+    100052: Handle
+    100054: Handle001
+    100056: Hanger_1
+    100058: Hanger_2
+    100060: Hanger_W_1
+    100062: Hanger_W_2
+    100064: Hanger_W_3
+    100066: Lock_1
+    100068: Lock_2
+    100070: Pile
+    100072: Pile001
+    100074: Rivet_L
+    100076: Rivet_R
+    100078: Saphir
+    100080: Scarf
+    100082: Wardrobe
+    100084: Wardrobe_Ch
+    400000: Bag
+    400002: Bag_6
+    400004: Boot_L
+    400006: Boot_L_GR
+    400008: Boot_R
+    400010: Boot_R_GR
+    400012: Box_1
+    400014: Box_2
+    400016: Brush
+    400018: Brush_copy
+    400020: Chain_1
+    400022: Chain_2
+    400024: //RootNode
+    400026: Coat_1
+    400028: Coat_1_GR
+    400030: Coat_1_MeshPart0
+    400032: Coat_1_MeshPart1
+    400034: Coat_2
+    400036: Coat_2 1
+    400038: Coat_2 1_MeshPart0
+    400040: Coat_2 1_MeshPart1
+    400042: Coat_Button_1
+    400044: Coat_Button_2
+    400046: Coat_D_1
+    400048: Coat_D_2
+    400050: Gloves
+    400052: Handle
+    400054: Handle001
+    400056: Hanger_1
+    400058: Hanger_2
+    400060: Hanger_W_1
+    400062: Hanger_W_2
+    400064: Hanger_W_3
+    400066: Lock_1
+    400068: Lock_2
+    400070: Pile
+    400072: Pile001
+    400074: Rivet_L
+    400076: Rivet_R
+    400078: Saphir
+    400080: Scarf
+    400082: Wardrobe
+    400084: Wardrobe_Ch
+    2300000: Bag
+    2300002: Boot_L
+    2300004: Boot_R
+    2300006: Box_1
+    2300008: Box_2
+    2300010: Chain_1
+    2300012: Chain_2
+    2300014: Coat_1_MeshPart0
+    2300016: Coat_1_MeshPart1
+    2300018: Coat_2 1_MeshPart0
+    2300020: Coat_2 1_MeshPart1
+    2300022: Coat_Button_1
+    2300024: Coat_Button_2
+    2300026: Coat_D_1
+    2300028: Coat_D_2
+    2300030: Gloves
+    2300032: Handle
+    2300034: Handle001
+    2300036: Hanger_1
+    2300038: Hanger_2
+    2300040: Hanger_W_1
+    2300042: Hanger_W_2
+    2300044: Hanger_W_3
+    2300046: Lock_1
+    2300048: Lock_2
+    2300050: Pile
+    2300052: Pile001
+    2300054: Rivet_L
+    2300056: Rivet_R
+    2300058: Saphir
+    2300060: Scarf
+    2300062: Wardrobe
+    2300064: Wardrobe_Ch
+    3300000: Bag
+    3300002: Boot_L
+    3300004: Boot_R
+    3300006: Box_1
+    3300008: Box_2
+    3300010: Chain_1
+    3300012: Chain_2
+    3300014: Coat_1_MeshPart0
+    3300016: Coat_1_MeshPart1
+    3300018: Coat_2 1_MeshPart0
+    3300020: Coat_2 1_MeshPart1
+    3300022: Coat_Button_1
+    3300024: Coat_Button_2
+    3300026: Coat_D_1
+    3300028: Coat_D_2
+    3300030: Gloves
+    3300032: Handle
+    3300034: Handle001
+    3300036: Hanger_1
+    3300038: Hanger_2
+    3300040: Hanger_W_1
+    3300042: Hanger_W_2
+    3300044: Hanger_W_3
+    3300046: Lock_1
+    3300048: Lock_2
+    3300050: Pile
+    3300052: Pile001
+    3300054: Rivet_L
+    3300056: Rivet_R
+    3300058: Saphir
+    3300060: Scarf
+    3300062: Wardrobe
+    3300064: Wardrobe_Ch
+    4300000: Bag
+    4300002: Chain_1
+    4300004: Chain_2
+    4300006: Lock_1
+    4300008: Lock_2
+    4300010: Gloves
+    4300012: Wardrobe_Ch
+    4300014: Hanger_W_1
+    4300016: Scarf
+    4300018: Hanger_W_2
+    4300020: Hanger_W_3
+    4300022: Box_1
+    4300024: Box_2
+    4300026: Coat_Button_1
+    4300028: Coat_D_1
+    4300030: Coat_1_MeshPart0
+    4300032: Coat_1_MeshPart1
+    4300034: Hanger_1
+    4300036: Hanger_2
+    4300038: Coat_D_2
+    4300040: Coat_2_MeshPart0
+    4300042: Coat_2_MeshPart1
+    4300044: Coat_Button_2
+    4300046: Saphir
+    4300048: Wardrobe
+    4300050: Handle
+    4300052: Pile
+    4300054: Handle001
+    4300056: Pile001
+    4300058: Rivet_L
+    4300060: Boot_L
+    4300062: Boot_R
+    4300064: Rivet_R
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Clothes_Acc.FBX
+  uploadId: 293068

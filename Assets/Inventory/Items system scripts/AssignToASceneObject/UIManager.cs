@@ -293,11 +293,11 @@ public class UIManager : MonoBehaviour
 
             ShowGameScreenUIs(); // Restore game screen UIs
 
-            // Reset cursor and controls
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            PlayerControllerCode.instance.EnablePlayerControl(); // Re-enable player controls
-            DisableBlur();
+            // Reset cursor and controls via InputFreezeManager
+            if (InputFreezeManager.instance != null)
+            {
+                InputFreezeManager.instance.UnfreezePlayerAndCursor();
+            }
 
             // Stop any background music
             if (backgroundMusicSource.isPlaying)
@@ -337,11 +337,12 @@ public class UIManager : MonoBehaviour
 
             ShowGameScreenUIs();
 
-            // Reset cursor and controls
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            PlayerControllerCode.instance.EnablePlayerControl(); // Re-enable player controls
-                                                                 // Re-enable opening CharacterUI
+            // Reset cursor and controls via InputFreezeManager
+            if (InputFreezeManager.instance != null)
+            {
+                InputFreezeManager.instance.UnfreezePlayerAndCursor();
+            }
+            // Re-enable opening CharacterUI
             UIManager.instance.EnableCharacterUIOpening();
 
             // Re-enable in-game menu
@@ -502,9 +503,10 @@ public class UIManager : MonoBehaviour
             activeUI = uiPanel;
             activeButtons = null;
 
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            PlayerControllerCode.instance.DisablePlayerControl(); // Disable player controls
+            if (InputFreezeManager.instance != null)
+            {
+                InputFreezeManager.instance.FreezePlayerAndCursor();
+            }
 
             EnableBlur();
         }
@@ -592,9 +594,10 @@ public class UIManager : MonoBehaviour
             // Update button images based on active/inactive state
             UpdateButtonImages(buttons);
 
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-            PlayerControllerCode.instance.DisablePlayerControl(); // Disable player controls
+            if (InputFreezeManager.instance != null)
+            {
+                InputFreezeManager.instance.FreezePlayerAndCursor();
+            }
 
             EnableBlur();
         }

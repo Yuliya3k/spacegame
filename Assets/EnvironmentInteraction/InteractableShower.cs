@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InteractableShower : MonoBehaviour
+public class InteractableShower : MonoBehaviour, IInteractable
 {
     [Header("Shower Interaction Settings")]
     public string actionText = "Press E to use shower";

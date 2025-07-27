@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class StorageContainer : MonoBehaviour
+public class StorageContainer : MonoBehaviour, IInteractable
 {
     [Header("Container Settings")]
     public List<InventoryItem> containerItems; // Items inside the container

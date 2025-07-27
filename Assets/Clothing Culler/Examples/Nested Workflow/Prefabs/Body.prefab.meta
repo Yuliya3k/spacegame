@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c3efdb7f48f8e6c43a789b52d91e6ec2
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Examples/Nested Workflow/Prefabs/Body.prefab
+  uploadId: 692612

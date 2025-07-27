@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 049b34ba8868c234ab3e4e7a59664f28
+timeCreated: 1545735413
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/TestScene/Showcase.unity
+  uploadId: 293068

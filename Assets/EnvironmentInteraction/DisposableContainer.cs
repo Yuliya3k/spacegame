@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DisposableContainer : MonoBehaviour
+public class DisposableContainer : MonoBehaviour, IInteractable
 {
     [Header("Container Settings")]
     public List<ContainerItem> containerItems; // List of items with quantity stored in this container

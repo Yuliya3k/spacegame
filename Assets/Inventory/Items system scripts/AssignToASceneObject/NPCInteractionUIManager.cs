@@ -29,6 +29,7 @@ public class NPCInteractionUIManager : MonoBehaviour
     public List<GameObject> gameScreenUIs;  // Register UIs to be hidden when opening the NPC UI
 
     private NPCInventory currentNPCInventory;  // Reference to the current NPC's inventory
+    private NPCController currentNPCController;  // Reference to the active NPC
     private List<GameObject> npcSlots = new List<GameObject>();  // UI slots for NPC items
     private List<GameObject> inventorySlots = new List<GameObject>();  // UI slots for player inventory items
     private InventoryItem selectedItem;  // Reference to the selected item
@@ -54,6 +55,13 @@ public class NPCInteractionUIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // Ensure the NPC interaction UI is hidden when the game starts
+        if (npcInteractionUI != null)
+        {
+            npcInteractionUI.SetActive(false);
+
+        }
+
         // Initialize UI elements
         if (transferDialogueWindow != null)
         {
@@ -70,8 +78,14 @@ public class NPCInteractionUIManager : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        if (instance == this) instance = null;
+    }
+
     public void OpenNPCInteraction(NPCController npcController)
     {
+        currentNPCController = npcController;
         // Get the NPC's inventory
         currentNPCInventory = npcController.GetComponent<NPCInventory>();
         if (currentNPCInventory == null)
@@ -84,11 +98,16 @@ public class NPCInteractionUIManager : MonoBehaviour
 
         HideGameScreenUIs();
 
-        // Unlock the cursor and freeze player movement
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.FreezePlayerAndCursor();
+        }
 
-        DisablePlayerControl();  // Disable player control
+        if (currentNPCController != null)
+        {
+            currentNPCController.Freeze();
+            currentNPCController.SetInteractionAnimation("Trade");
+        }
 
         ClearUI();
 
@@ -99,22 +118,16 @@ public class NPCInteractionUIManager : MonoBehaviour
             {
                 GameObject slotPrefab = GetSlotPrefabForItem(item.data);
                 GameObject newSlot = Instantiate(slotPrefab, npcInventorySlotParent);
-
                 UI_NPCSlot itemSlot = newSlot.GetComponent<UI_NPCSlot>();
                 if (itemSlot != null)
                 {
                     itemSlot.SetupSlot(item, true);  // Set true for NPC slot
                 }
-                else
-                {
-                    Debug.LogError("Slot prefab does not have UI_NPCSlot component.");
-                }
-
                 npcSlots.Add(newSlot);
             }
             else
             {
-                Debug.LogError("Invalid InventoryItem found in NPC inventory.");
+                Debug.LogError("Slot prefab does not have UI_NPCSlot component.");
             }
         }
 
@@ -127,6 +140,12 @@ public class NPCInteractionUIManager : MonoBehaviour
                 GameObject slotPrefab = GetSlotPrefabForItem(item.data);
                 GameObject newSlot = Instantiate(slotPrefab, playerInventorySlotParent);
 
+
+
+
+
+
+
                 UI_NPCSlot itemSlot = newSlot.GetComponent<UI_NPCSlot>();
                 if (itemSlot != null)
                 {
@@ -136,6 +155,7 @@ public class NPCInteractionUIManager : MonoBehaviour
                 {
                     Debug.LogError("Slot prefab does not have UI_NPCSlot component.");
                 }
+
 
                 inventorySlots.Add(newSlot);
             }
@@ -149,10 +169,29 @@ public class NPCInteractionUIManager : MonoBehaviour
 
         ShowGameScreenUIs();
 
-        // Lock the cursor and enable player movement
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        EnablePlayerControl();  // Enable player control
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+            // Also release any freeze from the radial menu
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
+
+        if (currentNPCInventory != null)
+        {
+            var npcCtrl = currentNPCInventory.GetComponent<NPCController>();
+            if (npcCtrl != null)
+            {
+                npcCtrl.Unfreeze();
+                npcCtrl.ReturnToDefaultAnimation();
+            }
+        }
+
+        if (currentNPCController != null)
+        {
+            currentNPCController.Unfreeze();
+            currentNPCController.ReturnToDefaultAnimation();
+            currentNPCController = null;
+        }
 
         // Hide any active tooltips
         if (InventoryTooltipManager.instance != null)
@@ -213,6 +252,8 @@ public class NPCInteractionUIManager : MonoBehaviour
             if (!ui.activeSelf) ui.SetActive(true);  // Show game screen UIs again
         }
     }
+
+    
 
     private GameObject GetSlotPrefabForItem(ItemData itemData)
     {

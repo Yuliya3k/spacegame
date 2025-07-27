@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2cab8cb3df7c79a4e9985263c9a35d15
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67724
+  packageName: URP - Skin Shaders
+  packageVersion: 2020.1
+  assetPath: Assets/Ciconia Studio/_Shared Files/Materials/HDRIs/CS_Skybox.mat
+  uploadId: 478180

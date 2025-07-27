@@ -1,16 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c64e91fedb150ed41b979656381a3530, type: 3}
-  m_Name: Living space door open
-  m_EditorClassIdentifier: 
-  doorObjectName: BaseWall03_5x3_door_01 Variant (1) scripted
-  waitAfterOpenInGameMinutes: 1
+version https://git-lfs.github.com/spec/v1
+oid sha256:21edc8f09ddaa28894ee815ff69e26cd3d4767c296d28b55b9ab3bda021ab4a9
+size 505

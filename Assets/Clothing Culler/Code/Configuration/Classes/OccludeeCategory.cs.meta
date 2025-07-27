@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ba96cb609874b084bb47721c113c4013
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Code/Configuration/Classes/OccludeeCategory.cs
+  uploadId: 692612

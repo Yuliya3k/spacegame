@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: fc4cddbd1da76ea41a3cc6cc85213177
+timeCreated: 1547402246
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Bag_Lock.mat
+  uploadId: 293068

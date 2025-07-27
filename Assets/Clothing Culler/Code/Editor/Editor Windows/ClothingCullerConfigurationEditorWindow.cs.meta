@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3eeb1dc42b69d0d42bd231deb9187990
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Code/Editor/Editor Windows/ClothingCullerConfigurationEditorWindow.cs
+  uploadId: 692612

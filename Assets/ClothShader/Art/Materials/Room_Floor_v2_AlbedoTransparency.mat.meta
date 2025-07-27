@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 5c663b4162901b74388f7e8655159d47
+timeCreated: 1549216475
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Materials/Room_Floor_v2_AlbedoTransparency.mat
+  uploadId: 293068

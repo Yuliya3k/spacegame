@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 68f958bc900bc3c42b47f684d43cdc67
+timeCreated: 1547402265
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Saphir_2.mat
+  uploadId: 293068

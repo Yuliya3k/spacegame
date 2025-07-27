@@ -20,7 +20,7 @@ public class ToiletUIManager : MonoBehaviour
     private PlayerControllerCode playerController;
     private PlayerInteraction playerInteraction;
 
-    private CameraController cameraController;
+    private CinemachineCameraController cameraController;
 
 
     private void Awake()
@@ -44,7 +44,7 @@ public class ToiletUIManager : MonoBehaviour
         }
 
         // Find the CameraController
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         if (cameraController == null)
         {
             Debug.LogError("ToiletUIManager: CameraController not found in the scene.");
@@ -71,10 +71,10 @@ public class ToiletUIManager : MonoBehaviour
         // Hide the tooltip
         TooltipManager.instance.HideTooltip();
 
-        // Disable player control
-        playerController.DisablePlayerControl();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.FreezePlayerAndCursor();
+        }
 
         UIManager.instance.DisableCharacterUIOpening();
 
@@ -105,10 +105,10 @@ public class ToiletUIManager : MonoBehaviour
         if (playerInteraction != null)
             playerInteraction.enabled = true;
 
-        // Enable player control
-        playerController.EnablePlayerControl();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
 
         UIManager.instance.EnableCharacterUIOpening();
         // NEW: also re-enable in-game menu

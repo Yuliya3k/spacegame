@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class InteractableRestPlace : MonoBehaviour
+public class InteractableRestPlace : MonoBehaviour, IInteractable
 {
     [Header("Rest Interaction Settings")]
     public string actionText = "Press E to rest";

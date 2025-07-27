@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 741bdfe19c3c39043aec1a225e9fa37f
+timeCreated: 1549705163
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Editor/CustomStandardShaderEditor.cs
+  uploadId: 293068

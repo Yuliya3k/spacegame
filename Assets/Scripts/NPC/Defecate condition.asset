@@ -1,22 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7642fc0cac9ba440b79512b09a67e80, type: 3}
-  m_Name: Defecate condition
-  m_EditorClassIdentifier: 
-  statName: currentIntFullness
-  conditionOperator: 1
-  useDynamicTarget: 1
-  targetValue: 0
-  targetStatName: intestinesCapacity
-  multiplier: 0.95
-  offset: 0
-  underlyingTask: {fileID: 0}
+version https://git-lfs.github.com/spec/v1
+oid sha256:4c4344bcc87579577568979aa22c6f4b379c8a4b7ac60478e519ff5484de651d
+size 598

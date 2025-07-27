@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class InteractableBed : MonoBehaviour
+public class InteractableBed : MonoBehaviour, IInteractable
 {
     [Header("Bed Interaction Settings")]
     public string actionText = "Press E to sleep";

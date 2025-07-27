@@ -266,17 +266,17 @@ public class PlayerControllerCode : MonoBehaviour
 
     void Update()
     {
-        if (isControlEnabled)
-        {
-            Move(moveDirection);
-            Jump(jumpDirection);
-        }
+        //if (isControlEnabled)
+        //{
+        //    Move(moveDirection);
+        //    Jump(jumpDirection);
+        //}
 
-        if (isControlEnabled)
-        {
-            Move(moveDirection);
-            Jump(jumpDirection);
-        }
+        //if (isControlEnabled)
+        //{
+        //    Move(moveDirection);
+        //    Jump(jumpDirection);
+        //}
 
         RaycastHit hit;
         Ray ray = new Ray(transform.position + Vector3.up * groundRayDist * 0.5f, -Vector3.up);

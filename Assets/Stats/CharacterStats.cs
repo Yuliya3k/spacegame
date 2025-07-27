@@ -9,7 +9,7 @@ public class BlendShapeData
 {
     public string blendShapeName = "BlendShape";
     [Tooltip("Speed at which the blend shape value changes.")]
-    public float morphSpeed = 1f;
+    public float morphSpeed = 1f; // Used as fallback duration for facial expression transitions
     [Tooltip("Categories that affect this blend shape (e.g., Weight, Fullness, Equipment, Muscles).")]
     public List<string> categories = new List<string>();
 
@@ -845,7 +845,7 @@ public class CharacterStats : MonoBehaviour
 
 
         // Add equipped mesh renderers
-        if (equipmentManager != null)
+        if (equipmentManager != null && equipmentManager.equippedMeshRenderers != null)
         {
             renderersToUpdate.AddRange(equipmentManager.equippedMeshRenderers);
         }
@@ -1031,7 +1031,7 @@ public class CharacterStats : MonoBehaviour
 
 
         // Add equipped mesh renderers
-        if (equipmentManager != null)
+        if (equipmentManager != null && equipmentManager.equippedMeshRenderers != null)
         {
             renderersToUpdate.AddRange(equipmentManager.equippedMeshRenderers);
         }
@@ -1689,14 +1689,14 @@ public class CharacterStats : MonoBehaviour
                 renderer.SetBlendShapeWeight(index, value);
             }
 
-            // Update the blend shape on all relevant renderers
-            SetBlendShapeWeightOnAllRenderers(blendShapeName, value);
+        }
+        // Update the blend shape on all relevant renderers
+        SetBlendShapeWeightOnAllRenderers(blendShapeName, value);
 
-            // Ensure blend shapes are synchronized
-            if (blendShapeSyncScript != null)
-            {
-                blendShapeSyncScript.shouldSync = true;
-            }
+        // Ensure blend shapes are synchronized
+        if (blendShapeSyncScript != null)
+        {
+            blendShapeSyncScript.shouldSync = true;
         }
         //else
         //{
@@ -1705,10 +1705,14 @@ public class CharacterStats : MonoBehaviour
     }
 
 
-    
 
 
-    public void SetFacialExpression(string blendShapeName, float targetValue)
+
+    /// <summary>
+    /// Sets a facial expression blend shape to the desired value.
+    /// If durationInGameMinutes is negative the blend shape's morphSpeed acts as the fallback duration for the transition.
+    /// </summary>
+    public void SetFacialExpression(string blendShapeName, float targetValue, float durationInGameMinutes = 0.5f)
     {
         // Find the blend shape data for the expression
         BlendShapeData blendShape = facialExpressionBlendShapes.FirstOrDefault(bs => bs.blendShapeName == blendShapeName);
@@ -1722,7 +1726,10 @@ public class CharacterStats : MonoBehaviour
             }
 
             // Start coroutine to transition the blend shape value
-            blendShape.blendShapeCoroutine = StartCoroutine(FacialExpressionTransition(blendShape, targetValue));
+            // morphSpeed acts as the fallback duration for facial expression transitions
+            float duration = durationInGameMinutes >= 0f ? durationInGameMinutes : blendShape.morphSpeed;
+            // Start coroutine to transition the blend shape value
+            blendShape.blendShapeCoroutine = StartCoroutine(FacialExpressionTransition(blendShape, targetValue, duration));
         }
         else
         {
@@ -1730,10 +1737,10 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    private IEnumerator FacialExpressionTransition(BlendShapeData blendShape, float targetValue)
+    private IEnumerator FacialExpressionTransition(BlendShapeData blendShape, float targetValue, float durationInGameMinutes)
     {
-        // Get the real-time duration for 0.5 game minutes
-        float duration = timeManager.GetRealTimeDurationForGameMinutes(0.5f);
+        // Get the real-time duration for the specified in-game minutes
+        float duration = timeManager.GetRealTimeDurationForGameMinutes(durationInGameMinutes);
 
         float elapsedTime = 0f;
         float startingValue = blendShape.renderer.GetBlendShapeWeight(blendShape.blendShapeIndex);

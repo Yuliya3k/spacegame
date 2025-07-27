@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 85e0fb29935fbe4429c772e25929464e
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67724
+  packageName: URP - Skin Shaders
+  packageVersion: 2020.1
+  assetPath: Assets/Ciconia Studio/Shaders/SSS Skin Shaders/BuiltIn/CS_Skin (Specular
+    setup) Cutout.shader
+  uploadId: 478180

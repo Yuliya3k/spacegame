@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: af6e080af735a1849a7a339ea978414f
+timeCreated: 1549203113
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Clothes/FemaleClothing/Boots1.mat
+  uploadId: 293068

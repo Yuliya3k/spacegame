@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: aea78e36bc1c8154dba4bcaf63e49228
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Code/Editor/Salvage.ClothingCuller.Editor.asmdef
+  uploadId: 692612

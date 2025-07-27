@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9bcd6c5537a517d438f845eae6f910b4
+timeCreated: 1547402266
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/Boot_fur.mat
+  uploadId: 293068

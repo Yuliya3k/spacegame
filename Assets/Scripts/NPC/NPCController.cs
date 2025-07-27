@@ -25,6 +25,19 @@ public class NPCController : MonoBehaviour
 
     public Vector3 plannedDestination;
 
+    [Header("Animation Settings")]
+    public string defaultAnimationTrigger = "Idle";
+
+    [Tooltip("Animator trigger name for Talk interactions")]
+    public string talkAnimationTrigger = "Talk";
+    [Tooltip("Animator trigger name for Trade interactions")]
+    public string tradeAnimationTrigger = "Trade";
+
+    private NPCBehaviour npcBehaviour;
+    private NPCBehaviour.NPCState previousState;
+    private int previousAnimHash;
+    private float previousAnimNormalizedTime;
+
     private void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -34,6 +47,13 @@ public class NPCController : MonoBehaviour
         {
             characterStats = GetComponent<CharacterStats>();
         }
+
+        npcBehaviour = GetComponent<NPCBehaviour>();
+        if (npcBehaviour != null)
+        {
+            previousState = npcBehaviour.currentState;
+        }
+
     }
 
     private void Start()
@@ -86,6 +106,14 @@ public class NPCController : MonoBehaviour
         return navAgent != null && navAgent.velocity.magnitude > 0.1f;
     }
 
+    public bool IsFrozen => navAgent != null && navAgent.isStopped;
+
+    //public IEnumerator WaitWhileFrozen()
+    //{
+    //    while (IsFrozen)
+    //        yield return null;
+    //}
+
     // New: Extend GetSaveData to include nav destination and current animation
     public NPCSaveData GetSaveData()
     {
@@ -136,6 +164,7 @@ public class NPCController : MonoBehaviour
             navAgent.SetDestination(destination);
             while (navAgent.pathPending || navAgent.remainingDistance > stoppingDistance)
             {
+                yield return WaitWhileFrozen();
                 yield return null;
             }
         }
@@ -151,6 +180,195 @@ public class NPCController : MonoBehaviour
         // Example logic: use Physics.OverlapSphere or Raycast to detect a door and call its OpenDoors() method.
         Debug.Log("NPCController: Attempting to open nearby door.");
         // Your door-opening logic goes here.
+    }
+
+    /// <summary>
+    /// Freeze the NPC in place.
+    /// </summary>
+    /// <param name="disableAnimator">If true the animator will be disabled while frozen.</param>
+    /// <param name="facePlayer">If true the NPCBehaviour will switch to the Interact state so the NPC faces the player.</param>
+    //public void Freeze(bool disableAnimator = false, bool facePlayer = false)
+    //{
+    //    if (navAgent != null)
+    //    {
+    //        navAgent.isStopped = true;
+    //    }
+
+    //    if (disableAnimator && animator != null)
+    //    {
+    //        animator.enabled = false;
+    //    }
+
+    //    if (facePlayer)
+    //    {
+    //        var behaviour = GetComponent<NPCBehaviour>();
+    //        if (behaviour != null)
+    //        {
+    //            behaviour.ChangeState(NPCBehaviour.NPCState.Interact);
+    //        }
+    //    }
+    //}
+
+    ///// <summary>
+    ///// Resume normal behaviour after being frozen.
+    ///// </summary>
+    //public void Unfreeze()
+    //{
+    //    if (navAgent != null)
+    //    {
+    //        navAgent.isStopped = false;
+    //    }
+
+    //    if (animator != null)
+    //    {
+    //        animator.enabled = true;
+    //    }
+    //}
+
+    private Coroutine facePlayerCoroutine;
+    public void Freeze()
+    {
+        if (navAgent != null)
+        {
+            navAgent.isStopped = true;
+        }
+
+        if (npcBehaviour != null)
+        {
+            previousState = npcBehaviour.currentState;
+            npcBehaviour.currentState = NPCBehaviour.NPCState.Interact;
+        }
+
+        FacePlayerSmoothly();
+    }
+
+    public void Unfreeze()
+    {
+        if (navAgent != null)
+        {
+            navAgent.isStopped = false;
+        }
+
+        if (npcBehaviour != null)
+        {
+            npcBehaviour.currentState = previousState;
+        }
+
+        if (animator != null && previousAnimHash != 0)
+        {
+            animator.Play(previousAnimHash, 0, previousAnimNormalizedTime);
+            previousAnimHash = 0;
+            previousAnimNormalizedTime = 0f;
+        }
+    }
+
+
+
+    private void FacePlayer()
+    {
+        var player = PlayerControllerCode.instance;
+        if (player == null)
+            return;
+
+        Vector3 direction = player.transform.position - transform.position;
+        direction.y = 0f;
+        if (direction.sqrMagnitude < 0.001f)
+            return;
+
+        transform.rotation = Quaternion.LookRotation(direction);
+    }
+
+    private void FacePlayerSmoothly()
+    {
+        if (facePlayerCoroutine != null)
+        {
+            StopCoroutine(facePlayerCoroutine);
+        }
+        facePlayerCoroutine = StartCoroutine(RotateTowardsPlayer());
+    }
+
+    private IEnumerator RotateTowardsPlayer()
+    {
+        var player = PlayerControllerCode.instance;
+        if (player == null)
+            yield break;
+
+        Vector3 direction = player.transform.position - transform.position;
+        direction.y = 0f;
+        if (direction.sqrMagnitude < 0.001f)
+            yield break;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            yield return null;
+            direction = player.transform.position - transform.position;
+            direction.y = 0f;
+            targetRotation = Quaternion.LookRotation(direction);
+        }
+        transform.rotation = targetRotation;
+    }
+
+    public void SetInteractionAnimation(string trigger)
+    {
+        if (animator == null)
+            return;
+
+        AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+        previousAnimHash = info.fullPathHash;
+        previousAnimNormalizedTime = info.normalizedTime;
+        animator.SetTrigger(trigger);
+
+    }
+
+    public void ReturnToDefaultAnimation()
+    {
+        if (animator != null && !string.IsNullOrEmpty(defaultAnimationTrigger))
+        {
+            animator.SetTrigger(defaultAnimationTrigger);
+        }
+    }
+
+    //public void SetInteractionAnimation(string trigger)
+    //{
+    //    Freeze();
+    //    if (animator != null && !string.IsNullOrEmpty(trigger))
+    //    {
+    //        animator.SetTrigger(trigger);
+    //    }
+    //}
+
+    //public void ReturnToDefaultAnimation()
+    //{
+    //    if (animator != null && !string.IsNullOrEmpty(defaultAnimationTrigger))
+    //    {
+    //        animator.SetTrigger(defaultAnimationTrigger);
+    //    }
+    //}
+
+    //public void SetInteractionAnimation(string animationName)
+    //{
+    //    if (animator != null && !string.IsNullOrEmpty(animationName))
+    //    {
+    //        animator.Play(animationName);
+    //    }
+    //}
+
+
+
+
+    /// <summary>
+    /// Waits until the global input freeze is lifted.
+    /// </summary>
+    public IEnumerator WaitWhileFrozen()
+    {
+        if (InputFreezeManager.instance == null)
+            yield break;
+
+        yield return new WaitUntil(() => !InputFreezeManager.instance.IsFrozen);
+
+
     }
 
 }

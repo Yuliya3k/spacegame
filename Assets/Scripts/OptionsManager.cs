@@ -37,7 +37,8 @@ public class OptionsManager : MonoBehaviour
     public float minMouseSensitivity = 0.1f;
     public float maxMouseSensitivity = 5f;      // Adjust max value as needed
 
-
+    [Header("Camera Options")]
+    public Toggle invertYToggle;
     //private void Start()
     //{
     //    // Initialize settings
@@ -61,6 +62,7 @@ public class OptionsManager : MonoBehaviour
         InitializeViewDistanceSettings();
         InitializeAudioSettings();
         InitializeMouseSensitivitySettings();
+        InitializeInvertYSetting();
 
         // Check if slider and text are assigned
         Debug.Log("mouseSensitivitySlider is " + (mouseSensitivitySlider != null ? "assigned." : "null!"));
@@ -252,6 +254,13 @@ public class OptionsManager : MonoBehaviour
         mouseSensitivitySlider.value = sensitivity;
         SetMouseSensitivity(sensitivity);
 
+        // Load Invert Y
+        bool invert = PlayerPrefs.GetInt("InvertY", 0) == 1;
+        if (invertYToggle != null)
+        {
+            invertYToggle.isOn = invert;
+        }
+        SetInvertY(invert);
         // Audio settings are loaded in InitializeAudioSettings()
     }
 
@@ -295,21 +304,58 @@ public class OptionsManager : MonoBehaviour
 
     public void SetMouseSensitivity(float sensitivity)
     {
-        Debug.Log("SetMouseSensitivity called with sensitivity: " + sensitivity);
+        //Debug.Log("SetMouseSensitivity called with sensitivity: " + sensitivity);
 
-        if (CameraController.instance != null)
+        ICameraControl cam = null;
+        foreach (var mb in FindObjectsOfType<MonoBehaviour>())
         {
-            CameraController.instance.SetMouseSensitivity(sensitivity);
+            if (mb is ICameraControl control)
+            {
+                cam = control;
+                break;
+            }
+        }
+        if (cam is CameraController legacy)
+        {
+            legacy.SetMouseSensitivity(sensitivity);
+        }
+        else if (cam is CinemachineCameraController cine)
+        {
+            cine.SetMouseSensitivity(sensitivity);
         }
         else
         {
-            Debug.LogWarning("CameraController instance is not available.");
+            Debug.LogWarning("No camera controller available.");
         }
 
         mouseSensitivityValueText.text = sensitivity.ToString("F1");
         PlayerPrefs.SetFloat("MouseSensitivity", sensitivity);
     }
 
+    private void InitializeInvertYSetting()
+    {
+        bool invert = PlayerPrefs.GetInt("InvertY", 0) == 1;
+        if (invertYToggle != null)
+        {
+            invertYToggle.isOn = invert;
+            invertYToggle.onValueChanged.AddListener(SetInvertY);
+        }
 
+        SetInvertY(invert);
+    }
+
+    public void SetInvertY(bool invert)
+    {
+        if (CinemachineCameraController.instance != null)
+        {
+            CinemachineCameraController.instance.SetInvertY(invert);
+        }
+        else
+        {
+            Debug.LogWarning("CinemachineCameraController instance is not available.");
+        }
+
+        PlayerPrefs.SetInt("InvertY", invert ? 1 : 0);
+    }
 
 }

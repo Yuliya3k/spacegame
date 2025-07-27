@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 75f24b5245d09ae4882955b0e606ff51
+timeCreated: 1549706138
+licenseType: Store
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Documentation/Physically Based Cloth Shaders.pdf
+  uploadId: 293068

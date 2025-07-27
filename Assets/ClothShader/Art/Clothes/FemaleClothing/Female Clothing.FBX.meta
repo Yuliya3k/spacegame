@@ -1,0 +1,202 @@
+fileFormatVersion: 2
+guid: acddf56fc43f96c488fc56463e39b022
+timeCreated: 1549203072
+licenseType: Store
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Black_t_shirt
+    100002: Boots
+    100004: Pants
+    100006: //RootNode
+    100008: Top
+    400000: Black_t_shirt
+    400002: Boots
+    400004: Pants
+    400006: //RootNode
+    400008: Top
+    2100000: Top1
+    2100002: Black_tshirt
+    2100004: Pants1
+    2100006: Boots1
+    2300000: Black_t_shirt
+    2300002: Boots
+    2300004: Pants
+    2300006: Top
+    3300000: Black_t_shirt
+    3300002: Boots
+    3300004: Pants
+    3300006: Top
+    4300000: Top
+    4300002: Black_t_shirt
+    4300004: Pants
+    4300006: Boots
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black_tshirt
+    second: {fileID: 2100000, guid: 48bb858b4b3022b4a89087ac52c5e6f3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Boots1
+    second: {fileID: 2100000, guid: af6e080af735a1849a7a339ea978414f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pants1
+    second: {fileID: 2100000, guid: 0184ab5165f002c4b9b2b5739b67b4da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Top1
+    second: {fileID: 2100000, guid: 617d5c7717f613549ab70718b0ca9757, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Boots-[Albedo]
+    second: {fileID: 2800000, guid: 9277657a80f5986429c1c7aa37ce8e09, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Boots-[Normal]
+    second: {fileID: 2800000, guid: e7d5d254139a21743a653652fd81ff65, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Boots-[Specular]
+    second: {fileID: 2800000, guid: 589aa47ab7080a54d9ddb802aaa21719, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Pants-[Albedo]
+    second: {fileID: 2800000, guid: 7fdc5d03ddaef3946b5a4765345cb5fe, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Pants-[Normal]
+    second: {fileID: 2800000, guid: 8658c10c006c25d4eb6e432291fa689d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Pants-[Specular]
+    second: {fileID: 2800000, guid: f7df0dedf3ebe014785ad139be0fbc63, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: T-shirt-[Albedo]
+    second: {fileID: 2800000, guid: 6febf28a08a2fe74ba5e478406effeb6, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: T-shirt-[Normal]
+    second: {fileID: 2800000, guid: cb97ac16a514cb749bf754993541d942, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: T-shirt-[Specular]
+    second: {fileID: 2800000, guid: f6ff15cfafea4134185b21ea3a3ba436, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Top-[Albedo]
+    second: {fileID: 2800000, guid: 7599e26c01c234640b987c4d7c2d9776, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Top-[Normal]
+    second: {fileID: 2800000, guid: 16d49a87f904fcc459c4abed554d93ab, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Top-[Specular]
+    second: {fileID: 2800000, guid: 124ac2333c3afd44f96769c94a28811a, type: 3}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 1
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Clothes/FemaleClothing/Female Clothing.FBX
+  uploadId: 293068

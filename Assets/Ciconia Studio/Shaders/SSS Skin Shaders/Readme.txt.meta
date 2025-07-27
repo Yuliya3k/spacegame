@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 123fe2074f02a3844a9590e8542d951b
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67724
+  packageName: URP - Skin Shaders
+  packageVersion: 2020.1
+  assetPath: Assets/Ciconia Studio/Shaders/SSS Skin Shaders/Readme.txt
+  uploadId: 478180

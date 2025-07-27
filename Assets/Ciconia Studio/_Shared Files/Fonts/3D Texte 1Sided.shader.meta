@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 78ada030c41e24a43b9ef775888a3921
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 67724
+  packageName: URP - Skin Shaders
+  packageVersion: 2020.1
+  assetPath: Assets/Ciconia Studio/_Shared Files/Fonts/3D Texte 1Sided.shader
+  uploadId: 478180

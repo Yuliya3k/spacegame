@@ -27,7 +27,7 @@ public class SinkUIManager : MonoBehaviour
     private PlayerControllerCode playerController;
     private PlayerInteraction playerInteraction;
 
-    private CameraController cameraController;
+    private CinemachineCameraController cameraController;
 
     private void Awake()
     {
@@ -52,10 +52,10 @@ public class SinkUIManager : MonoBehaviour
         }
 
         // Find the CameraController
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         if (cameraController == null)
         {
-            Debug.LogError("SinkUIManager: CameraController not found in the scene.");
+            Debug.LogError("SinkUIManager: CinemachineCameraController not found in the scene.");
         }
     }
 
@@ -88,16 +88,11 @@ public class SinkUIManager : MonoBehaviour
         // Hide the tooltip (if you have a TooltipManager)
         TooltipManager.instance.HideTooltip();
 
-        // Disable player control
-        playerController.DisablePlayerControl();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        // Disable camera control
-        if (cameraController != null)
+        if (InputFreezeManager.instance != null)
         {
-            cameraController.DisableCameraControl();
+            InputFreezeManager.instance.FreezePlayerAndCursor();
         }
+    
 
         // Hide specified UIs
         foreach (var ui in uisToHideOnSinkUse)
@@ -116,22 +111,16 @@ public class SinkUIManager : MonoBehaviour
         if (playerInteraction != null)
             playerInteraction.enabled = true;
 
-        // Enable player control
-        playerController.EnablePlayerControl();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
 
         // Re-enable opening CharacterUI
         UIManager.instance.EnableCharacterUIOpening();
 
         // NEW: also re-enable in-game menu
         InGameMenuController.instance.EnableMenuOpening();
-
-        // Enable camera control
-        if (cameraController != null)
-        {
-            cameraController.EnableCameraControl();
-        }
 
         // Show specified UIs
         foreach (var ui in uisToHideOnSinkUse)
@@ -191,15 +180,9 @@ public class SinkUIManager : MonoBehaviour
         if (playerInteraction != null)
             playerInteraction.enabled = true;
 
-        // Enable player control
-        playerController.EnablePlayerControl();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        // Enable camera control
-        if (cameraController != null)
+        if (InputFreezeManager.instance != null)
         {
-            cameraController.EnableCameraControl();
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
         }
 
         // Show specified UIs

@@ -1,16 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 955b10fbb85a6c14c833ab12184dfdb9, type: 3}
-  m_Name: move to Cube (2)
-  m_EditorClassIdentifier: 
-  targetObjectName: Cube (2)
-  stoppingDistance: 2
+version https://git-lfs.github.com/spec/v1
+oid sha256:65fbdc7137db4692135571af43adfcab240577c822472263c90cf31674c33def
+size 456

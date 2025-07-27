@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 0184ab5165f002c4b9b2b5739b67b4da
+timeCreated: 1549203114
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Clothes/FemaleClothing/Pants1.mat
+  uploadId: 293068

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 6812eae6080906b4b8b7a631f1c41dde
+timeCreated: 1549213037
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/TestMat.mat
+  uploadId: 293068

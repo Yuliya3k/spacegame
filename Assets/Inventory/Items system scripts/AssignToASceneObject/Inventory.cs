@@ -106,7 +106,7 @@ public class Inventory : MonoBehaviour
         dishes.Add(newItem);
         dishDictionary.Add(_item, newItem);
 
-        Debug.Log("Added to Dishes: " + _item.objectName);
+        //Debug.Log("Added to Dishes: " + _item.objectName);
     }
 
     protected void AddToResources(ItemData _item, int quantity)
@@ -121,7 +121,7 @@ public class Inventory : MonoBehaviour
             newItem.AddStack(quantity - 1);  // Add the remaining quantity (initial stack is 1)
             resources.Add(newItem);
             resourceDictionary.Add(_item, newItem);
-            Debug.Log("Added Resource to Resources List.");
+            //Debug.Log("Added Resource to Resources List.");
         }
     }
 
@@ -138,7 +138,7 @@ public class Inventory : MonoBehaviour
             inventory.Add(newItem);
             inventoryDictionary.Add(_item, newItem);
         }
-        Debug.Log("Added to Inventory: " + _item.objectName);
+        //Debug.Log("Added to Inventory: " + _item.objectName);
     }
 
     public virtual void RemoveItem(ItemData _item, int quantity = 1)
@@ -172,7 +172,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Attempted to remove item that was not in inventory: " + _item.objectName);
+            //Debug.LogWarning("Attempted to remove item that was not in inventory: " + _item.objectName);
         }
     }
 
@@ -283,12 +283,43 @@ public class Inventory : MonoBehaviour
     // IMPLEMENTATION OF RebuildDictionaries()
     public void RebuildDictionaries()
     {
-        // Clear all dictionaries
-        ingredientDictionary.Clear();
-        resourceDictionary.Clear();
-        dishDictionary.Clear();
-        inventoryDictionary.Clear();
-        equipmentDictionary.Clear();
+        // Ensure lists exist before rebuilding
+        if (ingredients == null)
+            ingredients = new List<InventoryItem>();
+        if (resources == null)
+            resources = new List<InventoryItem>();
+        if (dishes == null)
+            dishes = new List<InventoryItem>();
+        if (inventory == null)
+            inventory = new List<InventoryItem>();
+        if (equipment == null)
+            equipment = new List<InventoryItem>();
+
+        // Ensure dictionaries exist and then clear them
+        if (ingredientDictionary == null)
+            ingredientDictionary = new Dictionary<ItemData, InventoryItem>();
+        else
+            ingredientDictionary.Clear();
+
+        if (resourceDictionary == null)
+            resourceDictionary = new Dictionary<ItemData, InventoryItem>();
+        else
+            resourceDictionary.Clear();
+
+        if (dishDictionary == null)
+            dishDictionary = new Dictionary<ItemData, InventoryItem>();
+        else
+            dishDictionary.Clear();
+
+        if (inventoryDictionary == null)
+            inventoryDictionary = new Dictionary<ItemData, InventoryItem>();
+        else
+            inventoryDictionary.Clear();
+
+        if (equipmentDictionary == null)
+            equipmentDictionary = new Dictionary<EquipmentType, InventoryItem>();
+        else
+            equipmentDictionary.Clear();
 
         // Rebuild ingredient dictionary
         foreach (var item in ingredients)

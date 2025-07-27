@@ -8,7 +8,7 @@ public class SinkManager : MonoBehaviour
     // public static SinkManager instance;
 
     private PlayerControllerCode playerController;
-    private CameraController cameraController;
+    private CinemachineCameraController cameraController;
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -65,7 +65,7 @@ public class SinkManager : MonoBehaviour
     private void Start()
     {
         playerController = PlayerControllerCode.instance;
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         playerInteraction = playerController.GetComponent<PlayerInteraction>();
 
         if (characterStats == null)

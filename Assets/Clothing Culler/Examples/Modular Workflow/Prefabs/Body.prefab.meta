@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f940228ca626be64f817613bcc0bb985
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Examples/Modular Workflow/Prefabs/Body.prefab
+  uploadId: 692612

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InteractableToilet : MonoBehaviour
+public class InteractableToilet : MonoBehaviour, IInteractable
 {
     [Header("Toilet Interaction Settings")]
     public string actionText = "Press E to use toilet";

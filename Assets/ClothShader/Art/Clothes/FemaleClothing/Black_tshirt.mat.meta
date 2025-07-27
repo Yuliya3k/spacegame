@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 48bb858b4b3022b4a89087ac52c5e6f3
+timeCreated: 1549203113
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Clothes/FemaleClothing/Black_tshirt.mat
+  uploadId: 293068

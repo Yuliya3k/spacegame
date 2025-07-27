@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 3abddaea39de71545ba6b20782db622b
+timeCreated: 1547983854
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 138825
+  packageName: Physically Based Cloth Shaders
+  packageVersion: 1.0
+  assetPath: Assets/ClothShader/Art/Models/Materials/M_Glas_MAt_Inst.mat
+  uploadId: 293068

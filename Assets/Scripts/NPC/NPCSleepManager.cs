@@ -26,7 +26,7 @@ public class NPCSleepManager : MonoBehaviour
     private InGameTimeManager timeManager;
     
     private PlayerControllerCode playerController;
-    private CameraController cameraController;
+    private CinemachineCameraController cameraController;
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -72,7 +72,7 @@ public class NPCSleepManager : MonoBehaviour
         timeManager = FindObjectOfType<InGameTimeManager>();
         
         playerController = PlayerControllerCode.instance;
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         playerInteraction = playerController.GetComponent<PlayerInteraction>(); // Add this line
 
         if (characterStats == null)
@@ -233,7 +233,7 @@ public class NPCSleepManager : MonoBehaviour
             }
 
             // Set the facial expression
-            characterStats.SetFacialExpression(blendShapeSetting.blendShapeName, blendShapeSetting.value);
+            characterStats.SetFacialExpression(blendShapeSetting.blendShapeName, blendShapeSetting.value, blendShapeSetting.durationInGameMinutes);
         }
     }
 
@@ -242,7 +242,7 @@ public class NPCSleepManager : MonoBehaviour
         foreach (var kvp in originalBlendShapeValues)
         {
             // Restore the facial expression
-            characterStats.SetFacialExpression(kvp.Key, kvp.Value);
+            characterStats.SetFacialExpression(kvp.Key, kvp.Value, -1f);
         }
 
         // Clear the dictionary

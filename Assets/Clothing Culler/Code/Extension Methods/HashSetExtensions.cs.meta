@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 672954fc140cb1042ad88f4bc4d899ce
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Code/Extension Methods/HashSetExtensions.cs
+  uploadId: 692612

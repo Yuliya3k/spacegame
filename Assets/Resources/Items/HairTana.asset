@@ -1,36 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbae49c7e7ca3fd449b84eb8dc53b642, type: 3}
-  m_Name: HairTana
-  m_EditorClassIdentifier: 
-  _itemID: b35f99f7360a5df4dbd00ec384a25530
-  objectName: Hair
-  description: 
-  icon: {fileID: 21300000, guid: 3acfab4b220f61a49920134501041828, type: 3}
-  stackSize: 1
-  weight: 100
-  volume: 100
-  itemMesh: {fileID: 1765641011551597947, guid: eaff1eff82e57664d8c7f58adc5c2d44, type: 3}
-  itemMaterial: {fileID: 2100000, guid: 0c55cd7361468d948b0effadb0bb38bf, type: 2}
-  itemType: 1
-  equipmentSlots: 00000000
-  colliderHeightAdjustment: 0
-  strength: 0
-  agility: 0
-  intelligence: 0
-  vitality: 0
-  staminaSpentToCraft: 0
-  caloriesSpentToCraft: 0
-  timeToCraft: 0
-  statModifiers: []
-  blendShapeModifiers: []
-  craftingMaterials: []
+version https://git-lfs.github.com/spec/v1
+oid sha256:c12dc802d3d2586f898042d47f95d03bef7246ea11da1f733990b3e144583d61
+size 1037

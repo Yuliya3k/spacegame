@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a7b81b2ef83e1ea44b9bd71b767fab1f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 203672
+  packageName: Clothing Culler
+  packageVersion: 1.1.13
+  assetPath: Assets/Clothing Culler/Code/Editor/Classes/Helpers/RenderPipelineType.cs
+  uploadId: 692612

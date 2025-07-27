@@ -9,7 +9,7 @@ using System;
 public class ShowerManager : MonoBehaviour
 {
     private PlayerControllerCode playerController;
-    private CameraController cameraController;
+    private CinemachineCameraController cameraController;
     private PlayerInteraction playerInteraction;
 
     [Header("Shower Actions")]
@@ -69,7 +69,7 @@ public class ShowerManager : MonoBehaviour
     void Start()
     {
         playerController = PlayerControllerCode.instance;
-        cameraController = FindObjectOfType<CameraController>();
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         playerInteraction = playerController.GetComponent<PlayerInteraction>();
 
         if (characterStats == null)

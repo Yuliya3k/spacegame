@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class RestUIManager : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class RestUIManager : MonoBehaviour
 
     private PlayerControllerCode playerController;
     private PlayerInteraction playerInteraction;
-
+    private PlayerInputActions inputActions;
     private void Awake()
     {
         // Removed singleton pattern
@@ -41,6 +42,9 @@ public class RestUIManager : MonoBehaviour
         restSlider.maxValue = 10;
         restSlider.wholeNumbers = true;
         restSlider.onValueChanged.AddListener(OnSliderValueChanged);
+
+        inputActions = new PlayerInputActions();
+        inputActions.Player.Interact.performed += OnInteract;
 
         // Initialize playerController and playerInteraction here
         playerController = PlayerControllerCode.instance;
@@ -72,11 +76,6 @@ public class RestUIManager : MonoBehaviour
         // Activate the UI panel first
         restUIPanel.SetActive(true);
 
-        // Disable player control
-        playerController.DisablePlayerControl();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
         restSlider.value = restSlider.minValue; // Default rest hours
         OnSliderValueChanged(restSlider.value);
 
@@ -97,10 +96,10 @@ public class RestUIManager : MonoBehaviour
         // Hide the tooltip
         TooltipManager.instance.HideTooltip();
 
-        // Disable player control
-        playerController.DisablePlayerControl();
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.FreezePlayerAndCursor();
+        }
 
         UIManager.instance.DisableCharacterUIOpening();
 
@@ -125,10 +124,10 @@ public class RestUIManager : MonoBehaviour
         if (playerInteraction != null)
             playerInteraction.enabled = true;
 
-        // Enable player control
-        playerController.EnablePlayerControl();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
 
         // Re-enable opening CharacterUI
         UIManager.instance.EnableCharacterUIOpening();
@@ -145,13 +144,22 @@ public class RestUIManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void OnInteract(InputAction.CallbackContext context)
     {
-        // Close UI if player presses E again
-        if (restUIPanel.activeSelf && Input.GetKeyDown(KeyCode.E))
+        if (restUIPanel.activeSelf)
         {
             CloseRestUI();
         }
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Disable();
     }
 
     private void OnRestButtonClicked()

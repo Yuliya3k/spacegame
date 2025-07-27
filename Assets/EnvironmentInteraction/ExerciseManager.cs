@@ -7,7 +7,7 @@ public class ExerciseManager : MonoBehaviour
     [Header("References")]
     public CharacterStats characterStats; // Assign via Inspector
     public PlayerControllerCode playerController;
-    public CameraController cameraController;
+    private CinemachineCameraController cameraController;
     public InGameTimeManager timeManager;
     public ExerciseUIManager exerciseUIManager;
     private PlayerInteraction playerInteraction;
@@ -55,7 +55,7 @@ public class ExerciseManager : MonoBehaviour
 
         if (cameraController == null)
         {
-            cameraController = FindObjectOfType<CameraController>();
+            cameraController = FindObjectOfType<CinemachineCameraController>();
         }
 
         if (timeManager == null)

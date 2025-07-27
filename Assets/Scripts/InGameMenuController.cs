@@ -85,20 +85,24 @@ public class InGameMenuController : MonoBehaviour
         // Pause or resume the game
         Time.timeScale = isMenuActive ? 0f : 1f;
 
-        // Manage cursor visibility and lock state
+        // Manage cursor and player control via InputFreezeManager
         if (isMenuActive)
-        {           
+        {
+            if (InputFreezeManager.instance != null)
+            {
+                InputFreezeManager.instance.FreezePlayerAndCursor();
+            }
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
             // Disable opening CharacterUI
             UIManager.instance.DisableCharacterUIOpening();
         }
         else
-        {  
+        {
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+             if (InputFreezeManager.instance != null)
+            {
+                InputFreezeManager.instance.UnfreezePlayerAndCursor();
+            }
             // Re-enable opening CharacterUI
             UIManager.instance.EnableCharacterUIOpening();
         }
@@ -121,9 +125,11 @@ public class InGameMenuController : MonoBehaviour
         optionsMenuUI.SetActive(true);
         isOptionsMenuActive = true;
 
-        // Cursor should remain visible and unlocked
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        // Cursor state managed by InputFreezeManager
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.FreezePlayerAndCursor();
+        }
 
 
     }
@@ -134,9 +140,7 @@ public class InGameMenuController : MonoBehaviour
         //inGameMenuUI.SetActive(true);
         isOptionsMenuActive = false;
 
-        // Cursor should remain visible and unlocked in the in-game menu
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        // Cursor state remains managed by the main menu
     }
 
 
