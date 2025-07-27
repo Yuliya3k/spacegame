@@ -38,8 +38,8 @@ public class IdleMimicBlendshapes : MonoBehaviour
         public string statName;
         [Tooltip("Minimum value of the stat to map from")] public float statMin = 0f;
         [Tooltip("Maximum value of the stat to map from")] public float statMax = 100f;
-        [Range(0f,100f)] public float minWeight = 0f;
-        [Range(0f,100f)] public float maxWeight = 100f;
+        [Range(0f, 100f)] public float minWeight = 0f;
+        [Range(0f, 100f)] public float maxWeight = 100f;
     }
 
     [Header("Renderer")]
@@ -152,13 +152,24 @@ public class IdleMimicBlendshapes : MonoBehaviour
 
         float halfDuration = group.duration * 0.5f;
 
+        // Cache the starting and target weights for each blendshape in the group
+        float[] startWeights = new float[group.blendshapes.Length];
+        float[] targetWeights = new float[group.blendshapes.Length];
+        for (int i = 0; i < group.blendshapes.Length; i++)
+        {
+            var b = group.blendshapes[i];
+            startWeights[i] = GetBlendshape(b.blendshapeName);
+            targetWeights[i] = Random.Range(b.minWeight, b.maxWeight);
+        }
+
         float timer = 0f;
         while (timer < halfDuration)
         {
             float t = timer / halfDuration;
-            foreach (var b in group.blendshapes)
+            for (int i = 0; i < group.blendshapes.Length; i++)
             {
-                float weight = Mathf.Lerp(0f, Random.Range(b.minWeight, b.maxWeight), t);
+                var b = group.blendshapes[i];
+                float weight = Mathf.Lerp(startWeights[i], targetWeights[i], t);
                 SetBlendshape(b.blendshapeName, weight);
             }
             timer += Time.deltaTime;
@@ -169,17 +180,17 @@ public class IdleMimicBlendshapes : MonoBehaviour
         while (timer < halfDuration)
         {
             float t = timer / halfDuration;
-            foreach (var b in group.blendshapes)
+            for (int i = 0; i < group.blendshapes.Length; i++)
             {
-                float startWeight = Random.Range(b.minWeight, b.maxWeight);
-                float weight = Mathf.Lerp(startWeight, 0f, t);
+                var b = group.blendshapes[i];
+                float weight = Mathf.Lerp(targetWeights[i], startWeights[i], t);
                 SetBlendshape(b.blendshapeName, weight);
             }
             timer += Time.deltaTime;
             yield return null;
         }
-        foreach (var b in group.blendshapes)
-            SetBlendshape(b.blendshapeName, 0f);
+        for (int i = 0; i < group.blendshapes.Length; i++)
+            SetBlendshape(group.blendshapes[i].blendshapeName, startWeights[i]);
     }
 
     private IEnumerator ConditionalRoutine()
@@ -215,4 +226,12 @@ public class IdleMimicBlendshapes : MonoBehaviour
             return;
         skinnedRenderer.SetBlendShapeWeight(index, weight);
     }
+
+    private float GetBlendshape(string name)
+    {
+        if (!_indexCache.TryGetValue(name, out int index))
+            return 0f;
+        return skinnedRenderer.GetBlendShapeWeight(index);
+    }
+    
 }
