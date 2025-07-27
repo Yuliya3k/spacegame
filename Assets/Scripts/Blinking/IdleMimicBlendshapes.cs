@@ -4,9 +4,9 @@ using UnityEngine;
 
 /// <summary>
 /// Drives idle facial blendshapes such as small muscle twitches and blinking.
-/// Blendshape groups are chosen at random and played at random speeds. Blinking
-/// runs on its own timer and is not affected by the randomisation of other
-/// groups.
+/// Blendshape groups are chosen at random and played for a duration specified on
+/// each group. Blinking runs on its own timer and is not affected by the
+/// randomisation of other groups.
 /// </summary>
 public class IdleMimicBlendshapes : MonoBehaviour
 {
@@ -25,6 +25,9 @@ public class IdleMimicBlendshapes : MonoBehaviour
     {
         public string groupName;
         public BlendshapeEntry[] blendshapes;
+
+        [Tooltip("Duration in seconds for this group to play (up and down)")]
+        public float duration = 2f;
     }
 
     [System.Serializable]
@@ -144,31 +147,35 @@ public class IdleMimicBlendshapes : MonoBehaviour
 
     private IEnumerator PlayGroup(BlendshapeGroup group)
     {
-        float speed = Random.Range(minSpeed, maxSpeed);
+        if (group.duration <= 0f)
+            yield break;
+
+        float halfDuration = group.duration * 0.5f;
+
         float timer = 0f;
-        while (timer < 1f)
+        while (timer < halfDuration)
         {
-            float t = timer;
+            float t = timer / halfDuration;
             foreach (var b in group.blendshapes)
             {
                 float weight = Mathf.Lerp(0f, Random.Range(b.minWeight, b.maxWeight), t);
                 SetBlendshape(b.blendshapeName, weight);
             }
-            timer += Time.deltaTime * speed;
+            timer += Time.deltaTime;
             yield return null;
         }
+
         timer = 0f;
-        while (timer < 1f)
+        while (timer < halfDuration)
         {
-            float t = timer;
+            float t = timer / halfDuration;
             foreach (var b in group.blendshapes)
             {
-                float target = 0f;
                 float startWeight = Random.Range(b.minWeight, b.maxWeight);
-                float weight = Mathf.Lerp(startWeight, target, t);
+                float weight = Mathf.Lerp(startWeight, 0f, t);
                 SetBlendshape(b.blendshapeName, weight);
             }
-            timer += Time.deltaTime * speed;
+            timer += Time.deltaTime;
             yield return null;
         }
         foreach (var b in group.blendshapes)
