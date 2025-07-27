@@ -33,7 +33,8 @@ public class IdleMimicBlendshapes : MonoBehaviour
     [Header("Blink Settings")]
     public string blinkLeft = "Eye_Blink_L";
     public string blinkRight = "Eye_Blink_R";
-    public float blinkInterval = 4f;
+    public float minBlinkInterval = 3f;
+    public float maxBlinkInterval = 6f;
     public float blinkDuration = 0.1f;
 
     [Header("Random Groups")]
@@ -79,7 +80,8 @@ public class IdleMimicBlendshapes : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(blinkInterval);
+            float wait = Random.Range(minBlinkInterval, maxBlinkInterval);
+            yield return new WaitForSeconds(wait);
             yield return StartCoroutine(PlayBlink());
         }
     }
