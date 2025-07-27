@@ -172,6 +172,8 @@ public class NPCInteractionUIManager : MonoBehaviour
         if (InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
+            // Also release any freeze from the radial menu
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
         }
 
         if (currentNPCInventory != null)
