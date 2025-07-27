@@ -27,6 +27,18 @@ public class IdleMimicBlendshapes : MonoBehaviour
         public BlendshapeEntry[] blendshapes;
     }
 
+    [System.Serializable]
+    public class ConditionalBlendshape
+    {
+        [Tooltip("Name of the blendshape to control")] public string blendshapeName;
+        [Tooltip("Stat in CharacterStats used to drive this blendshape")]
+        public string statName;
+        [Tooltip("Minimum value of the stat to map from")] public float statMin = 0f;
+        [Tooltip("Maximum value of the stat to map from")] public float statMax = 100f;
+        [Range(0f,100f)] public float minWeight = 0f;
+        [Range(0f,100f)] public float maxWeight = 100f;
+    }
+
     [Header("Renderer")]
     public SkinnedMeshRenderer skinnedRenderer;
 
@@ -44,6 +56,10 @@ public class IdleMimicBlendshapes : MonoBehaviour
     public float minSpeed = 1f;
     public float maxSpeed = 2f;
 
+    [Header("Conditional Blendshapes")]
+    public CharacterStats characterStats;
+    public ConditionalBlendshape[] conditionalBlendshapes;
+    public float conditionUpdateInterval = 0.5f;
     private readonly Dictionary<string, int> _indexCache = new();
 
     private void Awake()
@@ -59,6 +75,8 @@ public class IdleMimicBlendshapes : MonoBehaviour
     {
         StartCoroutine(BlinkRoutine());
         StartCoroutine(RandomGroupRoutine());
+        if (conditionalBlendshapes != null && conditionalBlendshapes.Length > 0)
+            StartCoroutine(ConditionalRoutine());
     }
 
     private void CacheIndices()
@@ -155,6 +173,33 @@ public class IdleMimicBlendshapes : MonoBehaviour
         }
         foreach (var b in group.blendshapes)
             SetBlendshape(b.blendshapeName, 0f);
+    }
+
+    private IEnumerator ConditionalRoutine()
+    {
+        while (true)
+        {
+            UpdateConditionalBlendshapes();
+            yield return new WaitForSeconds(conditionUpdateInterval);
+        }
+    }
+
+    private void UpdateConditionalBlendshapes()
+    {
+        if (characterStats == null || conditionalBlendshapes == null)
+            return;
+
+        foreach (var c in conditionalBlendshapes)
+        {
+            float stat = characterStats.GetStat(c.statName);
+            float t = 0f;
+            if (Mathf.Approximately(c.statMax, c.statMin))
+                t = 0f;
+            else
+                t = Mathf.InverseLerp(c.statMin, c.statMax, stat);
+            float weight = Mathf.Lerp(c.minWeight, c.maxWeight, t);
+            SetBlendshape(c.blendshapeName, weight);
+        }
     }
 
     private void SetBlendshape(string name, float weight)
