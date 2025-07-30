@@ -152,12 +152,14 @@ public class StorageUIManager : MonoBehaviour
         Debug.Log("Setting up the storage UI");
 
         currentContainer = container;
+
+        bool wasActive = storageUI.activeSelf;
         storageUI.SetActive(true);  // Activate the UI
 
         HideGameScreenUIs();
 
-        // Freeze player and cursor via InputFreezeManager
-        if (InputFreezeManager.instance != null)
+        // Freeze player and cursor via InputFreezeManager only when first opening
+        if (!wasActive && InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.FreezePlayerAndCursor();
         }

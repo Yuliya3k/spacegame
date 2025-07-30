@@ -93,7 +93,7 @@ public class SleepManager : MonoBehaviour
 
         // Switch camera to bed camera position
         cameraController.SwitchToSleepCamera(bed.bedCameraPosition);
-
+        cameraController.DisableCameraControl();
         // Play sleep animation
         Animator anim = playerController.GetComponent<Animator>();
 
@@ -162,7 +162,7 @@ public class SleepManager : MonoBehaviour
 
         // Switch camera back to normal
         cameraController.SwitchToNormalCamera();
-
+        cameraController.EnableCameraControl();
         // Reset player control
         playerController.EnablePlayerControl();
         Cursor.visible = false;
