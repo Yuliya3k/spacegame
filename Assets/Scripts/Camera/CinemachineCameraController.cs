@@ -408,10 +408,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
     {
         // Disable camera movement
         enabled = false;
-        if (_cineCamera != null)
-        {
-            _cineCamera.enabled = false;
-        }
+        
 
         // Move camera to rest position
         _cineCamera.transform.position = restCameraTransform.position;

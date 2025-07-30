@@ -102,9 +102,9 @@ public class NPCSleepManager : MonoBehaviour
         {
             cameraController.SwitchToRestCamera(bed.bedCameraPosition);
         }
-        else if (bed.bedCamera != null)
+        else
         {
-            cameraController.SwitchToSleepCamera(bed.bedCamera);
+            Debug.LogWarning("NPCSleepManager: bedCameraPosition is not assigned on this bed.");
         }
 
         // Play sleep animation

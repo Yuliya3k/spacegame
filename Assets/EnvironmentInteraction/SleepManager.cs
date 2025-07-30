@@ -89,9 +89,10 @@ public class SleepManager : MonoBehaviour
         {
             Debug.LogWarning("SleepManager: cameraController is null in StartSleep.");
         }
-        if (bed == null || bed.bedCamera == null)
+        if (bed == null)
         {
-            Debug.LogWarning("SleepManager: bed or bed.bedCamera is null in StartSleep.");
+            Debug.LogWarning("SleepManager: bed is null in StartSleep.");
+            return;
         }
         TooltipManager.instance.HideTooltip();
         // Save original position and rotation
@@ -103,15 +104,14 @@ public class SleepManager : MonoBehaviour
         playerController.transform.position = bed.sleepPosition.position;
         playerController.transform.rotation = bed.sleepPosition.rotation;
 
-        // Move the main camera to the bed view just like other actions
+        // Move the main camera to look at the character from above
         if (bed.bedCameraPosition != null)
         {
             cameraController.SwitchToRestCamera(bed.bedCameraPosition);
         }
-        else if (bed.bedCamera != null)
+        else
         {
-            // Fallback for older setups that still use a separate camera
-            cameraController.SwitchToSleepCamera(bed.bedCamera);
+            Debug.LogWarning("SleepManager: bedCameraPosition is not assigned on this bed.");
         }
         cameraController.DisableCameraControl();
         // Play sleep animation
