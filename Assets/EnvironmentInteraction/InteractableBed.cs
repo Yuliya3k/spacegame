@@ -11,7 +11,7 @@ public class InteractableBed : MonoBehaviour, IInteractable
     [Header("Sleep Settings")]
     public Transform sleepPosition; // Assign in the inspector
     public Transform bedCameraPosition; // Assign in the inspector
-
+    public Camera bedCamera; // Camera used when the player sleeps
     private InGameTimeManager timeManager;
 
     private void Start()
@@ -20,6 +20,15 @@ public class InteractableBed : MonoBehaviour, IInteractable
         if (timeManager == null)
         {
             Debug.LogError("InGameTimeManager not found in the scene.");
+        }
+        // Ensure the bed camera starts disabled and the position reference is valid
+        if (bedCamera != null)
+        {
+            bedCamera.enabled = false;
+            if (bedCameraPosition == null)
+            {
+                bedCameraPosition = bedCamera.transform;
+            }
         }
     }
 

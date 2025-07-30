@@ -60,6 +60,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
     private CameraProfile currentProfile;
     private Camera mainCamera;
     private CinemachineCamera _cineCamera;
+    private Camera activeSleepCamera;
 
     // Add collision smoothing factor
     public float collisionSmoothing = 10f;
@@ -313,40 +314,46 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         _cineCamera.transform.rotation = targetRotation;
     }
 
-    public void SwitchToSleepCamera(Transform sleepCameraTransform)
+    public void SwitchToSleepCamera(Camera sleepCamera)
     {
-        // Disable camera movement
+        // Disable camera movement and main camera
         enabled = false;
         if (_cineCamera != null)
         {
             _cineCamera.enabled = false;
         }
-
-        // Move camera to sleep position
-        if (sleepCameraTransform != null)
+        if (mainCamera != null)
         {
-            _cineCamera.transform.position = sleepCameraTransform.position;
-            _cineCamera.transform.rotation = sleepCameraTransform.rotation;
+            mainCamera.enabled = false;
+        }
+        if (sleepCamera != null)
+        {
+            activeSleepCamera = sleepCamera;
+            activeSleepCamera.enabled = true;
         }
         else
         {
-            Debug.LogWarning("CinemachineCameraController.SwitchToSleepCamera called with null transform");
-        }
-        // Ensure the camera is not following any target while sleeping
-        if (_cineCamera != null)
-        {
-            _cineCamera.Follow = null;
-            _cineCamera.LookAt = null;
+            Debug.LogWarning("CinemachineCameraController.SwitchToSleepCamera called with null camera");
         }
     }
 
     public void SwitchToNormalCamera()
     {
-        // Re-enable camera movement
+        // Re-enable camera movement and main camera
         enabled = true;
         if (_cineCamera != null)
         {
             _cineCamera.enabled = true;
+        }
+        if (mainCamera != null)
+        {
+            mainCamera.enabled = true;
+        }
+
+        if (activeSleepCamera != null)
+        {
+            activeSleepCamera.enabled = false;
+            activeSleepCamera = null;
         }
     }
 

@@ -14,33 +14,33 @@ public class ItemDatabase : MonoBehaviour
     public void InitializeDatabase()
     {
         ItemData[] allItems = Resources.LoadAll<ItemData>("Items");
-        Debug.Log($"Loaded {allItems.Length} items from Resources/Items.");
+        // Debug.Log($"Loaded {allItems.Length} items from Resources/Items.");
 
         foreach (ItemData item in allItems)
         {
             if (item == null)
             {
-                Debug.LogWarning("Encountered a null item during database initialization.");
+                // Debug.LogWarning("Encountered a null item during database initialization.");
                 continue;
             }
 
             if (string.IsNullOrEmpty(item.itemID))
             {
-                Debug.LogWarning($"Item '{item.name}' has an empty itemID. Skipping.");
+                // Debug.LogWarning($"Item '{item.name}' has an empty itemID. Skipping.");
                 continue;
             }
 
             if (itemDictionary.ContainsKey(item.itemID))
             {
-                Debug.LogWarning($"Duplicate itemID detected: {item.itemID}. Skipping.");
+                // Debug.LogWarning($"Duplicate itemID detected: {item.itemID}. Skipping.");
                 continue;
             }
 
             itemDictionary[item.itemID] = item;
-            Debug.Log($"Added item to database: {item.itemID} ({item.objectName})");
+            // Debug.Log($"Added item to database: {item.itemID} ({item.objectName})");
         }
 
-        Debug.Log($"Total items in database: {itemDictionary.Count}");
+        // Debug.Log($"Total items in database: {itemDictionary.Count}");
     }
 
     public ItemData GetItemByID(string itemID)
@@ -51,7 +51,7 @@ public class ItemDatabase : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Item ID not found in database: {itemID}");
+            // Debug.LogWarning($"Item ID not found in database: {itemID}");
             // Optionally return a default item or handle the missing item appropriately
             return null;
         }

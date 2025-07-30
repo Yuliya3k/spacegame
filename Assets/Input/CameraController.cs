@@ -56,6 +56,7 @@ public class CameraController : MonoBehaviour, ICameraControl
 
     private CameraProfile currentProfile;
     private Camera mainCamera;
+    private Camera activeSleepCamera;
 
     // Add collision smoothing factor
     public float collisionSmoothing = 10f;
@@ -299,20 +300,39 @@ public class CameraController : MonoBehaviour, ICameraControl
         transform.rotation = targetRotation;
     }
 
-    public void SwitchToSleepCamera(Transform sleepCameraTransform)
+    public void SwitchToSleepCamera(Camera sleepCamera)
     {
-        // Disable camera movement
+        // Disable camera movement and main camera
         enabled = false;
+        if (mainCamera != null)
+        {
+            mainCamera.enabled = false;
+        }
 
-        // Move camera to sleep position
-        transform.position = sleepCameraTransform.position;
-        transform.rotation = sleepCameraTransform.rotation;
+        if (sleepCamera != null)
+        {
+            activeSleepCamera = sleepCamera;
+            activeSleepCamera.enabled = true;
+        }
+        else
+        {
+            Debug.LogWarning("CameraController.SwitchToSleepCamera called with null camera");
+        }
     }
 
     public void SwitchToNormalCamera()
     {
-        // Re-enable camera movement
+         // Re-enable camera movement and main camera
         enabled = true;
+        if (mainCamera != null)
+        {
+            mainCamera.enabled = true;
+        }
+        if (activeSleepCamera != null)
+        {
+            activeSleepCamera.enabled = false;
+            activeSleepCamera = null;
+        }
     }
 
     public void SwitchToDefecationCamera(Transform defecationCameraTransform)

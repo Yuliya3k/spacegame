@@ -24,7 +24,7 @@ public class SleepManager : MonoBehaviour
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
-    private Transform originalCameraTransform;
+    // private Transform originalCameraTransform;
 
     private PlayerInteraction playerInteraction;
 
@@ -66,20 +66,12 @@ public class SleepManager : MonoBehaviour
         timeManager = FindObjectOfType<InGameTimeManager>();
         
         playerController = PlayerControllerCode.instance;
-        cameraController = null;
-        foreach (var mb in FindObjectsOfType<MonoBehaviour>())
-        {
-            if (mb is ICameraControl && mb is CinemachineCameraController cc)
-            {
-                cameraController = cc;
-                break;
-            }
-        }
+        cameraController = FindObjectOfType<CinemachineCameraController>();
         if (cameraController == null)
         {
-            Debug.LogWarning("SleepManager: CinemachineCameraController implementing ICameraControl not found.");
+            Debug.LogWarning("SleepManager: CinemachineCameraController not found.");
         }
-        playerInteraction = playerController.GetComponent<PlayerInteraction>(); // Add this line
+        playerInteraction = playerController.GetComponent<PlayerInteraction>();
 
         if (characterStats == null)
         {
@@ -97,30 +89,22 @@ public class SleepManager : MonoBehaviour
         {
             Debug.LogWarning("SleepManager: cameraController is null in StartSleep.");
         }
-        if (bed == null || bed.bedCameraPosition == null)
+        if (bed == null || bed.bedCamera == null)
         {
-            Debug.LogWarning("SleepManager: bed or bed.bedCameraPosition is null in StartSleep.");
+            Debug.LogWarning("SleepManager: bed or bed.bedCamera is null in StartSleep.");
         }
         TooltipManager.instance.HideTooltip();
         // Save original position and rotation
         originalPosition = playerController.transform.position;
         originalRotation = playerController.transform.rotation;
-        originalCameraTransform = cameraController.transform;
+        
 
         // Move player to bed's sleep position
         playerController.transform.position = bed.sleepPosition.position;
         playerController.transform.rotation = bed.sleepPosition.rotation;
 
-        // Switch camera to bed camera position
-        cameraController.SwitchToSleepCamera(bed.bedCameraPosition);
-        if (cameraController.transform.position != bed.bedCameraPosition.position ||
-            cameraController.transform.rotation != bed.bedCameraPosition.rotation)
-        {
-            Debug.LogWarning("SleepManager: Camera did not match bed camera position after switching.");
-            cameraController.transform.position = bed.bedCameraPosition.position;
-            cameraController.transform.rotation = bed.bedCameraPosition.rotation;
-        }
-        cameraController.DisableCameraControl();
+        cameraController.SwitchToSleepCamera(bed.bedCamera);
+        cameraController.DisableCameraControl(); 
         // Play sleep animation
         Animator anim = playerController.GetComponent<Animator>();
 
