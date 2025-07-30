@@ -66,7 +66,15 @@ public class SleepManager : MonoBehaviour
         timeManager = FindObjectOfType<InGameTimeManager>();
         
         playerController = PlayerControllerCode.instance;
-        cameraController = FindObjectOfType<ICameraControl>() as CinemachineCameraController;
+        cameraController = null;
+        foreach (var mb in FindObjectsOfType<MonoBehaviour>())
+        {
+            if (mb is ICameraControl && mb is CinemachineCameraController cc)
+            {
+                cameraController = cc;
+                break;
+            }
+        }
         if (cameraController == null)
         {
             Debug.LogWarning("SleepManager: CinemachineCameraController implementing ICameraControl not found.");
