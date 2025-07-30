@@ -103,6 +103,14 @@ public class SleepManager : MonoBehaviour
         playerController.transform.position = bed.sleepPosition.position;
         playerController.transform.rotation = bed.sleepPosition.rotation;
 
+        // Position bed camera before switching
+        if (bed.bedCamera != null && bed.bedCameraPosition != null)
+        {
+            bed.bedCamera.transform.SetPositionAndRotation(
+                bed.bedCameraPosition.position,
+                bed.bedCameraPosition.rotation);
+        }
+
         cameraController.SwitchToSleepCamera(bed.bedCamera);
         cameraController.DisableCameraControl(); 
         // Play sleep animation

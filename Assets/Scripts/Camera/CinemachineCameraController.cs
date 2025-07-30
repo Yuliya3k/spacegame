@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Unity.Cinemachine;
 
 [RequireComponent(typeof(CinemachineCamera))]
+[RequireComponent(typeof(CinemachineBrain))]
 public class CinemachineCameraController : MonoBehaviour, ICameraControl
 {
     [SerializeField] Transform followTarget;
@@ -60,7 +61,9 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
     private CameraProfile currentProfile;
     private Camera mainCamera;
     private CinemachineCamera _cineCamera;
+    private CinemachineBrain cineBrain;
     private Camera activeSleepCamera;
+    private CinemachineBrain sleepCameraBrain;
 
     // Add collision smoothing factor
     public float collisionSmoothing = 10f;
@@ -144,7 +147,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
     {
         mainCamera = Camera.main;
         _cineCamera = GetComponent<CinemachineCamera>();
-
+        cineBrain = GetComponent<CinemachineBrain>();
         // Initialize with Profile 1 by default
         SwitchToProfile(profile1);
         SetHeadVisible(!profile1.hideHead);
@@ -322,6 +325,10 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         {
             _cineCamera.enabled = false;
         }
+        if (cineBrain != null)
+        {
+            cineBrain.enabled = false;
+        }
         if (mainCamera != null)
         {
             mainCamera.enabled = false;
@@ -330,6 +337,11 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         {
             activeSleepCamera = sleepCamera;
             activeSleepCamera.enabled = true;
+            sleepCameraBrain = activeSleepCamera.GetComponent<CinemachineBrain>();
+            if (sleepCameraBrain != null)
+            {
+                sleepCameraBrain.enabled = false;
+            }
         }
         else
         {
@@ -345,6 +357,10 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         {
             _cineCamera.enabled = true;
         }
+        if (cineBrain != null)
+        {
+            cineBrain.enabled = true;
+        }
         if (mainCamera != null)
         {
             mainCamera.enabled = true;
@@ -352,6 +368,11 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
 
         if (activeSleepCamera != null)
         {
+            if (sleepCameraBrain != null)
+            {
+                sleepCameraBrain.enabled = true;
+                sleepCameraBrain = null;
+            }
             activeSleepCamera.enabled = false;
             activeSleepCamera = null;
         }
