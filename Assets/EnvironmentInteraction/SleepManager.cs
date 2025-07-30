@@ -104,16 +104,23 @@ public class SleepManager : MonoBehaviour
         playerController.transform.position = bed.sleepPosition.position;
         playerController.transform.rotation = bed.sleepPosition.rotation;
 
-        // Move the main camera to look at the character from above
-        if (bed.bedCameraPosition != null)
+        // Use dedicated bed camera if available, otherwise fall back to the
+        // transform based rest camera
+        if (bed.bedCamera != null)
+        {
+            cameraController.SwitchToSleepCamera(bed.bedCamera);
+        }
+        else if (bed.bedCameraPosition != null)
         {
             cameraController.SwitchToRestCamera(bed.bedCameraPosition);
+            cameraController.DisableCameraControl();
         }
         else
         {
-            Debug.LogWarning("SleepManager: bedCameraPosition is not assigned on this bed.");
+            Debug.LogWarning("SleepManager: bed camera references are not assigned on this bed.");
+            cameraController.DisableCameraControl();
         }
-        cameraController.DisableCameraControl();
+        
         // Play sleep animation
         Animator anim = playerController.GetComponent<Animator>();
 

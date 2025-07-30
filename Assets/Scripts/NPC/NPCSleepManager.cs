@@ -98,13 +98,20 @@ public class NPCSleepManager : MonoBehaviour
         playerController.transform.rotation = bed.sleepPosition.rotation;
 
         // Move the main camera to the bed view to match player sleep behaviour
-        if (bed.bedCameraPosition != null)
+        if (bed.bedCamera != null)
         {
             cameraController.SwitchToRestCamera(bed.bedCameraPosition);
+            cameraController.DisableCameraControl();
+        }
+        else if (bed.bedCameraPosition != null)
+        {
+            cameraController.SwitchToRestCamera(bed.bedCameraPosition);
+            cameraController.DisableCameraControl();
         }
         else
         {
-            Debug.LogWarning("NPCSleepManager: bedCameraPosition is not assigned on this bed.");
+            Debug.LogWarning("NPCSleepManager: bed camera references are not assigned on this bed.");
+            cameraController.DisableCameraControl();
         }
 
         // Play sleep animation
