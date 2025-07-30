@@ -114,7 +114,7 @@ public class NPCController : MonoBehaviour
     //        yield return null;
     //}
 
-    // New: Extend GetSaveData to include nav destination and current animation
+    // New: Extend GetSaveData to include nav destination, inventory and runtime state
     public NPCSaveData GetSaveData()
     {
         NPCSaveData data = new NPCSaveData();
@@ -127,8 +127,12 @@ public class NPCController : MonoBehaviour
         // Use the same helper method as for the player so that all stats are saved consistently.
         data.characterData = SaveSystem.instance.GetCharacterData(characterStats);
 
-        // If you want to also save runtime state for the NPC, you could do:
-        // data.runtimeState = SaveSystem.instance.GetRuntimeStateData(characterStats);
+        // Save runtime state so that NPC timers and statuses persist
+        data.runtimeState = SaveSystem.instance.GetRuntimeStateData(characterStats);
+
+        // Save the NPC inventory
+        if (inventory != null)
+            data.inventoryData = SaveSystem.instance.GetInventoryData(inventory);
 
         // Save planner state if attached
         NPCPlanner planner = GetComponent<NPCPlanner>();

@@ -321,6 +321,8 @@ public class StorageUIManager : MonoBehaviour
         if (InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
+            // Also release any freeze from the radial menu
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
         }
 
         // Hide any active tooltips

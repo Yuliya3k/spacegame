@@ -56,6 +56,9 @@ public class SaveSystem : MonoBehaviour
 
     public void SaveGame()
     {
+        // Ensure we have the latest list of storage containers in the scene
+        RefreshStorageContainers();
+
         SaveData data = new SaveData();
 
         // Populate player data
@@ -178,6 +181,10 @@ public class SaveSystem : MonoBehaviour
             characterStats.UpdateWeightBlendShapeContributions();
 
             SetInventoryData(data.inventoryData, playerInventory);
+
+            // Refresh container references before applying their saved content
+            RefreshStorageContainers();
+
             SetStorageContainerData(data.storageContainers, storageContainers);
             SetDisposableContainerData(data.disposableContainers);
             playerController.transform.position = data.playerPosition.ToVector3();
@@ -278,7 +285,7 @@ public class SaveSystem : MonoBehaviour
     }
 
     // InventoryData using the base Inventory type
-    private InventoryData GetInventoryData(Inventory inventory)
+    public InventoryData GetInventoryData(Inventory inventory)
     {
         return new InventoryData
         {
@@ -510,6 +517,12 @@ public class SaveSystem : MonoBehaviour
         }
     }
 
+    // Helper to rebuild the list of storage containers currently in the scene
+    private void RefreshStorageContainers()
+    {
+        storageContainers = FindObjectsOfType<StorageContainer>().ToList();
+    }
+
     private void SetEquippedItems(List<InventoryItemData> dataList, PlayerInventory inventory)
     {
         foreach (var data in dataList)
@@ -526,7 +539,7 @@ public class SaveSystem : MonoBehaviour
         }
     }
 
-    private CharacterRuntimeStateData GetRuntimeStateData(CharacterStats stats)
+    public CharacterRuntimeStateData GetRuntimeStateData(CharacterStats stats)
     {
         CharacterRuntimeStateData rtData = new CharacterRuntimeStateData();
         rtData.isDecayEnabled = stats.GetIsDecayEnabled();
