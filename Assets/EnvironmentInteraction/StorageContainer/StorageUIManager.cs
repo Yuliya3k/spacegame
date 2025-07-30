@@ -314,6 +314,10 @@ public class StorageUIManager : MonoBehaviour
     public void CloseStorageUI()
     {
         transferDialogueWindow.SetActive(false);
+        if (currentContainer != null)
+        {
+            currentContainer.OnUIClose();
+        }
         storageUI.SetActive(false);  // Deactivate the storage UI panel
         ClearUI();
 
@@ -326,6 +330,10 @@ public class StorageUIManager : MonoBehaviour
             // Also release any freeze from the radial menu
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
         }
+
+        UIManager.instance?.EnableCharacterUIOpening();
+        InGameMenuController.instance?.EnableMenuOpening();
+
 
         // Hide any active tooltips
         if (InventoryTooltipManager.instance != null)

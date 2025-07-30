@@ -66,7 +66,11 @@ public class SleepManager : MonoBehaviour
         timeManager = FindObjectOfType<InGameTimeManager>();
         
         playerController = PlayerControllerCode.instance;
-        cameraController = FindObjectOfType<CinemachineCameraController>();
+        cameraController = FindObjectOfType<ICameraControl>() as CinemachineCameraController;
+        if (cameraController == null)
+        {
+            Debug.LogWarning("SleepManager: CinemachineCameraController implementing ICameraControl not found.");
+        }
         playerInteraction = playerController.GetComponent<PlayerInteraction>(); // Add this line
 
         if (characterStats == null)
@@ -81,6 +85,14 @@ public class SleepManager : MonoBehaviour
         
 
         ApplySleepBlendShapes();
+        if (cameraController == null)
+        {
+            Debug.LogWarning("SleepManager: cameraController is null in StartSleep.");
+        }
+        if (bed == null || bed.bedCameraPosition == null)
+        {
+            Debug.LogWarning("SleepManager: bed or bed.bedCameraPosition is null in StartSleep.");
+        }
         TooltipManager.instance.HideTooltip();
         // Save original position and rotation
         originalPosition = playerController.transform.position;
@@ -93,6 +105,13 @@ public class SleepManager : MonoBehaviour
 
         // Switch camera to bed camera position
         cameraController.SwitchToSleepCamera(bed.bedCameraPosition);
+        if (cameraController.transform.position != bed.bedCameraPosition.position ||
+            cameraController.transform.rotation != bed.bedCameraPosition.rotation)
+        {
+            Debug.LogWarning("SleepManager: Camera did not match bed camera position after switching.");
+            cameraController.transform.position = bed.bedCameraPosition.position;
+            cameraController.transform.rotation = bed.bedCameraPosition.rotation;
+        }
         cameraController.DisableCameraControl();
         // Play sleep animation
         Animator anim = playerController.GetComponent<Animator>();

@@ -317,22 +317,47 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
     {
         // Disable camera movement
         enabled = false;
+        if (_cineCamera != null)
+        {
+            _cineCamera.enabled = false;
+        }
 
         // Move camera to sleep position
-        _cineCamera.transform.position = sleepCameraTransform.position;
-        _cineCamera.transform.rotation = sleepCameraTransform.rotation;
+        if (sleepCameraTransform != null)
+        {
+            _cineCamera.transform.position = sleepCameraTransform.position;
+            _cineCamera.transform.rotation = sleepCameraTransform.rotation;
+        }
+        else
+        {
+            Debug.LogWarning("CinemachineCameraController.SwitchToSleepCamera called with null transform");
+        }
+        // Ensure the camera is not following any target while sleeping
+        if (_cineCamera != null)
+        {
+            _cineCamera.Follow = null;
+            _cineCamera.LookAt = null;
+        }
     }
 
     public void SwitchToNormalCamera()
     {
         // Re-enable camera movement
         enabled = true;
+        if (_cineCamera != null)
+        {
+            _cineCamera.enabled = true;
+        }
     }
 
     public void SwitchToDefecationCamera(Transform defecationCameraTransform)
     {
         // Disable camera movement
         enabled = false;
+        if (_cineCamera != null)
+        {
+            _cineCamera.enabled = false;
+        }
 
         // Move camera to defecation position
         _cineCamera.transform.position = defecationCameraTransform.position;
@@ -355,6 +380,10 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
     {
         // Disable camera movement
         enabled = false;
+        if (_cineCamera != null)
+        {
+            _cineCamera.enabled = false;
+        }
 
         // Move camera to rest position
         _cineCamera.transform.position = restCameraTransform.position;

@@ -79,6 +79,11 @@ public class StorageContainer : MonoBehaviour, IInteractable
         InGameMenuController.instance.EnableMenuOpening();
     }
 
+    public void OnUIClose()
+    {
+        isUIActive = false;
+    }
+
     //// Method to add an item to the storage container with a specific quantity
     //public void AddItemToStorage(ItemData itemData, int quantity)
     //{
