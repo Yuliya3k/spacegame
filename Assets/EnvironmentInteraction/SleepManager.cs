@@ -108,8 +108,7 @@ public class SleepManager : MonoBehaviour
 
         // Use dedicated bed camera if available, otherwise fall back to the
         // transform based rest camera
-        private Vector3 originalCameraPosition;
-        private Quaternion originalCameraRotation;
+        
         if (bed.bedCamera != null)
         {
             if (bed.bedCameraPosition != null)
