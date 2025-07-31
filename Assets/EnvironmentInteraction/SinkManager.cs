@@ -40,6 +40,9 @@ public class SinkManager : MonoBehaviour
     public Transform drinkPosition;           // Assign in the Inspector
     public Transform drinkCameraPosition;     // Assign in the Inspector
 
+    [Header("Dedicated Cameras (optional)")]
+    public Camera washHandsCamera;            // Optional dedicated camera
+    public Camera drinkCamera;                // Optional dedicated camera
     public Transform overfullPosition;        // Assign in the Inspector
 
     [Header("Sounds")]
@@ -135,12 +138,29 @@ public class SinkManager : MonoBehaviour
             playerCollider.enabled = false;
         }
 
-        // Switch camera to wash hands camera position
+        // Switch camera to wash hands view
         originalCameraPosition = cameraController.transform.position;
         originalCameraRotation = cameraController.transform.rotation;
-        cameraController.transform.position = washHandsCameraPosition.position;
-        cameraController.transform.rotation = washHandsCameraPosition.rotation;
-        cameraController.DisableCameraControl();
+        if (washHandsCamera != null)
+        {
+            if (washHandsCameraPosition != null)
+            {
+                washHandsCamera.transform.SetPositionAndRotation(
+                    washHandsCameraPosition.position,
+                    washHandsCameraPosition.rotation);
+            }
+            cameraController.SwitchToSleepCamera(washHandsCamera);
+        }
+        else if (washHandsCameraPosition != null)
+        {
+            cameraController.transform.position = washHandsCameraPosition.position;
+            cameraController.transform.rotation = washHandsCameraPosition.rotation;
+            cameraController.DisableCameraControl();
+        }
+        else
+        {
+            cameraController.DisableCameraControl();
+        }
 
         // Play wash hands animation
         Animator anim = playerController.GetComponent<Animator>();
@@ -197,13 +217,29 @@ public class SinkManager : MonoBehaviour
             playerCollider.enabled = false;
         }
 
-        // Switch camera to drink camera position
+        // Switch camera to drink view
         originalCameraPosition = cameraController.transform.position;
         originalCameraRotation = cameraController.transform.rotation;
-        cameraController.transform.position = drinkCameraPosition.position;
-        cameraController.transform.rotation = drinkCameraPosition.rotation;
-        cameraController.DisableCameraControl();
-
+        if (drinkCamera != null)
+        {
+            if (drinkCameraPosition != null)
+            {
+                drinkCamera.transform.SetPositionAndRotation(
+                    drinkCameraPosition.position,
+                    drinkCameraPosition.rotation);
+            }
+            cameraController.SwitchToSleepCamera(drinkCamera);
+        }
+        else if (drinkCameraPosition != null)
+        {
+            cameraController.transform.position = drinkCameraPosition.position;
+            cameraController.transform.rotation = drinkCameraPosition.rotation;
+            cameraController.DisableCameraControl();
+        }
+        else
+        {
+            cameraController.DisableCameraControl();
+        }
         // Play drink animation
         Animator anim = playerController.GetComponent<Animator>();
         anim.SetTrigger(drinkAnimationTrigger);
