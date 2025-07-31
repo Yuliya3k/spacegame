@@ -55,6 +55,8 @@ public class ShowerManager : MonoBehaviour
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
+    private Vector3 originalCameraPosition;
+    private Quaternion originalCameraRotation;
 
     private bool isPerformingAction = false;
     private Coroutine currentActionCoroutine;
@@ -153,6 +155,9 @@ public class ShowerManager : MonoBehaviour
         }
 
         // Switch camera
+        originalCameraPosition = cameraController.transform.position;
+        originalCameraRotation = cameraController.transform.rotation;
+
         cameraController.transform.position = actionCameraPosition.position;
         cameraController.transform.rotation = actionCameraPosition.rotation;
         cameraController.DisableCameraControl();
@@ -277,6 +282,14 @@ public class ShowerManager : MonoBehaviour
         playerController.transform.rotation = originalRotation;
         cameraController.SwitchToNormalCamera();
         cameraController.EnableCameraControl();
+
+        // Restore camera transform
+        cameraController.transform.position = originalCameraPosition;
+        cameraController.transform.rotation = originalCameraRotation;
+
+        // Clear stored camera values
+        originalCameraPosition = Vector3.zero;
+        originalCameraRotation = Quaternion.identity;
 
         // Re-enable PlayerInteraction + UI
         if (playerInteraction != null) playerInteraction.enabled = true;

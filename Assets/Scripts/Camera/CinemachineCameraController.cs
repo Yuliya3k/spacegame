@@ -116,15 +116,15 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
     {
         Debug.Log("CinemachineCameraController OnEnable - script enabled: " + enabled);
 
-        // Disable any PlayerInput components that might interfere with these actions
-        foreach (var pi in FindObjectsOfType<UnityEngine.InputSystem.PlayerInput>())
-        {
-            if (pi != null && pi.enabled)
-            {
-                Debug.LogWarning("Disabling interfering PlayerInput component on " + pi.gameObject.name);
-                pi.enabled = false;
-            }
-        }
+        // // Disable any PlayerInput components that might interfere with these actions
+        // foreach (var pi in FindObjectsOfType<UnityEngine.InputSystem.PlayerInput>())
+        // {
+        //     if (pi != null && pi.enabled)
+        //     {
+        //         Debug.LogWarning("Disabling interfering PlayerInput component on " + pi.gameObject.name);
+        //         pi.enabled = false;
+        //     }
+        // }
 
         inputActions.Player.Enable();
         inputActions.Player.SwitchToCameraProfile1.performed += OnSwitchToCameraProfile1;
@@ -171,7 +171,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
 
     private void Update()
     {
-        Debug.Log("CameraUpdate");
+        // Debug.Log("CameraUpdate");
         // Update camera's far clip plane based on the current profile
         mainCamera.farClipPlane = viewDistance;
 

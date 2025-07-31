@@ -315,7 +315,7 @@ public class OptionsManager : MonoBehaviour
                 break;
             }
         }
-        if (cam is CameraController legacy)
+        if (cam is CinemachineCameraController legacy)
         {
             legacy.SetMouseSensitivity(sensitivity);
         }

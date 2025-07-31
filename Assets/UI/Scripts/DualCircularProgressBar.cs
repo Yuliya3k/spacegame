@@ -90,7 +90,7 @@ public class DualCircularProgressBar : MonoBehaviour
     {
         if (minValueRef == null || maxValueRef == null || dividerValueRef == null)
         {
-            Debug.LogError("MinValueRef, MaxValueRef, or DividerValueRef is not assigned.");
+            // Debug.LogError("MinValueRef, MaxValueRef, or DividerValueRef is not assigned.");
             return;
         }
 
@@ -164,7 +164,7 @@ public class DualCircularProgressBar : MonoBehaviour
             targetPositiveFill = adjustedNormalizedValue;
             targetNegativeFill = 0f;
 
-            Debug.Log($"Positive Fill - normalizedValue: {normalizedValue}, dividerPosition: {dividerPosition}, positiveNormalized: {positiveNormalized}, adjustedNormalizedValue: {adjustedNormalizedValue}");
+            // Debug.Log($"Positive Fill - normalizedValue: {normalizedValue}, dividerPosition: {dividerPosition}, positiveNormalized: {positiveNormalized}, adjustedNormalizedValue: {adjustedNormalizedValue}");
         }
 
         //Debug.Log($"Starting SmoothFillTransition. targetPositiveFill: {targetPositiveFill}, targetNegativeFill: {targetNegativeFill}");
@@ -173,7 +173,7 @@ public class DualCircularProgressBar : MonoBehaviour
         {
             positiveFill.fillAmount = Mathf.MoveTowards(positiveFill.fillAmount, targetPositiveFill, transitionSpeed * Time.deltaTime);
             negativeFill.fillAmount = Mathf.MoveTowards(negativeFill.fillAmount, targetNegativeFill, transitionSpeed * Time.deltaTime);
-            Debug.Log($"positiveFill.fillAmount: {positiveFill.fillAmount}, negativeFill.fillAmount: {negativeFill.fillAmount}");
+            // Debug.Log($"positiveFill.fillAmount: {positiveFill.fillAmount}, negativeFill.fillAmount: {negativeFill.fillAmount}");
             yield return null;
         }
 

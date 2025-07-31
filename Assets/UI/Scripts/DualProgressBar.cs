@@ -90,7 +90,7 @@ public class DualProgressBar : MonoBehaviour
     {
         if (minValueRef == null || maxValueRef == null)
         {
-            Debug.LogError("MinValueRef or MaxValueRef is not assigned.");
+            // Debug.LogError("MinValueRef or MaxValueRef is not assigned.");
             return;
         }
 
@@ -99,17 +99,17 @@ public class DualProgressBar : MonoBehaviour
         float maxValue = maxValueRef.GetValue();
         float currentVal = currentValue.GetValue();
 
-        Debug.Log($"UpdateProgressBar called. minValue: {minValue}, maxValue: {maxValue}, currentValue: {currentVal}");
+        // Debug.Log($"UpdateProgressBar called. minValue: {minValue}, maxValue: {maxValue}, currentValue: {currentVal}");
 
         if (minValue >= maxValue)
         {
-            Debug.LogError("minValue should be less than maxValue.");
+            // Debug.LogError("minValue should be less than maxValue.");
             return;
         }
 
         // Clamp the current value within min and max
         float clampedValue = Mathf.Clamp(currentVal, minValue, maxValue);
-        Debug.Log($"clampedValue: {clampedValue}");
+        // Debug.Log($"clampedValue: {clampedValue}");
 
         // Calculate the normalized value (-1 to 1)
         float normalizedValue = 0f;
@@ -121,7 +121,7 @@ public class DualProgressBar : MonoBehaviour
         {
             normalizedValue = clampedValue / maxValue; // Positive side
         }
-        Debug.Log($"normalizedValue: {normalizedValue}");
+        // Debug.Log($"normalizedValue: {normalizedValue}");
 
         // Start smooth transition
         if (transitionCoroutine != null)
@@ -157,17 +157,17 @@ public class DualProgressBar : MonoBehaviour
             targetNegativeFill = 0f;
         }
 
-        Debug.Log($"Starting SmoothFillTransition. targetPositiveFill: {targetPositiveFill}, targetNegativeFill: {targetNegativeFill}");
+        // Debug.Log($"Starting SmoothFillTransition. targetPositiveFill: {targetPositiveFill}, targetNegativeFill: {targetNegativeFill}");
 
         while (!Mathf.Approximately(positiveFill.fillAmount, targetPositiveFill) || !Mathf.Approximately(negativeFill.fillAmount, targetNegativeFill))
         {
             positiveFill.fillAmount = Mathf.MoveTowards(positiveFill.fillAmount, targetPositiveFill, transitionSpeed * Time.deltaTime);
             negativeFill.fillAmount = Mathf.MoveTowards(negativeFill.fillAmount, targetNegativeFill, transitionSpeed * Time.deltaTime);
-            Debug.Log($"positiveFill.fillAmount: {positiveFill.fillAmount}, negativeFill.fillAmount: {negativeFill.fillAmount}");
+            // Debug.Log($"positiveFill.fillAmount: {positiveFill.fillAmount}, negativeFill.fillAmount: {negativeFill.fillAmount}");
             yield return null;
         }
 
-        Debug.Log("SmoothFillTransition completed.");
+        // Debug.Log("SmoothFillTransition completed.");
     }
 
 }

@@ -59,7 +59,7 @@ public class TouchRegionInput : MonoBehaviour, IPointerDownHandler, IDragHandler
                     break;
                 }
             }
-            if (cam is CameraController cc)
+            if (cam is CinemachineCameraController cc)
             {
                 cc.SetLookInput(inputDir);
             }
@@ -90,7 +90,7 @@ public class TouchRegionInput : MonoBehaviour, IPointerDownHandler, IDragHandler
                     break;
                 }
             }
-            if (cam is CameraController cc)
+            if (cam is CinemachineCameraController cc)
             {
                 cc.SetLookInput(Vector2.zero);
             }

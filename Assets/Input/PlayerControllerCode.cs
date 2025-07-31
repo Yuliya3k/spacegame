@@ -382,7 +382,7 @@ public class PlayerControllerCode : MonoBehaviour
     {
         moveDirection = dir;
 
-        Debug.Log($"moveDirection = {moveDirection}");
+        // Debug.Log($"moveDirection = {moveDirection}");
         // Optionally call Move here:
         if (isControlEnabled)
         {
