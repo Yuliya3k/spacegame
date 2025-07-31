@@ -30,6 +30,9 @@ public class SleepManager : MonoBehaviour
 
     private PlayerInteraction playerInteraction;
 
+    [Header("Dedicated Cameras (optional)")]
+    public Camera sleepCamera; // Optional dedicated camera for all beds
+
     [Header("Sleep Settings")]
     public float staminaRestoredPerHour = 20f; // Configurable in Inspector
 
@@ -106,8 +109,8 @@ public class SleepManager : MonoBehaviour
         playerController.transform.position = bed.sleepPosition.position;
         playerController.transform.rotation = bed.sleepPosition.rotation;
 
-        // Use dedicated bed camera if available, otherwise fall back to the
-        // transform based rest camera
+        // Use dedicated bed camera or manager camera if available, otherwise
+        // fall back to the transform-based rest camera
         
         if (bed.bedCamera != null)
         {
@@ -116,6 +119,19 @@ public class SleepManager : MonoBehaviour
                     bed.bedCameraPosition.position,
                     bed.bedCameraPosition.rotation);
             cameraController.SwitchToSleepCamera(bed.bedCamera);
+        }
+        else if (sleepCamera != null)
+        {
+            if (bed.bedCameraPosition != null)
+            {
+                sleepCamera.transform.SetPositionAndRotation(
+                    bed.bedCameraPosition.position,
+                    bed.bedCameraPosition.rotation);
+            }
+            originalCameraPosition = cameraController.transform.position;
+            originalCameraRotation = cameraController.transform.rotation;
+            cameraTransformSaved = true;
+            cameraController.SwitchToSleepCamera(sleepCamera);
         }
         else if (bed.bedCameraPosition != null)
         {

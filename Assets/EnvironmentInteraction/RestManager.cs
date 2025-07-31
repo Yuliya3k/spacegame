@@ -32,7 +32,9 @@ public class RestManager : MonoBehaviour
     private Quaternion originalCameraRotation;
 
     private PlayerInteraction playerInteraction;
-
+    
+    [Header("Dedicated Cameras (optional)")]
+    public Camera restCamera; // Optional dedicated camera
     [Header("Rest Settings")]
     public float staminaRestoredPerHour = 20f; // Configurable in Inspector
 
@@ -103,10 +105,28 @@ public class RestManager : MonoBehaviour
         playerController.transform.position = restPlace.restPosition.position;
         playerController.transform.rotation = restPlace.restPosition.rotation;
 
-        // Switch camera to rest place camera position
+        // Switch camera to rest view
         originalCameraPosition = cameraController.transform.position;
         originalCameraRotation = cameraController.transform.rotation;
-        cameraController.SwitchToRestCamera(restPlace.restCameraPosition);
+        if (restCamera != null)
+        {
+            if (restPlace.restCameraPosition != null)
+            {
+                restCamera.transform.SetPositionAndRotation(
+                    restPlace.restCameraPosition.position,
+                    restPlace.restCameraPosition.rotation);
+            }
+            cameraController.SwitchToSleepCamera(restCamera);
+        }
+        else if (restPlace.restCameraPosition != null)
+        {
+            cameraController.SwitchToRestCamera(restPlace.restCameraPosition);
+            cameraController.DisableCameraControl();
+        }
+        else
+        {
+            cameraController.DisableCameraControl();
+        }
 
         // Disable Rigidbody and Collider
         if (playerRigidbody != null)

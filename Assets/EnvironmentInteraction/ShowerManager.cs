@@ -23,6 +23,10 @@ public class ShowerManager : MonoBehaviour
     public Transform rinseBodyPosition;
     public Transform rinseBodyCameraPosition;
 
+    [Header("Dedicated Cameras (optional)")]
+    public Camera takeShowerCamera;  // Optional camera for shower
+    public Camera rinseBodyCamera;   // Optional camera for hose
+
     [Header("References")]
     public CharacterStats characterStats;      // Assign in Inspector
     public PlayerInventory playerInventory;    // Assign in Inspector
@@ -158,9 +162,27 @@ public class ShowerManager : MonoBehaviour
         originalCameraPosition = cameraController.transform.position;
         originalCameraRotation = cameraController.transform.rotation;
 
-        cameraController.transform.position = actionCameraPosition.position;
-        cameraController.transform.rotation = actionCameraPosition.rotation;
-        cameraController.DisableCameraControl();
+         Camera chosenCamera = isHose ? rinseBodyCamera : takeShowerCamera;
+        if (chosenCamera != null)
+        {
+            if (actionCameraPosition != null)
+            {
+                chosenCamera.transform.SetPositionAndRotation(
+                    actionCameraPosition.position,
+                    actionCameraPosition.rotation);
+            }
+            cameraController.SwitchToSleepCamera(chosenCamera);
+        }
+        else if (actionCameraPosition != null)
+        {
+            cameraController.transform.position = actionCameraPosition.position;
+            cameraController.transform.rotation = actionCameraPosition.rotation;
+            cameraController.DisableCameraControl();
+        }
+        else
+        {
+            cameraController.DisableCameraControl();
+        }
 
         // Unequip clothes except hair
         UnequipAllClothesExceptHair();

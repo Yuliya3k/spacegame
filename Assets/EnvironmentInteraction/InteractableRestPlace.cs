@@ -11,7 +11,8 @@ public class InteractableRestPlace : MonoBehaviour, IInteractable
     [Header("Rest Settings")]
     public Transform restPosition; // Assign in the Inspector
     public Transform restCameraPosition; // Assign in the Inspector
-
+    public Camera restCamera; // Optional dedicated camera
+    
     [Header("References")]
     public RestUIManager restUIManager; // Assign via the Inspector
 

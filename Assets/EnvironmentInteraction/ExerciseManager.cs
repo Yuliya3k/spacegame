@@ -33,6 +33,8 @@ public class ExerciseManager : MonoBehaviour
     private Vector3 originalCameraPosition;
     private Quaternion originalCameraRotation;
 
+    [Header("Dedicated Cameras (optional)")]
+    public Camera exerciseCamera; // Optional dedicated camera
     private InteractableExerciseMachine currentMachine;
     private int exerciseHours;
     private bool stopRequested = false; // To handle early stop
@@ -131,10 +133,28 @@ public class ExerciseManager : MonoBehaviour
         playerController.transform.position = machine.exercisePosition.position;
         playerController.transform.rotation = machine.exercisePosition.rotation;
 
-        // Switch camera
+        // Switch camera to exercise view
         originalCameraPosition = cameraController.transform.position;
         originalCameraRotation = cameraController.transform.rotation;
-        cameraController.SwitchToRestCamera(machine.exerciseCameraPosition);
+        if (exerciseCamera != null)
+        {
+            if (machine.exerciseCameraPosition != null)
+            {
+                exerciseCamera.transform.SetPositionAndRotation(
+                    machine.exerciseCameraPosition.position,
+                    machine.exerciseCameraPosition.rotation);
+            }
+            cameraController.SwitchToSleepCamera(exerciseCamera);
+        }
+        else if (machine.exerciseCameraPosition != null)
+        {
+            cameraController.SwitchToRestCamera(machine.exerciseCameraPosition);
+            cameraController.DisableCameraControl();
+        }
+        else
+        {
+            cameraController.DisableCameraControl();
+        }
 
         //// Disable Rigidbody and Collider
         //if (playerRigidbody != null)
