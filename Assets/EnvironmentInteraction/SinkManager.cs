@@ -359,7 +359,7 @@ public class SinkManager : MonoBehaviour
 
         // Switch camera back to normal
         cameraController.SwitchToNormalCamera();
-
+        cameraController.EnableCameraControl();
         // Reset flags
         isPerformingAction = false;
 

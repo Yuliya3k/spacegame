@@ -108,6 +108,10 @@ public class SleepManager : MonoBehaviour
         // transform based rest camera
         if (bed.bedCamera != null)
         {
+            if (bed.bedCameraPosition != null)
+                bed.bedCamera.transform.SetPositionAndRotation(
+                    bed.bedCameraPosition.position,
+                    bed.bedCameraPosition.rotation);
             cameraController.SwitchToSleepCamera(bed.bedCamera);
         }
         else if (bed.bedCameraPosition != null)
