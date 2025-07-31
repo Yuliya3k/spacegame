@@ -10,6 +10,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
 {
     [SerializeField] Transform followTarget;
     [SerializeField] CinemachineCameraRig cameraRig;
+    [SerializeField] float autoFollowSpeed = 5f;
 
     // Input Actions
     private PlayerInputActions inputActions;
@@ -284,8 +285,13 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         rotationX = Mathf.Clamp(rotationX, minVerticalAngle, maxVerticalAngle);
 
         rotationY += lookInput.x * invertXVal * rotationSpeed * mouseSensitivityMultiplier * Time.deltaTime;
+        if (lookInput.sqrMagnitude < 0.001f)
+            {
+                rotationY = Mathf.LerpAngle(rotationY, followTarget.eulerAngles.y, autoFollowSpeed * Time.deltaTime);
+            }
     }
 
+        
     private void UpdateCameraPosition()
     {
         var targetRotation = Quaternion.Euler(rotationX, rotationY, 0);
