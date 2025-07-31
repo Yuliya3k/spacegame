@@ -28,6 +28,8 @@ public class RestManager : MonoBehaviour
     
     private Vector3 originalPosition;
     private Quaternion originalRotation;
+    private Vector3 originalCameraPosition;
+    private Quaternion originalCameraRotation;
 
     private PlayerInteraction playerInteraction;
 
@@ -102,6 +104,8 @@ public class RestManager : MonoBehaviour
         playerController.transform.rotation = restPlace.restPosition.rotation;
 
         // Switch camera to rest place camera position
+        originalCameraPosition = cameraController.transform.position;
+        originalCameraRotation = cameraController.transform.rotation;
         cameraController.SwitchToRestCamera(restPlace.restCameraPosition);
 
         // Disable Rigidbody and Collider
@@ -163,6 +167,10 @@ public class RestManager : MonoBehaviour
         playerController.transform.position = originalPosition;
         playerController.transform.rotation = originalRotation;
         cameraController.SwitchToNormalCamera();
+        cameraController.transform.position = originalCameraPosition;
+        cameraController.transform.rotation = originalCameraRotation;
+        originalCameraPosition = Vector3.zero;
+        originalCameraRotation = Quaternion.identity;
         playerController.EnablePlayerControl();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

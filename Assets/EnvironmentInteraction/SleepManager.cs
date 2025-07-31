@@ -24,7 +24,9 @@ public class SleepManager : MonoBehaviour
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
-    // private Transform originalCameraTransform;
+    private Vector3 originalCameraPosition;
+    private Quaternion originalCameraRotation;
+    private bool cameraTransformSaved = false;
 
     private PlayerInteraction playerInteraction;
 
@@ -106,6 +108,8 @@ public class SleepManager : MonoBehaviour
 
         // Use dedicated bed camera if available, otherwise fall back to the
         // transform based rest camera
+        private Vector3 originalCameraPosition;
+        private Quaternion originalCameraRotation;
         if (bed.bedCamera != null)
         {
             if (bed.bedCameraPosition != null)
@@ -116,6 +120,9 @@ public class SleepManager : MonoBehaviour
         }
         else if (bed.bedCameraPosition != null)
         {
+            originalCameraPosition = cameraController.transform.position;
+            originalCameraRotation = cameraController.transform.rotation;
+            cameraTransformSaved = true;
             cameraController.SwitchToRestCamera(bed.bedCameraPosition);
             cameraController.DisableCameraControl();
         }
@@ -193,6 +200,15 @@ public class SleepManager : MonoBehaviour
 
         // Switch camera back to normal
         cameraController.SwitchToNormalCamera();
+        cameraController.transform.position = originalCameraPosition;
+        cameraController.transform.rotation = originalCameraRotation;
+        originalCameraPosition = Vector3.zero;
+        originalCameraRotation = Quaternion.identity;
+        if (cameraTransformSaved)
+    {
+        cameraController.transform.SetPositionAndRotation(originalCameraPosition, originalCameraRotation);
+        cameraTransformSaved = false;
+    }
         cameraController.EnableCameraControl();
         // Reset player control
         playerController.EnablePlayerControl();

@@ -175,10 +175,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         // Update camera's far clip plane based on the current profile
         mainCamera.farClipPlane = viewDistance;
 
-        if (!isCameraControlEnabled)
-        {
-            return;
-        }
+        bool skipRotation = !isCameraControlEnabled;
 
         //// If a UI is currently active, prevent camera movement
         //if (UIManager.instance != null && UIManager.instance.IsUIActive())
@@ -200,7 +197,8 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         {
             if (uiPanel != null && uiPanel.activeSelf)
             {
-                return; // This prevents camera rotation/position updates
+                skipRotation = true;
+                break; // don't rotate while UI is active
             }
         }
 
@@ -215,7 +213,10 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         //}
 
         // Handle camera rotation and positioning
-        HandleCameraRotation();
+        if (!skipRotation)
+        {
+            HandleCameraRotation();
+        }
         UpdateCameraPosition();
     }
 
@@ -401,6 +402,22 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
     public void EnableCameraControl()
     {
         isCameraControlEnabled = true;
+        if (!enabled)
+        {
+            enabled = true;
+            if (_cineCamera != null)
+            {
+                _cineCamera.enabled = true;
+            }
+            if (cineBrain != null)
+            {
+                cineBrain.enabled = true;
+            }
+            if (mainCamera != null)
+            {
+                mainCamera.enabled = true;
+            }
+        }
         Debug.Log("CameraControlEnabled");
     }
 

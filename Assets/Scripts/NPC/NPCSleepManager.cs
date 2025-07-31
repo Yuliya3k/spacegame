@@ -30,7 +30,9 @@ public class NPCSleepManager : MonoBehaviour
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
-    private Transform originalCameraTransform;
+    private Vector3 originalCameraPosition;
+    private Quaternion originalCameraRotation;
+    private bool cameraTransformSaved = false;
 
     private PlayerInteraction playerInteraction;
 
@@ -91,7 +93,7 @@ public class NPCSleepManager : MonoBehaviour
         // Save original position and rotation
         originalPosition = playerController.transform.position;
         originalRotation = playerController.transform.rotation;
-        originalCameraTransform = cameraController.transform;
+        // originalCameraTransform = cameraController.transform;
 
         // Move player to bed's sleep position
         playerController.transform.position = bed.sleepPosition.position;
@@ -105,6 +107,9 @@ public class NPCSleepManager : MonoBehaviour
         }
         else if (bed.bedCameraPosition != null)
         {
+            originalCameraPosition = cameraController.transform.position;
+            originalCameraRotation = cameraController.transform.rotation;
+            cameraTransformSaved = true;
             cameraController.SwitchToRestCamera(bed.bedCameraPosition);
             cameraController.DisableCameraControl();
         }
@@ -182,7 +187,11 @@ public class NPCSleepManager : MonoBehaviour
 
         // Switch camera back to normal
         cameraController.SwitchToNormalCamera();
-
+        if (cameraTransformSaved)
+        {
+            cameraController.transform.SetPositionAndRotation(originalCameraPosition, originalCameraRotation);
+            cameraTransformSaved = false;
+        }
         // Reset player control
         playerController.EnablePlayerControl();
         Cursor.visible = false;

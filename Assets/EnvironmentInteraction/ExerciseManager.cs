@@ -30,6 +30,8 @@ public class ExerciseManager : MonoBehaviour
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
+    private Vector3 originalCameraPosition;
+    private Quaternion originalCameraRotation;
 
     private InteractableExerciseMachine currentMachine;
     private int exerciseHours;
@@ -130,6 +132,8 @@ public class ExerciseManager : MonoBehaviour
         playerController.transform.rotation = machine.exercisePosition.rotation;
 
         // Switch camera
+        originalCameraPosition = cameraController.transform.position;
+        originalCameraRotation = cameraController.transform.rotation;
         cameraController.SwitchToRestCamera(machine.exerciseCameraPosition);
 
         //// Disable Rigidbody and Collider
@@ -227,6 +231,10 @@ public class ExerciseManager : MonoBehaviour
         playerController.transform.position = originalPosition;
         playerController.transform.rotation = originalRotation;
         cameraController.SwitchToNormalCamera();
+        cameraController.transform.position = originalCameraPosition;
+        cameraController.transform.rotation = originalCameraRotation;
+        originalCameraPosition = Vector3.zero;
+        originalCameraRotation = Quaternion.identity;
 
         // Re-enable physics
         if (playerRigidbody != null)
@@ -266,11 +274,17 @@ public class ExerciseManager : MonoBehaviour
 
         UpdateStatsAfterExercise((float)totalHoursExercised);
 
+
+        if (InputFreezeManager.instance != null)
+        {
+            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
+        
         // After updating stats (exercise ended), re-show all previously hidden UI
         // This covers both stop and natural end scenarios.
-        
-        
-        
+
+
+
 
     }
 

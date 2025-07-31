@@ -13,6 +13,8 @@ public class DefecationManager : MonoBehaviour
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
+    private Vector3 originalCameraPosition;
+    private Quaternion originalCameraRotation;
 
     private PlayerInteraction playerInteraction;
 
@@ -125,6 +127,8 @@ public class DefecationManager : MonoBehaviour
         }
 
         // Switch camera to toilet camera position
+        originalCameraPosition = cameraController.transform.position;
+        originalCameraRotation = cameraController.transform.rotation;
         cameraController.SwitchToDefecationCamera(toilet.toiletCameraPosition);
 
         // Play sit animation
@@ -228,6 +232,10 @@ public class DefecationManager : MonoBehaviour
 
         // Switch camera back to normal
         cameraController.SwitchToNormalCamera();
+        cameraController.transform.position = originalCameraPosition;
+        cameraController.transform.rotation = originalCameraRotation;
+        originalCameraPosition = Vector3.zero;
+        originalCameraRotation = Quaternion.identity;
 
         // Reset player control
         playerController.EnablePlayerControl();

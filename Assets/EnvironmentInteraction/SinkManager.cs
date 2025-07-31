@@ -12,6 +12,8 @@ public class SinkManager : MonoBehaviour
 
     private Vector3 originalPosition;
     private Quaternion originalRotation;
+    private Vector3 originalCameraPosition;
+    private Quaternion originalCameraRotation;
 
     private PlayerInteraction playerInteraction;
 
@@ -134,6 +136,8 @@ public class SinkManager : MonoBehaviour
         }
 
         // Switch camera to wash hands camera position
+        originalCameraPosition = cameraController.transform.position;
+        originalCameraRotation = cameraController.transform.rotation;
         cameraController.transform.position = washHandsCameraPosition.position;
         cameraController.transform.rotation = washHandsCameraPosition.rotation;
         cameraController.DisableCameraControl();
@@ -194,6 +198,8 @@ public class SinkManager : MonoBehaviour
         }
 
         // Switch camera to drink camera position
+        originalCameraPosition = cameraController.transform.position;
+        originalCameraRotation = cameraController.transform.rotation;
         cameraController.transform.position = drinkCameraPosition.position;
         cameraController.transform.rotation = drinkCameraPosition.rotation;
         cameraController.DisableCameraControl();
@@ -359,6 +365,10 @@ public class SinkManager : MonoBehaviour
 
         // Switch camera back to normal
         cameraController.SwitchToNormalCamera();
+        cameraController.transform.position = originalCameraPosition;
+        cameraController.transform.rotation = originalCameraRotation;
+        originalCameraPosition = Vector3.zero;
+        originalCameraRotation = Quaternion.identity;
         cameraController.EnableCameraControl();
         // Reset flags
         isPerformingAction = false;
