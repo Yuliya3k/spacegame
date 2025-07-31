@@ -338,10 +338,10 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
             activeSleepCamera = sleepCamera;
             activeSleepCamera.enabled = true;
             sleepCameraBrain = activeSleepCamera.GetComponent<CinemachineBrain>();
-            if (sleepCameraBrain != null)
-            {
-                sleepCameraBrain.enabled = false;
-            }
+            // if (sleepCameraBrain != null)
+            // {
+            //     sleepCameraBrain.enabled = false;
+            // }
         }
         else
         {
@@ -370,7 +370,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         {
             if (sleepCameraBrain != null)
             {
-                sleepCameraBrain.enabled = true;
+                // sleepCameraBrain.enabled = true;
                 sleepCameraBrain = null;
             }
             activeSleepCamera.enabled = false;

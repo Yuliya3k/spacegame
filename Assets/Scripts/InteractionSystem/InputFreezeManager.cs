@@ -26,16 +26,12 @@ public class InputFreezeManager : MonoBehaviour
 
     private void FindCameraControl()
     {
-        foreach (var mb in FindObjectsOfType<MonoBehaviour>())
+        foreach (var mb in FindObjectsByType<MonoBehaviour>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
             if (mb is ICameraControl control)
             {
-                var behaviour = mb as Behaviour;
-                if (behaviour != null && behaviour.isActiveAndEnabled)
-                {
-                    cameraControl = control;
-                    break;
-                }
+                cameraControl = control;
+                break;
             }
         }
     }
