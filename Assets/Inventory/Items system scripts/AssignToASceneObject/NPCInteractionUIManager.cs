@@ -43,6 +43,8 @@ public class NPCInteractionUIManager : MonoBehaviour
 
     private int initialPlayerQuantity;
     private int initialNPCQuantity;
+    private int freezeCount;
+
 
     private void Awake()
     {
@@ -86,7 +88,7 @@ public class NPCInteractionUIManager : MonoBehaviour
     public void OpenNPCInteraction(NPCController npcController)
     {
         currentNPCController = npcController;
-        // Get the NPC's inventory
+        
         currentNPCInventory = npcController.GetComponent<NPCInventory>();
         if (currentNPCInventory == null)
         {
@@ -94,16 +96,19 @@ public class NPCInteractionUIManager : MonoBehaviour
             return;
         }
 
-        bool wasActive = npcInteractionUI.activeSelf;
-        npcInteractionUI.SetActive(true);  // Activate the UI
+        bool alreadyOpen = npcInteractionUI.activeSelf;
+        npcInteractionUI.SetActive(true);
 
-        HideGameScreenUIs();
-
-        if (!wasActive)
+        if (!alreadyOpen)
         {
+            HideGameScreenUIs();
+
+            // Radial menu has already frozen the player once
+            freezeCount = 1;
             if (InputFreezeManager.instance != null)
             {
                 InputFreezeManager.instance.FreezePlayerAndCursor();
+                freezeCount++;
             }
 
             if (currentNPCController != null)
@@ -113,19 +118,24 @@ public class NPCInteractionUIManager : MonoBehaviour
             }
         }
 
-        ClearUI();
+        RefreshUI();
+    }
 
-        // Create NPC inventory slots
+    private void RefreshUI()
+    {
+
+        ClearUI();
+        
         foreach (InventoryItem item in currentNPCInventory.GetAllItems())
         {
-            if (item != null && item.data != null)  // Ensure the item is not null
+            if (item != null && item.data != null)
             {
                 GameObject slotPrefab = GetSlotPrefabForItem(item.data);
                 GameObject newSlot = Instantiate(slotPrefab, npcInventorySlotParent);
                 UI_NPCSlot itemSlot = newSlot.GetComponent<UI_NPCSlot>();
                 if (itemSlot != null)
                 {
-                    itemSlot.SetupSlot(item, true);  // Set true for NPC slot
+                    itemSlot.SetupSlot(item, true);
                 }
                 npcSlots.Add(newSlot);
             }
@@ -143,13 +153,6 @@ public class NPCInteractionUIManager : MonoBehaviour
             {
                 GameObject slotPrefab = GetSlotPrefabForItem(item.data);
                 GameObject newSlot = Instantiate(slotPrefab, playerInventorySlotParent);
-
-
-
-
-
-
-
                 UI_NPCSlot itemSlot = newSlot.GetComponent<UI_NPCSlot>();
                 if (itemSlot != null)
                 {
@@ -159,8 +162,6 @@ public class NPCInteractionUIManager : MonoBehaviour
                 {
                     Debug.LogError("Slot prefab does not have UI_NPCSlot component.");
                 }
-
-
                 inventorySlots.Add(newSlot);
             }
         }
@@ -175,9 +176,11 @@ public class NPCInteractionUIManager : MonoBehaviour
 
         if (InputFreezeManager.instance != null)
         {
-            InputFreezeManager.instance.UnfreezePlayerAndCursor();
-            // Also release any freeze from the radial menu
-            InputFreezeManager.instance.UnfreezePlayerAndCursor();
+            for (int i = 0; i < freezeCount; i++)
+            {
+                InputFreezeManager.instance.UnfreezePlayerAndCursor();
+            }
+            freezeCount = 0;
         }
 
         if (currentNPCInventory != null)
@@ -411,7 +414,7 @@ public class NPCInteractionUIManager : MonoBehaviour
         transferDialogueWindow.SetActive(false);
 
         // Refresh the NPC interaction UI to reflect the updated quantities
-        OpenNPCInteraction(currentNPCInventory.GetComponent<NPCController>());
+        RefreshUI();
     }
 
     private void CloseTransferDialogue()
