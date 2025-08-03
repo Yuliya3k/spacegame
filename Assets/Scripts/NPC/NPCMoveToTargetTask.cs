@@ -13,7 +13,7 @@ public class NPCMoveToTargetTask : NPCActionTask
 
     public override IEnumerator Execute(NPCController npc)
     {
-        ResetTask(); // Reset task state.
+        // ResetTask(); // Reset task state.
         Debug.Log("NPCMoveToTargetTask: Starting execution for target " + targetObjectName);
 
         if (npc == null)

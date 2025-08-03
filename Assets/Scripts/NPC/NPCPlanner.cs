@@ -15,6 +15,7 @@ public class NPCPlanner : MonoBehaviour
     public Vector3 lastTaskPosition;
 
     private NPCController npcController;
+    private bool hasLoadedState = false;
 
     private IEnumerator Start()
     {
@@ -23,6 +24,33 @@ public class NPCPlanner : MonoBehaviour
         {
             Debug.LogError("NPCPlanner: NPCController not found on this GameObject.");
         }
+
+        yield return RunFromCurrent();
+    }
+
+    public List<NPCActionTaskState> GetTaskStates()
+    {
+        List<NPCActionTaskState> states = new List<NPCActionTaskState>();
+        foreach (var task in tasks)
+        {
+            if (task != null)
+                states.Add(task.GetState());
+        }
+        return states;
+    }
+
+    public void SetTaskStates(List<NPCActionTaskState> states)
+    {
+        if (states == null) return;
+        for (int i = 0; i < tasks.Count && i < states.Count; i++)
+        {
+            tasks[i].SetState(states[i]);
+        }
+        hasLoadedState = true;
+    }
+
+    public IEnumerator RunFromCurrent()
+    {
 
         Debug.Log("NPCPlanner: Starting task sequence.");
         do
@@ -35,7 +63,8 @@ public class NPCPlanner : MonoBehaviour
                     if (npcController != null)
                         yield return npcController.WaitWhileFrozen();
 
-                    tasks[i].ResetTask();
+                    if (!(hasLoadedState && i == currentTaskIndex))
+                        tasks[i].ResetTask();
                     Debug.Log("NPCPlanner: Executing task: " + tasks[i].name);
                     yield return StartCoroutine(tasks[i].Execute(npcController));
 
@@ -48,6 +77,7 @@ public class NPCPlanner : MonoBehaviour
                 }
             }
             currentTaskIndex = 0;
+            hasLoadedState = false;
             yield return null;
         } while (loop);
         Debug.Log("NPCPlanner: Task sequence ended.");

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -132,7 +133,42 @@ public class NPCController : MonoBehaviour
 
         // Save the NPC inventory
         if (inventory != null)
+        {
             data.inventoryData = SaveSystem.instance.GetInventoryData(inventory);
+            data.equippedItems = SaveSystem.instance.ConvertInventoryItems(inventory.equipment);
+        }
+
+        // Save container data using existing helper methods
+        data.storageContainers = SaveSystem.instance.GetStorageContainerData(SaveSystem.instance.storageContainers);
+        data.disposableContainers = SaveSystem.instance.GetDisposableContainerData(SaveSystem.instance.disposableContainers);
+
+        // Save global in-game time
+        data.inGameTime = new DateTimeData(SaveSystem.instance.timeManager.GetCurrentInGameTime());
+
+        // Save chosen character profile if available
+        CharacterProfile chosenProfile = CharacterProfileManager.instance.chosenProfile;
+        if (chosenProfile != null)
+        {
+            CharacterProfileData profileData = new CharacterProfileData();
+            profileData.profileName = chosenProfile.characterName;
+            profileData.enableBoobGain = chosenProfile.enableBoobGain;
+            profileData.enableTorsoGain = chosenProfile.enableTorsoGain;
+            profileData.enableThighsGain = chosenProfile.enableThighsGain;
+            profileData.enableShinsGain = chosenProfile.enableShinsGain;
+            profileData.enableArmsGain = chosenProfile.enableArmsGain;
+            profileData.enableWholeBodyGain = chosenProfile.enableWholeBodyGain;
+            profileData.enableGlutesGain = chosenProfile.enableGlutesGain;
+
+            foreach (var blendShapeSetting in chosenProfile.baseBlendShapes)
+            {
+                BlendShapeSettingData bsd = new BlendShapeSettingData();
+                bsd.blendShapeName = blendShapeSetting.blendShapeName;
+                bsd.value = blendShapeSetting.value;
+                profileData.baseBlendShapes.Add(bsd);
+            }
+
+            data.chosenProfileData = profileData;
+        }
 
         // Save planner state if attached
         NPCPlanner planner = GetComponent<NPCPlanner>();
@@ -140,6 +176,7 @@ public class NPCController : MonoBehaviour
         {
             data.currentTaskIndex = planner.currentTaskIndex;
             data.lastTaskPosition = new Vector3Data(planner.lastTaskPosition);
+            data.taskStates = planner.GetTaskStates();
         }
         else
         {

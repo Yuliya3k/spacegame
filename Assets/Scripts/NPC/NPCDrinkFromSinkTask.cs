@@ -14,8 +14,6 @@ public class NPCDrinkFromSinkTask : NPCActionTask
 
     public override IEnumerator Execute(NPCController npc)
     {
-        // Reset the task state.
-        ResetTask();
         Debug.Log("NPCDrinkFromSinkTask: Starting execution. Will drink until fullness reaches " + fullnessThresholdPercent + "%.");
 
         if (npc == null)
@@ -34,8 +32,16 @@ public class NPCDrinkFromSinkTask : NPCActionTask
             yield break;
         }
 
-        // Start the drinking action.
-        sinkManager.StartDrinkingForNPC();
+        if (waypointIndex == 0)
+        {
+            sinkManager.StartDrinkingForNPC();
+            waypointIndex = 1;
+        }
+        else
+        {
+            // ensure drinking continues after loading
+            sinkManager.StartDrinkingForNPC();
+        }
 
         // Calculate the fullness target.
         float targetFullness = npc.characterStats.stomachCapacity * (fullnessThresholdPercent / 100f);

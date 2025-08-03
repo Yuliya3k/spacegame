@@ -12,10 +12,15 @@ public class InteractWithDoorTask : NPCActionTask
 
     public override IEnumerator Execute(NPCController npc)
     {
-        // Here we assume that "ToggleDoors" simulates pressing E.
-        door.ToggleDoors();
-        // Wait for the door to finish moving (adjust the wait time as needed).
-        yield return new WaitForSeconds(door.openTime);
-        IsComplete = true;
+        if (waypointIndex == 0)
+        {
+            door.ToggleDoors();
+            waypointIndex = 1;
+        }
+        while (elapsedTime < door.openTime)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 }

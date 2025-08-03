@@ -33,7 +33,7 @@ public class DialogueManager : MonoBehaviour
             return;
         currentNPC = npc;
         currentLine = startingLine;
-        currentNPC = npc;
+        
         ShowCurrentLine();
         if (currentNPC != null)
         {
@@ -69,6 +69,7 @@ public class DialogueManager : MonoBehaviour
         if (InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
+            // InputFreezeManager.instance.UnfreezePlayerAndCursor();
         }
 
     }

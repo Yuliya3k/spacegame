@@ -9,19 +9,22 @@ public class NPCWaitTask : NPCActionTask
 
     public override IEnumerator Execute(NPCController npc)
     {
-        ResetTask();
-        Debug.Log("NPCWaitTask: Waiting for " + waitInGameMinutes + " in-game minutes.");
-
-        // Get the InGameTimeManager from the NPC's CharacterStats.
+        float waitDuration;
         if (npc.characterStats != null && npc.characterStats.timeManager != null)
         {
-            float waitDuration = npc.characterStats.timeManager.GetRealTimeDurationForGameMinutes(waitInGameMinutes);
-            yield return new WaitForSeconds(waitDuration);
+            waitDuration = npc.characterStats.timeManager.GetRealTimeDurationForGameMinutes(waitInGameMinutes);
         }
         else
         {
             Debug.LogWarning("NPCWaitTask: InGameTimeManager not found. Falling back to real time wait.");
-            yield return new WaitForSeconds(waitInGameMinutes); // Fallback if no timeManager is found.
+            waitDuration = waitInGameMinutes;
+        }
+
+        Debug.Log($"NPCWaitTask: Waiting for {waitDuration} seconds. Resumed at {elapsedTime}.");
+        while (elapsedTime < waitDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
 
         Debug.Log("NPCWaitTask: Wait complete.");

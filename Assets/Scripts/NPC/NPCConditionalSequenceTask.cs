@@ -57,16 +57,15 @@ public class NPCConditionalSequenceTask : NPCActionTask
 
         Debug.Log($"[Conditional Sequence Task] Checking condition: {statName} ({statValue}) {conditionOperator} {effectiveTarget} = {conditionMet}");
 
-        // If condition is met, execute the sequence of tasks.
         if (conditionMet)
         {
             if (sequenceTasks != null && sequenceTasks.Count > 0)
             {
-                foreach (var task in sequenceTasks)
+                for (int i = waypointIndex; i < sequenceTasks.Count; i++)
                 {
+                    var task = sequenceTasks[i];
                     if (task != null)
                     {
-                        task.ResetTask();
                         Debug.Log($"[Conditional Sequence Task] Executing task: {task.name}");
                         yield return npc.StartCoroutine(task.Execute(npc));
                     }
@@ -74,6 +73,7 @@ public class NPCConditionalSequenceTask : NPCActionTask
                     {
                         Debug.LogWarning("[Conditional Sequence Task] A task in the sequence is null.");
                     }
+                    waypointIndex = i + 1;
                 }
             }
             else
@@ -93,6 +93,7 @@ public class NPCConditionalSequenceTask : NPCActionTask
     public override void ResetTask()
     {
         base.ResetTask();
+        waypointIndex = 0;
         if (sequenceTasks != null)
         {
             foreach (var task in sequenceTasks)
@@ -102,4 +103,32 @@ public class NPCConditionalSequenceTask : NPCActionTask
             }
         }
     }
+
+    public override NPCActionTaskState GetState()
+    {
+        NPCActionTaskState state = base.GetState();
+        if (sequenceTasks != null)
+        {
+            state.subStates = new List<NPCActionTaskState>();
+            foreach (var task in sequenceTasks)
+            {
+                if (task != null)
+                    state.subStates.Add(task.GetState());
+            }
+        }
+        return state;
+    }
+
+    public override void SetState(NPCActionTaskState state)
+    {
+        base.SetState(state);
+        if (sequenceTasks != null && state != null && state.subStates != null)
+        {
+            for (int i = 0; i < sequenceTasks.Count && i < state.subStates.Count; i++)
+            {
+                sequenceTasks[i].SetState(state.subStates[i]);
+            }
+        }
+    }
+
 }

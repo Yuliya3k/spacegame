@@ -6,10 +6,10 @@ public class NPCDefecationTask : NPCActionTask
 {
     public override IEnumerator Execute(NPCController npc)
     {
-        ResetTask();
+        
         Debug.Log("NPCDefecationTask: Starting defecation task.");
 
-        // Try to get the NPCDefecationManager from the NPC's children.
+        
         NPCDefecationManager defecationManager = npc.GetComponentInChildren<NPCDefecationManager>();
         if (defecationManager == null)
         {
@@ -18,10 +18,12 @@ public class NPCDefecationTask : NPCActionTask
             yield break;
         }
 
-        // Start defecation.
-        defecationManager.StartDefecation();
+        if (waypointIndex == 0)
+        {
+            defecationManager.StartDefecation();
+            waypointIndex = 1;
+        }
 
-        // Wait until defecation is complete.
         while (defecationManager.IsDefecating)
         {
             yield return null;

@@ -18,7 +18,7 @@ public class NPCSaveData
     public string currentAnimationState;      // The name of the current animation state
     public int currentTaskIndex;              // The index of the current task in the planner
     public Vector3Data lastTaskPosition;        // The position where the last task ended
-
+    public List<NPCActionTaskState> taskStates; // Progress of each planner task
     public DateTimeData inGameTime;
     public CharacterRuntimeStateData runtimeState;
     public CharacterProfileData chosenProfileData;

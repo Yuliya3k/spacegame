@@ -18,7 +18,7 @@ public class SaveSystem : MonoBehaviour
 
     [Header("Containers")]
     public List<StorageContainer> storageContainers;      // Assign in the Editor
-    private List<DisposableContainer> disposableContainers = new List<DisposableContainer>();
+    public List<DisposableContainer> disposableContainers = new List<DisposableContainer>();
 
     public static SaveSystem instance; // Singleton pattern for static access
     private const int MAX_STACK_SIZE = 9999;
@@ -317,7 +317,7 @@ public class SaveSystem : MonoBehaviour
         Debug.Log("Inventory Data Loaded Successfully.");
     }
 
-    private List<StorageContainerData> GetStorageContainerData(List<StorageContainer> containers)
+    public List<StorageContainerData> GetStorageContainerData(List<StorageContainer> containers)
     {
         List<StorageContainerData> containerDataList = new List<StorageContainerData>();
 
@@ -352,7 +352,7 @@ public class SaveSystem : MonoBehaviour
         }
     }
 
-    private List<DisposableContainerData> GetDisposableContainerData(List<DisposableContainer> containers)
+    public List<DisposableContainerData> GetDisposableContainerData(List<DisposableContainer> containers)
     {
         List<DisposableContainerData> containerDataList = new List<DisposableContainerData>();
 
@@ -413,7 +413,7 @@ public class SaveSystem : MonoBehaviour
         playerController.SetAnimationState(animationState);
     }
 
-    private List<InventoryItemData> ConvertInventoryItems(List<InventoryItem> items)
+    public List<InventoryItemData> ConvertInventoryItems(List<InventoryItem> items)
     {
         Dictionary<string, InventoryItemData> uniqueItems = new Dictionary<string, InventoryItemData>();
 
@@ -523,14 +523,24 @@ public class SaveSystem : MonoBehaviour
         storageContainers = FindObjectsOfType<StorageContainer>().ToList();
     }
 
-    private void SetEquippedItems(List<InventoryItemData> dataList, PlayerInventory inventory)
+    private void SetEquippedItems(List<InventoryItemData> dataList, Inventory inventory)
     {
+        if (dataList == null || inventory == null)
+            return;
+
         foreach (var data in dataList)
         {
             ItemData itemData = itemDatabase.GetItemByID(data.itemID);
             if (itemData != null)
             {
-                inventory.EquipItem(itemData);
+                if (inventory is PlayerInventory playerInv)
+                {
+                    playerInv.EquipItem(itemData);
+                }
+                else if (inventory is NPCInventory npcInv)
+                {
+                    npcInv.EquipItem(itemData);
+                }
             }
             else
             {
@@ -645,11 +655,10 @@ public class SaveSystem : MonoBehaviour
                 if (planner != null)
                 {
                     planner.currentTaskIndex = npcData.currentTaskIndex;
-                    if (planner.tasks != null && planner.tasks.Count > planner.currentTaskIndex)
-                    {
-                        planner.tasks[planner.currentTaskIndex].ResetTask();
-                        Debug.Log($"[NPC LOAD] {npcController.npcName} planner task index reset to: {planner.currentTaskIndex}");
-                    }
+                    planner.SetTaskStates(npcData.taskStates);
+                    planner.StopAllCoroutines();
+                    planner.StartCoroutine(planner.RunFromCurrent());
+                    Debug.Log($"[NPC LOAD] {npcController.npcName} planner task index restored to: {planner.currentTaskIndex}");
                 }
 
                 // Restore character stats and inventory as before
@@ -657,6 +666,42 @@ public class SaveSystem : MonoBehaviour
                 SetRuntimeStateData(npcData.runtimeState, npcController.characterStats);
                 if (npcController.inventory != null && npcData.inventoryData != null)
                     SetInventoryData(npcData.inventoryData, npcController.inventory);
+
+                if (npcController.inventory != null && npcData.equippedItems != null)
+                    SetEquippedItems(npcData.equippedItems, npcController.inventory);
+
+                if (npcData.storageContainers != null)
+                    SetStorageContainerData(npcData.storageContainers, storageContainers);
+
+                if (npcData.disposableContainers != null)
+                    SetDisposableContainerData(npcData.disposableContainers);
+
+                if (npcData.inGameTime != null)
+                    timeManager.SetInGameTime(npcData.inGameTime.ToDateTime());
+
+                if (npcData.chosenProfileData != null)
+                {
+                    CharacterProfile loadedProfile = new CharacterProfile();
+                    loadedProfile.characterName = npcData.chosenProfileData.profileName;
+                    loadedProfile.enableBoobGain = npcData.chosenProfileData.enableBoobGain;
+                    loadedProfile.enableTorsoGain = npcData.chosenProfileData.enableTorsoGain;
+                    loadedProfile.enableThighsGain = npcData.chosenProfileData.enableThighsGain;
+                    loadedProfile.enableShinsGain = npcData.chosenProfileData.enableShinsGain;
+                    loadedProfile.enableArmsGain = npcData.chosenProfileData.enableArmsGain;
+                    loadedProfile.enableWholeBodyGain = npcData.chosenProfileData.enableWholeBodyGain;
+                    loadedProfile.enableGlutesGain = npcData.chosenProfileData.enableGlutesGain;
+
+                    loadedProfile.baseBlendShapes = new List<BlendShapeSetting>();
+                    foreach (var bsd in npcData.chosenProfileData.baseBlendShapes)
+                    {
+                        BlendShapeSetting setting = new BlendShapeSetting();
+                        setting.blendShapeName = bsd.blendShapeName;
+                        setting.value = bsd.value;
+                        loadedProfile.baseBlendShapes.Add(setting);
+                    }
+
+                    npcController.characterStats.ApplyBaseCharacterProfile(loadedProfile);
+                }
             }
             else
             {

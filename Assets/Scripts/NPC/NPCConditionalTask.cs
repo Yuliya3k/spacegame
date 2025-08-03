@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New NPC Conditional Task", menuName = "NPC Tasks/Conditional Task")]
@@ -85,6 +86,25 @@ public class NPCConditionalTask : NPCActionTask
         if (underlyingTask != null)
         {
             underlyingTask.ResetTask();
+        }
+    }
+
+    public override NPCActionTaskState GetState()
+    {
+        NPCActionTaskState state = base.GetState();
+        if (underlyingTask != null)
+        {
+            state.subStates = new List<NPCActionTaskState> { underlyingTask.GetState() };
+        }
+        return state;
+    }
+
+    public override void SetState(NPCActionTaskState state)
+    {
+        base.SetState(state);
+        if (underlyingTask != null && state != null && state.subStates != null && state.subStates.Count > 0)
+        {
+            underlyingTask.SetState(state.subStates[0]);
         }
     }
 }

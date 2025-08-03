@@ -14,8 +14,7 @@ public class NPCDoorOpenTask : NPCActionTask
 
     public override IEnumerator Execute(NPCController npc)
     {
-        ResetTask();
-        Debug.Log("NPCDoorOpenTask: Starting execution for door " + doorObjectName);
+        Debug.Log("NPCDoorOpenTask: Starting execution for door " + doorObjectName + $" stage {waypointIndex}");
 
         if (npc == null)
         {
@@ -42,23 +41,27 @@ public class NPCDoorOpenTask : NPCActionTask
             yield break;
         }
 
-        // If the door is not already open, open it.
-        if (!door.AreDoorsOpen)
+        if (waypointIndex == 0)
         {
-            door.OpenDoors();
+            if (!door.AreDoorsOpen)
+            {
+                door.OpenDoors();
+            }
+            while (!door.AreDoorsOpen)
+            {
+                yield return null;
+            }
+            waypointIndex = 1;
         }
 
-        // Wait until the door reports that it is open.
-        while (!door.AreDoorsOpen)
-        {
-            yield return null;
-        }
-
-        // Optionally wait for a duration after the door has opened.
-        if (waitAfterOpenInGameMinutes > 0f && npc.characterStats != null && npc.characterStats.timeManager != null)
+        if (waypointIndex == 1 && waitAfterOpenInGameMinutes > 0f && npc.characterStats != null && npc.characterStats.timeManager != null)
         {
             float waitDuration = npc.characterStats.timeManager.GetRealTimeDurationForGameMinutes(waitAfterOpenInGameMinutes);
-            yield return new WaitForSeconds(waitDuration);
+            while (elapsedTime < waitDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
         }
 
         Debug.Log("NPCDoorOpenTask: Completed execution for door " + doorObjectName);
