@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class CharacterEquipmentManager : MonoBehaviour
 {
-    // Dictionary to store references to all the SkinnedMeshRenderers by mesh name
-    private Dictionary<string, SkinnedMeshRenderer> allCharacterMeshes = new Dictionary<string, SkinnedMeshRenderer>();
+    // Dictionary to store references to all the SkinnedMeshRenderers by mesh reference
+    private Dictionary<Mesh, SkinnedMeshRenderer> allCharacterMeshes = new Dictionary<Mesh, SkinnedMeshRenderer>();
 
     // Dictionary to store collider height adjustments per EquipmentType
     private Dictionary<EquipmentType, float> colliderHeightAdjustments = new Dictionary<EquipmentType, float>();
 
 
     // This will help us keep track of which items are currently equipped
-    private Dictionary<string, ItemDataEquipment> equippedItems = new Dictionary<string, ItemDataEquipment>();
+    private Dictionary<Mesh, ItemDataEquipment> equippedItems = new Dictionary<Mesh, ItemDataEquipment>();
 
     public List<SkinnedMeshRenderer> equippedMeshRenderers = new List<SkinnedMeshRenderer>();
 
@@ -48,12 +48,13 @@ public class CharacterEquipmentManager : MonoBehaviour
         {
             if (renderer.sharedMesh != null)
             {
-                string meshName = renderer.sharedMesh.name;
+                Mesh mesh = renderer.sharedMesh;
+                string meshName = mesh.name;
 
                 // Exclude core character meshes from being hidden
                 if (!IsCoreCharacterMesh(meshName))
                 {
-                    allCharacterMeshes[meshName] = renderer;
+                    allCharacterMeshes[mesh] = renderer;
 
                     renderer.enabled = false; // Start with all clothes hidden
                     Debug.Log($"Mesh {meshName} added to allCharacterMeshes and disabled.");
@@ -123,13 +124,14 @@ public class CharacterEquipmentManager : MonoBehaviour
     {
         if (item.itemMesh != null)
         {
-            string meshName = item.itemMesh.name;
+            Mesh meshKey = item.itemMesh;
+            string meshName = meshKey.name;
 
             // Enable the specific mesh associated with this item
-            if (allCharacterMeshes.TryGetValue(meshName, out SkinnedMeshRenderer meshRenderer))
+            if (allCharacterMeshes.TryGetValue(meshKey, out SkinnedMeshRenderer meshRenderer))
             {
                 meshRenderer.enabled = true;
-                equippedItems[meshName] = item; // Track that this item is equipped
+                equippedItems[meshKey] = item; // Track that this item is equipped
 
                 // Add to the list of equipped mesh renderers if not already present
                 if (!equippedMeshRenderers.Contains(meshRenderer))
@@ -158,13 +160,14 @@ public class CharacterEquipmentManager : MonoBehaviour
     {
         if (item.itemMesh != null)
         {
-            string meshName = item.itemMesh.name;
+            Mesh meshKey = item.itemMesh;
+            string meshName = meshKey.name;
 
             // Disable the specific mesh associated with this item
-            if (allCharacterMeshes.TryGetValue(meshName, out SkinnedMeshRenderer meshRenderer))
+            if (allCharacterMeshes.TryGetValue(meshKey, out SkinnedMeshRenderer meshRenderer))
             {
                 meshRenderer.enabled = false;
-                equippedItems.Remove(meshName); // Remove tracking for this item
+                equippedItems.Remove(meshKey); // Remove tracking for this item
 
                 // Remove from the list of equipped mesh renderers
                 equippedMeshRenderers.Remove(meshRenderer);
