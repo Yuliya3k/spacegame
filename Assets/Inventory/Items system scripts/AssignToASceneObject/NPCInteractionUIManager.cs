@@ -94,19 +94,23 @@ public class NPCInteractionUIManager : MonoBehaviour
             return;
         }
 
+        bool wasActive = npcInteractionUI.activeSelf;
         npcInteractionUI.SetActive(true);  // Activate the UI
 
         HideGameScreenUIs();
 
-        if (InputFreezeManager.instance != null)
+        if (!wasActive)
         {
-            InputFreezeManager.instance.FreezePlayerAndCursor();
-        }
+            if (InputFreezeManager.instance != null)
+            {
+                InputFreezeManager.instance.FreezePlayerAndCursor();
+            }
 
-        if (currentNPCController != null)
-        {
-            currentNPCController.Freeze();
-            currentNPCController.SetInteractionAnimation("Trade");
+            if (currentNPCController != null)
+            {
+                currentNPCController.Freeze();
+                currentNPCController.SetInteractionAnimation("Trade");
+            }
         }
 
         ClearUI();
