@@ -19,6 +19,7 @@ public class SaveSystem : MonoBehaviour
     [Header("Containers")]
     public List<StorageContainer> storageContainers;      // Assign in the Editor
     public List<DisposableContainer> disposableContainers = new List<DisposableContainer>();
+    private static List<DisposableContainer> queuedDisposableContainers = new List<DisposableContainer>();
     private HashSet<string> destroyedContainerIDs = new HashSet<string>();
     public static SaveSystem instance; // Singleton pattern for static access
     private const int MAX_STACK_SIZE = 9999;
@@ -33,6 +34,18 @@ public class SaveSystem : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject); // Persist across scenes
+
+            if (queuedDisposableContainers.Count > 0)
+            {
+                foreach (var container in queuedDisposableContainers)
+                {
+                    if (!disposableContainers.Contains(container))
+                    {
+                        disposableContainers.Add(container);
+                    }
+                }
+                queuedDisposableContainers.Clear();
+            }
         }
         else
         {
@@ -58,6 +71,7 @@ public class SaveSystem : MonoBehaviour
     {
         // Ensure we have the latest list of storage containers in the scene
         RefreshStorageContainers();
+        RefreshDisposableContainers();
 
         SaveData data = new SaveData();
 
@@ -190,6 +204,7 @@ public class SaveSystem : MonoBehaviour
 
             // Refresh container references before applying their saved content
             RefreshStorageContainers();
+            RefreshDisposableContainers();
 
             SetStorageContainerData(data.storageContainers, storageContainers);
             SetDisposableContainerData(data.disposableContainers);
@@ -542,17 +557,37 @@ public class SaveSystem : MonoBehaviour
 
     public static void RegisterDisposableContainer(DisposableContainer container)
     {
-        if (instance != null && !instance.disposableContainers.Contains(container))
+        if (instance != null)
         {
-            instance.disposableContainers.Add(container);
+            if (!instance.disposableContainers.Contains(container))
+            {
+                instance.disposableContainers.Add(container);
+            }
+        }
+        else
+        {
+            if (!queuedDisposableContainers.Contains(container))
+            {
+                queuedDisposableContainers.Add(container);
+            }
         }
     }
 
     public static void UnregisterDisposableContainer(DisposableContainer container)
     {
-        if (instance != null && instance.disposableContainers.Contains(container))
+        if (instance != null)
         {
-            instance.disposableContainers.Remove(container);
+            if (instance.disposableContainers.Contains(container))
+            {
+                instance.disposableContainers.Remove(container);
+            }
+        }
+        else
+        {
+            if (queuedDisposableContainers.Contains(container))
+            {
+                queuedDisposableContainers.Remove(container);
+            }
         }
     }
 
@@ -569,6 +604,12 @@ public class SaveSystem : MonoBehaviour
     private void RefreshStorageContainers()
     {
         storageContainers = FindObjectsOfType<StorageContainer>().ToList();
+    }
+
+    // Helper to rebuild the list of disposable containers currently in the scene
+    private void RefreshDisposableContainers()
+    {
+        disposableContainers = FindObjectsOfType<DisposableContainer>().ToList();
     }
 
     private void SetEquippedItems(List<InventoryItemData> dataList, Inventory inventory)
@@ -729,7 +770,10 @@ public class SaveSystem : MonoBehaviour
                     SetStorageContainerData(npcData.storageContainers, storageContainers);
 
                 if (npcData.disposableContainers != null)
+                {
+                    RefreshDisposableContainers();
                     SetDisposableContainerData(npcData.disposableContainers);
+                }
 
                 if (npcData.inGameTime != null)
                     timeManager.SetInGameTime(npcData.inGameTime.ToDateTime());
