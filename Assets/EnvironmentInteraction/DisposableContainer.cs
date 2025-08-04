@@ -72,6 +72,11 @@ public class DisposableContainer : MonoBehaviour, IInteractable
             yield return null;
         }
 
+        if (SaveSystem.instance != null)
+        {
+            SaveSystem.instance.MarkContainerDestroyed(containerID);
+        }
+
         Destroy(gameObject); // Finally destroy the container
     }
 

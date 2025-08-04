@@ -9,6 +9,7 @@ public class SaveData
     public List<InventoryItemData> equippedItems;
     public List<StorageContainerData> storageContainers;
     public List<DisposableContainerData> disposableContainers;
+    public List<string> destroyedContainerIDs;
     public Vector3Data playerPosition;
     public string currentAnimationState;
     public DateTimeData inGameTime;

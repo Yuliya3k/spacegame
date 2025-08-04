@@ -19,7 +19,7 @@ public class SaveSystem : MonoBehaviour
     [Header("Containers")]
     public List<StorageContainer> storageContainers;      // Assign in the Editor
     public List<DisposableContainer> disposableContainers = new List<DisposableContainer>();
-
+    private HashSet<string> destroyedContainerIDs = new HashSet<string>();
     public static SaveSystem instance; // Singleton pattern for static access
     private const int MAX_STACK_SIZE = 9999;
     public static bool loadedFromSave = false;
@@ -66,6 +66,7 @@ public class SaveSystem : MonoBehaviour
         data.inventoryData = GetInventoryData(playerInventory);
         data.storageContainers = GetStorageContainerData(storageContainers);
         data.disposableContainers = GetDisposableContainerData(disposableContainers);
+        data.destroyedContainerIDs = destroyedContainerIDs.ToList();
         data.playerPosition = new Vector3Data(playerController.transform.position);
         data.currentAnimationState = GetCurrentAnimationState(playerController);
         data.inGameTime = new DateTimeData(timeManager.GetCurrentInGameTime());
@@ -143,6 +144,10 @@ public class SaveSystem : MonoBehaviour
                 Debug.LogError("Failed to parse save data.");
                 return;
             }
+
+            destroyedContainerIDs = data.destroyedContainerIDs != null
+                ? new HashSet<string>(data.destroyedContainerIDs)
+                : new HashSet<string>();
 
             // Apply player/global data
             timeManager.SetInGameTime(data.inGameTime.ToDateTime());
@@ -380,6 +385,11 @@ public class SaveSystem : MonoBehaviour
 
         foreach (DisposableContainerData data in dataList)
         {
+            if (destroyedContainerIDs.Contains(data.containerID))
+            {
+                continue;
+            }
+
             GameObject containerPrefab = Resources.Load<GameObject>("DisposableContainer");
             if (containerPrefab == null)
             {
@@ -543,6 +553,15 @@ public class SaveSystem : MonoBehaviour
         if (instance != null && instance.disposableContainers.Contains(container))
         {
             instance.disposableContainers.Remove(container);
+        }
+    }
+
+
+    public void MarkContainerDestroyed(string id)
+    {
+        if (!string.IsNullOrEmpty(id))
+        {
+            destroyedContainerIDs.Add(id);
         }
     }
 
