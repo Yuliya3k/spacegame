@@ -181,6 +181,7 @@ public class SaveSystem : MonoBehaviour
             characterStats.UpdateWeightBlendShapeContributions();
 
             SetInventoryData(data.inventoryData, playerInventory);
+            SetEquippedItems(data.equippedItems, playerInventory);
 
             // Refresh container references before applying their saved content
             RefreshStorageContainers();
@@ -566,11 +567,11 @@ public class SaveSystem : MonoBehaviour
                 {
                     if (inventory is PlayerInventory playerInv)
                     {
-                        playerInv.EquipItem(itemData);
+                        playerInv.EquipItemOnLoad(itemData);
                     }
                     else if (inventory is NPCInventory npcInv)
                     {
-                        npcInv.EquipItem(itemData);
+                        npcInv.EquipItemOnLoad(itemData);
                     }
                 }
             }
@@ -699,6 +700,7 @@ public class SaveSystem : MonoBehaviour
                 if (npcController.inventory != null && npcData.inventoryData != null)
                 {
                     SetInventoryData(npcData.inventoryData, npcController.inventory);
+                    SetEquippedItems(npcData.equippedItems, npcController.inventory);
 
                     if (npcController.inventory is NPCInventory npcInv)
                         npcInv.OnGameLoaded();
