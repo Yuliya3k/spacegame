@@ -227,4 +227,31 @@ public class NPCInventory : Inventory
 #endif
 
     // Additional NPC-specific methods can be added here
+
+    public void OnGameLoaded()
+    {
+        RebuildDictionaries();
+        foreach (InventoryItem equippedItem in equipment)
+        {
+            EquipItemOnLoad(equippedItem.data);
+        }
+    }
+
+    public void EquipItemOnLoad(ItemData _item)
+    {
+        ItemDataEquipment newEquipment = _item as ItemDataEquipment;
+        InventoryItem newItem = new InventoryItem(newEquipment);
+
+        if (newEquipment != null)
+        {
+            foreach (EquipmentType slot in newEquipment.equipmentSlots)
+            {
+                equipmentDictionary[slot] = newItem;
+            }
+
+            equipmentManager.EquipItem(newEquipment);
+            characterStats.ApplyEquipmentModifier(newEquipment);
+        }
+    }
+    
 }

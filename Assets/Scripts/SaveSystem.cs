@@ -69,7 +69,7 @@ public class SaveSystem : MonoBehaviour
         data.playerPosition = new Vector3Data(playerController.transform.position);
         data.currentAnimationState = GetCurrentAnimationState(playerController);
         data.inGameTime = new DateTimeData(timeManager.GetCurrentInGameTime());
-        data.equippedItems = ConvertInventoryItems(playerInventory.GetEquippedItems());
+        data.equippedItems = GetEquippedItemData(playerInventory.GetEquippedItems());
         data.runtimeState = GetRuntimeStateData(characterStats);
 
         // Note: Removed the undefined block that referenced "npc.inventory"
@@ -189,7 +189,7 @@ public class SaveSystem : MonoBehaviour
             SetDisposableContainerData(data.disposableContainers);
             playerController.transform.position = data.playerPosition.ToVector3();
             SetCurrentAnimationState(playerController, data.currentAnimationState);
-            SetEquippedItems(data.equippedItems, playerInventory);
+            
 
             // The NPC data is loaded via the helper method below.
             if (data.npcSaveData != null && data.npcSaveData.Count > 0)
@@ -413,6 +413,29 @@ public class SaveSystem : MonoBehaviour
         playerController.SetAnimationState(animationState);
     }
 
+    public List<InventoryItemData> GetEquippedItemData(List<InventoryItem> items)
+    {
+        List<InventoryItemData> equippedItems = new List<InventoryItemData>();
+
+        foreach (var item in items)
+        {
+            if (item == null || item.data == null)
+            {
+                Debug.LogWarning("Null equipped item or item.data during saving.");
+                continue;
+            }
+
+            equippedItems.Add(new InventoryItemData
+            {
+                itemID = item.data.itemID,
+                quantity = Mathf.Clamp(item.stackSize, 0, MAX_STACK_SIZE)
+            });
+        }
+
+        Debug.Log("Saving equipped items individually without de-duplication.");
+        return equippedItems;
+    }
+
     public List<InventoryItemData> ConvertInventoryItems(List<InventoryItem> items)
     {
         Dictionary<string, InventoryItemData> uniqueItems = new Dictionary<string, InventoryItemData>();
@@ -426,6 +449,11 @@ public class SaveSystem : MonoBehaviour
             }
 
             string itemID = item.data.itemID;
+            if (string.IsNullOrEmpty(itemID))
+            {
+                Debug.LogWarning($"Skipping item with missing ID: {item.data.objectName}");
+                continue;
+            }
             if (uniqueItems.ContainsKey(itemID))
             {
                 uniqueItems[itemID].quantity += item.stackSize;
@@ -533,13 +561,17 @@ public class SaveSystem : MonoBehaviour
             ItemData itemData = itemDatabase.GetItemByID(data.itemID);
             if (itemData != null)
             {
-                if (inventory is PlayerInventory playerInv)
+                int count = Mathf.Max(data.quantity, 1);
+                for (int i = 0; i < count; i++)
                 {
-                    playerInv.EquipItem(itemData);
-                }
-                else if (inventory is NPCInventory npcInv)
-                {
-                    npcInv.EquipItem(itemData);
+                    if (inventory is PlayerInventory playerInv)
+                    {
+                        playerInv.EquipItem(itemData);
+                    }
+                    else if (inventory is NPCInventory npcInv)
+                    {
+                        npcInv.EquipItem(itemData);
+                    }
                 }
             }
             else
@@ -665,10 +697,12 @@ public class SaveSystem : MonoBehaviour
                 SetCharacterData(npcData.characterData, npcController.characterStats);
                 SetRuntimeStateData(npcData.runtimeState, npcController.characterStats);
                 if (npcController.inventory != null && npcData.inventoryData != null)
+                {
                     SetInventoryData(npcData.inventoryData, npcController.inventory);
 
-                if (npcController.inventory != null && npcData.equippedItems != null)
-                    SetEquippedItems(npcData.equippedItems, npcController.inventory);
+                    if (npcController.inventory is NPCInventory npcInv)
+                        npcInv.OnGameLoaded();
+                }
 
                 if (npcData.storageContainers != null)
                     SetStorageContainerData(npcData.storageContainers, storageContainers);

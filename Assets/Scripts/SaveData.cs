@@ -6,7 +6,6 @@ public class SaveData
 {
     public CharacterData characterData;
     public InventoryData inventoryData;
-    public List<InventoryItemData> equippedItems;
     public List<StorageContainerData> storageContainers;
     public List<DisposableContainerData> disposableContainers;
     public Vector3Data playerPosition;

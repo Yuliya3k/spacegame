@@ -135,7 +135,7 @@ public class NPCController : MonoBehaviour
         if (inventory != null)
         {
             data.inventoryData = SaveSystem.instance.GetInventoryData(inventory);
-            data.equippedItems = SaveSystem.instance.ConvertInventoryItems(inventory.equipment);
+            data.equippedItems = SaveSystem.instance.GetEquippedItemData(inventory.equipment);
         }
 
         // Save container data using existing helper methods
