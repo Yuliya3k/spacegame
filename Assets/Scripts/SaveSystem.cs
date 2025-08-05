@@ -392,7 +392,7 @@ public class SaveSystem : MonoBehaviour
 
     private void SetDisposableContainerData(List<DisposableContainerData> dataList)
     {
-        foreach (DisposableContainer container in disposableContainers)
+        foreach (var container in disposableContainers.ToList())
         {
             Destroy(container.gameObject);
         }
