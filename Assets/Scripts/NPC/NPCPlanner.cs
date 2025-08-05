@@ -12,6 +12,7 @@ public class NPCPlanner : MonoBehaviour
 
     public int currentTaskIndex = 0;
 
+    // Tracks where the last task left the NPC so it can be restored on load
     public Vector3 lastTaskPosition;
 
     private NPCController npcController;
@@ -24,7 +25,8 @@ public class NPCPlanner : MonoBehaviour
         {
             Debug.LogError("NPCPlanner: NPCController not found on this GameObject.");
         }
-
+        // Initialize lastTaskPosition to the NPC's starting position
+        lastTaskPosition = npcController != null ? npcController.transform.position : transform.position;
         yield return RunFromCurrent();
     }
 
@@ -69,7 +71,15 @@ public class NPCPlanner : MonoBehaviour
                     yield return StartCoroutine(tasks[i].Execute(npcController));
 
                     if (npcController != null)
+                    {
                         yield return npcController.WaitWhileFrozen();
+                        // Save NPC position after completing each task for persistence
+                        lastTaskPosition = npcController.transform.position;
+                    }
+                    else
+                    {
+                        lastTaskPosition = transform.position;
+                    }
                 }
                 else
                 {

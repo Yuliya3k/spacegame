@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SaveSystem : MonoBehaviour
 {
@@ -726,10 +728,29 @@ public class SaveSystem : MonoBehaviour
                 npcController.navAgent.Warp(loadPos);
                 Debug.Log($"[NPC LOAD] {npcController.npcName} warped to: {npcController.transform.position}");
 
-                // Set destination to the saved navDestination
+                // Restore the saved path if available, otherwise just set destination
                 Vector3 dest = npcData.navDestination.ToVector3();
-                npcController.navAgent.SetDestination(dest);
-                Debug.Log($"[NPC LOAD] {npcController.npcName} destination set to: {dest}");
+                if (npcData.navPathCorners != null && npcData.navPathCorners.Count > 0)
+                {
+                    NavMeshPath restoredPath = new NavMeshPath();
+                    Vector3[] corners = new Vector3[npcData.navPathCorners.Count];
+                    for (int i = 0; i < corners.Length; i++)
+                        corners[i] = npcData.navPathCorners[i].ToVector3();
+
+                    var cornersField = typeof(NavMeshPath).GetField("m_Corners", BindingFlags.NonPublic | BindingFlags.Instance);
+                    var cornerCountField = typeof(NavMeshPath).GetField("m_CornersCount", BindingFlags.NonPublic | BindingFlags.Instance);
+                    cornersField?.SetValue(restoredPath, corners);
+                    cornerCountField?.SetValue(restoredPath, corners.Length);
+
+                    npcController.navAgent.SetPath(restoredPath);
+                    npcController.plannedDestination = dest;
+                    Debug.Log($"[NPC LOAD] {npcController.npcName} path restored with {corners.Length} corners");
+                }
+                else
+                {
+                    npcController.navAgent.SetDestination(dest);
+                    Debug.Log($"[NPC LOAD] {npcController.npcName} destination set to: {dest}");
+                }
 
                 // Ensure the collider is enabled (if applicable)
                 Collider col = npcController.GetComponent<Collider>();

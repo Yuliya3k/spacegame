@@ -107,6 +107,7 @@ public class NPCConditionalSequenceTask : NPCActionTask
     public override NPCActionTaskState GetState()
     {
         NPCActionTaskState state = base.GetState();
+        state.waypointIndex = waypointIndex;
         if (sequenceTasks != null)
         {
             state.subStates = new List<NPCActionTaskState>();
@@ -122,6 +123,7 @@ public class NPCConditionalSequenceTask : NPCActionTask
     public override void SetState(NPCActionTaskState state)
     {
         base.SetState(state);
+        waypointIndex = state?.waypointIndex ?? 0;
         if (sequenceTasks != null && state != null && state.subStates != null)
         {
             for (int i = 0; i < sequenceTasks.Count && i < state.subStates.Count; i++)

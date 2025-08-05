@@ -15,6 +15,7 @@ public class NPCSaveData
 
     // NEW: Fields for additional NPC state
     public Vector3Data navDestination;      // The saved destination of the NPC's NavMeshAgent
+    public List<Vector3Data> navPathCorners; // Stored NavMeshAgent path corners
     public string currentAnimationState;      // The name of the current animation state
     public int currentTaskIndex;              // The index of the current task in the planner
     public Vector3Data lastTaskPosition;        // The position where the last task ended

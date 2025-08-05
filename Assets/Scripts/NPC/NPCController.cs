@@ -123,6 +123,14 @@ public class NPCController : MonoBehaviour
         // Save the current transform position (in case we need it as a fallback)
         data.playerPosition = new Vector3Data(transform.position);
         data.navDestination = new Vector3Data(navAgent.destination);
+        if (navAgent != null && navAgent.hasPath)
+        {
+            data.navPathCorners = new List<Vector3Data>();
+            foreach (Vector3 corner in navAgent.path.corners)
+            {
+                data.navPathCorners.Add(new Vector3Data(corner));
+            }
+        }
         data.currentAnimationState = GetCurrentAnimationState();
 
         // Use the same helper method as for the player so that all stats are saved consistently.
