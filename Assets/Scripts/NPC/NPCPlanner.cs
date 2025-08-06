@@ -59,13 +59,14 @@ public class NPCPlanner : MonoBehaviour
         {
             for (int i = currentTaskIndex; i < tasks.Count; i++)
             {
+                bool isLoadedTask = hasLoadedState && i == currentTaskIndex;
                 currentTaskIndex = i;
                 if (tasks[i] != null)
                 {
                     if (npcController != null)
                         yield return npcController.WaitWhileFrozen();
 
-                    if (!(hasLoadedState && i == currentTaskIndex))
+                    if (!isLoadedTask)
                         tasks[i].ResetTask();
                     Debug.Log("NPCPlanner: Executing task: " + tasks[i].name);
                     yield return StartCoroutine(tasks[i].Execute(npcController));
