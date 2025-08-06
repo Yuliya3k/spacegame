@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
+public enum DietPreference
+{
+    HighVolumeLowCalories,
+    HighCalorieDensity
+}
+
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
 public class NPCController : MonoBehaviour
@@ -14,6 +20,7 @@ public class NPCController : MonoBehaviour
     public Text locationText;
     public CharacterStats characterStats;
     public Inventory inventory;
+    public DietPreference dietPreference = DietPreference.HighVolumeLowCalories;
 
     [Header("Movement Settings")]
     public float baseMaxForwardSpeed = 3f;

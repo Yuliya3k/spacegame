@@ -120,6 +120,67 @@ public class NPCInventory : Inventory
         // Since NPCs don't have UI, we don't need to update it
     }
 
+    public ItemData ChooseFood(DietPreference preference)
+    {
+        float availableVolume = characterStats.stomachCapacity - characterStats.currentFullness;
+        List<EatableItemData> candidates = new List<EatableItemData>();
+
+        foreach (InventoryItem item in dishes)
+        {
+            if (item.data is EatableItemData eatable && eatable.canEat && eatable.volume <= availableVolume)
+            {
+                candidates.Add(eatable);
+            }
+        }
+
+        foreach (InventoryItem item in ingredients)
+        {
+            if (item.data is EatableItemData eatable && eatable.canEat && eatable.volume <= availableVolume)
+            {
+                candidates.Add(eatable);
+            }
+        }
+
+        if (candidates.Count == 0)
+            return null;
+
+        EatableItemData best = null;
+        float bestScore = float.NegativeInfinity;
+
+        switch (preference)
+        {
+            case DietPreference.HighVolumeLowCalories:
+                foreach (var item in candidates)
+                {
+                    float ratio = item.calories <= 0f ? float.PositiveInfinity : (float)item.volume / item.calories;
+                    if (ratio > bestScore)
+                    {
+                        bestScore = ratio;
+                        best = item;
+                    }
+                }
+                break;
+
+            case DietPreference.HighCalorieDensity:
+                foreach (var item in candidates)
+                {
+                    float ratio = item.volume <= 0f ? (item.calories > 0f ? float.PositiveInfinity : 0f) : item.calories / item.volume;
+                    if (ratio > bestScore)
+                    {
+                        bestScore = ratio;
+                        best = item;
+                    }
+                }
+                break;
+
+            default:
+                best = candidates[0];
+                break;
+        }
+
+        return best;
+    }
+
     // Implement method for consuming items
     public void EatItem(ItemData _item)
     {

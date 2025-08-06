@@ -14,7 +14,12 @@ public class NPCScheduledMealTask : NPCActionTask
     }
 
     [Tooltip("List of meal windows during the day.")]
-    public MealWindow[] mealWindows;
+    public MealWindow[] mealWindows = new MealWindow[]
+    {
+        new MealWindow { startHour = 7, endHour = 10 },
+        new MealWindow { startHour = 14, endHour = 16 },
+        new MealWindow { startHour = 19, endHour = 22 }
+    };
 
     [Tooltip("Interval between fullness checks in game minutes.")]
     public float checkIntervalMinutes = 30f;
@@ -30,28 +35,19 @@ public class NPCScheduledMealTask : NPCActionTask
 
         while (stats.currentFullness < stats.stomachCapacity)
         {
-            InventoryItem foodItem = null;
-            if (inventory.dishes != null && inventory.dishes.Count > 0)
+            ItemData food = inventory.ChooseFood(npc.dietPreference);
+            if (food == null)
             {
-                foodItem = inventory.dishes[0];
-            }
-            else if (inventory.ingredients != null && inventory.ingredients.Count > 0)
-            {
-                foodItem = inventory.ingredients[0];
-            }
-
-            if (foodItem == null)
-            {
-                break; // No food available
+                break;
             }
 
             float eatTime = 0f;
-            if (foodItem.data is EatableItemData eatable)
+            if (food is EatableItemData eatable)
             {
                 eatTime = eatable.timeToEat;
             }
 
-            inventory.EatItem(foodItem.data);
+            inventory.EatItem(food);
 
             float timer = 0f;
             while (timer < eatTime)
