@@ -149,6 +149,15 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         mainCamera = Camera.main;
         _cineCamera = GetComponent<CinemachineCamera>();
         cineBrain = GetComponent<CinemachineBrain>();
+
+
+        // Find the PlayerInteraction script
+        playerInteraction = FindObjectOfType<PlayerInteraction>();
+        if (playerInteraction == null)
+        {
+            Debug.LogError("PlayerInteraction script not found in the scene.");
+        }
+
         // Initialize with Profile 1 by default
         SwitchToProfile(profile1);
         SetHeadVisible(!profile1.hideHead);
@@ -162,12 +171,7 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         RenderSettings.fogDensity = fogDensity;
         RenderSettings.fogMode = FogMode.ExponentialSquared;
 
-        // Find the PlayerInteraction script
-        playerInteraction = FindObjectOfType<PlayerInteraction>();
-        if (playerInteraction == null)
-        {
-            Debug.LogError("PlayerInteraction script not found in the scene.");
-        }
+        
     }
 
     private void Update()
@@ -221,14 +225,56 @@ public class CinemachineCameraController : MonoBehaviour, ICameraControl
         UpdateCameraPosition();
     }
 
-    private void SwitchToProfile(CameraProfile profile)
-
+    private void SwitchToProfileInternal(CameraProfile profile)
     {
         if (profileTransitionCoroutine != null)
         {
             StopCoroutine(profileTransitionCoroutine);
         }
         profileTransitionCoroutine = StartCoroutine(TransitionToProfile(profile));
+    }
+
+    public void SwitchToProfile(CameraProfile profile)
+    {
+        SwitchToProfileInternal(profile);
+    }
+
+    public void SwitchToProfile(int index)
+    {
+        CameraProfile profile = GetProfileByIndex(index);
+        if (profile != null)
+        {
+            SwitchToProfileInternal(profile);
+        }
+        else
+        {
+            Debug.LogWarning("Invalid camera profile index: " + index);
+        }
+    }
+
+    public CameraProfile CurrentProfile => currentProfile;
+
+    public int CurrentProfileIndex => GetProfileIndex(currentProfile);
+
+    private CameraProfile GetProfileByIndex(int index)
+    {
+        switch (index)
+        {
+            case 1: return profile1;
+            case 2: return profile2;
+            case 3: return profile3;
+            case 4: return profileSleep;
+            default: return null;
+        }
+    }
+
+    private int GetProfileIndex(CameraProfile profile)
+    {
+        if (profile == profile1) return 1;
+        if (profile == profile2) return 2;
+        if (profile == profile3) return 3;
+        if (profile == profileSleep) return 4;
+        return -1;
     }
 
     private IEnumerator TransitionToProfile(CameraProfile profile)

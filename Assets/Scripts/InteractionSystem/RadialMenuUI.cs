@@ -10,6 +10,11 @@ public class RadialMenuUI : MonoBehaviour
     public Button talkButton;
     public Button tradeButton;
 
+    [Header("Camera Settings")]
+    [SerializeField] private int cameraProfileIndex = 2;
+
+    private int previousCameraProfileIndex = -1;
+
     private NPCController currentNPC;
 
     public bool IsOpen => menuRoot != null && menuRoot.activeSelf;
@@ -43,7 +48,7 @@ public class RadialMenuUI : MonoBehaviour
             return;
 
         currentNPC = npc;
-        
+
         menuRoot.SetActive(true);
         if (InputFreezeManager.instance != null)
         {
@@ -52,6 +57,13 @@ public class RadialMenuUI : MonoBehaviour
         if (currentNPC != null)
         {
             currentNPC.Freeze();
+        }
+        
+        var cameraController = CinemachineCameraController.instance;
+        if (cameraController != null)
+        {
+            previousCameraProfileIndex = cameraController.CurrentProfileIndex;
+            cameraController.SwitchToProfile(cameraProfileIndex);
         }
 
     }
@@ -69,6 +81,12 @@ public class RadialMenuUI : MonoBehaviour
         if (!keepCursorFrozen && InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
+        }
+        var cameraController = CinemachineCameraController.instance;
+        if (previousCameraProfileIndex != -1 && cameraController != null)
+        {
+            cameraController.SwitchToProfile(previousCameraProfileIndex);
+            previousCameraProfileIndex = -1;
         }
         currentNPC = null;
     }
