@@ -18,7 +18,10 @@ public class NPCPlanner : MonoBehaviour
     private NPCController npcController;
     private bool hasLoadedState = false;
 
-    private IEnumerator Start()
+    private Coroutine taskSequence;
+    private NPCActionTask immediateTask;
+
+    private void Start()
     {
         npcController = GetComponent<NPCController>();
         if (npcController == null)
@@ -27,7 +30,20 @@ public class NPCPlanner : MonoBehaviour
         }
         // Initialize lastTaskPosition to the NPC's starting position
         lastTaskPosition = npcController != null ? npcController.transform.position : transform.position;
-        yield return RunFromCurrent();
+        taskSequence = StartCoroutine(RunFromCurrent());
+    }
+
+    public void InsertImmediateTask(NPCActionTask task)
+    {
+        if (task == null)
+            return;
+
+        if (taskSequence != null)
+            StopCoroutine(taskSequence);
+
+        immediateTask = task;
+        tasks.Insert(currentTaskIndex, task);
+        taskSequence = StartCoroutine(RunFromCurrent());
     }
 
     public List<NPCActionTaskState> GetTaskStates()
@@ -80,6 +96,13 @@ public class NPCPlanner : MonoBehaviour
                     else
                     {
                         lastTaskPosition = transform.position;
+                    }
+                    
+                    if (immediateTask != null && tasks[i] == immediateTask)
+                    {
+                        tasks.RemoveAt(i);
+                        immediateTask = null;
+                        i--;
                     }
                 }
                 else
