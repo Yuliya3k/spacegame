@@ -275,14 +275,24 @@ public class PlayerInteraction : MonoBehaviour
 
                 if (interactPressed)
                 {
-                    if (RadialMenuUI.instance != null && !RadialMenuUI.instance.IsOpen)
+                    // Clear the input before opening any UI to prevent residual actions
+                    interactPressed = false;
+
+                    bool tradeActive = NPCInteractionUIManager.instance != null &&
+                                       NPCInteractionUIManager.instance.npcInteractionUI != null &&
+                                       NPCInteractionUIManager.instance.npcInteractionUI.activeSelf;
+
+                    bool dialogueActive = DialogueManager.instance != null &&
+                                          DialogueManager.instance.dialoguePanel != null &&
+                                          DialogueManager.instance.dialoguePanel.activeSelf;
+
+                    if (!tradeActive && !dialogueActive &&
+                        RadialMenuUI.instance != null && !RadialMenuUI.instance.IsOpen)
                     {
                         RadialMenuUI.instance.OpenMenu(npcController);
-
                         TooltipManager.instance.HideTooltip();
                     }
-                }
-                interactPressed = false;
+                }                
                 Profiler.EndSample();
                 return;  // Exit to avoid further checks
             }
