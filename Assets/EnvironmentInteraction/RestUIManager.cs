@@ -27,6 +27,16 @@ public class RestUIManager : MonoBehaviour
     private PlayerControllerCode playerController;
     private PlayerInteraction playerInteraction;
     private PlayerInputActions inputActions;
+
+    private void EnsureInputActions()
+    {
+        if (inputActions == null)
+        {
+            inputActions = new PlayerInputActions();
+            inputActions.Player.Interact.performed += OnInteract;
+        }
+    }
+
     private void Awake()
     {
         // Removed singleton pattern
@@ -43,8 +53,7 @@ public class RestUIManager : MonoBehaviour
         restSlider.wholeNumbers = true;
         restSlider.onValueChanged.AddListener(OnSliderValueChanged);
 
-        inputActions = new PlayerInputActions();
-        inputActions.Player.Interact.performed += OnInteract;
+        EnsureInputActions();
 
         // Initialize playerController and playerInteraction here
         playerController = PlayerControllerCode.instance;
@@ -154,12 +163,16 @@ public class RestUIManager : MonoBehaviour
 
     private void OnEnable()
     {
+        EnsureInputActions();
         inputActions.Player.Enable();
     }
 
     private void OnDisable()
     {
-        inputActions.Player.Disable();
+        if (inputActions != null)
+        {
+            inputActions.Player.Disable();
+        }
     }
 
     private void OnRestButtonClicked()

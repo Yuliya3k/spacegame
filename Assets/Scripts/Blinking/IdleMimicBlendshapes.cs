@@ -63,7 +63,8 @@ public class IdleMimicBlendshapes : MonoBehaviour
     public CharacterStats characterStats;
     public ConditionalBlendshape[] conditionalBlendshapes;
     public float conditionUpdateInterval = 0.5f;
-    private readonly Dictionary<string, int> _indexCache = new();
+    private readonly Dictionary<string, int> _indexCache = new Dictionary<string, int>();
+    private readonly Dictionary<string, float> _initialWeights = new Dictionary<string, float>();
 
     private void Awake()
     {
@@ -72,10 +73,12 @@ public class IdleMimicBlendshapes : MonoBehaviour
             skinnedRenderer = GetComponent<SkinnedMeshRenderer>();
         }
         CacheIndices();
+        StoreInitialWeights();
     }
 
     private void OnEnable()
     {
+        ApplyInitialWeights();
         StartCoroutine(BlinkRoutine());
         StartCoroutine(RandomGroupRoutine());
         if (conditionalBlendshapes != null && conditionalBlendshapes.Length > 0)
@@ -97,6 +100,38 @@ public class IdleMimicBlendshapes : MonoBehaviour
         }
     }
 
+    private void StoreInitialWeights()
+    {
+        _initialWeights.Clear();
+        if (skinnedRenderer == null || skinnedRenderer.sharedMesh == null)
+            return;
+
+        Mesh mesh = skinnedRenderer.sharedMesh;
+        for (int i = 0; i < mesh.blendShapeCount; i++)
+        {
+            string name = mesh.GetBlendShapeName(i);
+            float weight = skinnedRenderer.GetBlendShapeWeight(i);
+            if (!_initialWeights.ContainsKey(name))
+                _initialWeights.Add(name, weight);
+        }
+    }
+
+    private void ApplyInitialWeights()
+    {
+        if (skinnedRenderer == null)
+            return;
+
+        foreach (var kvp in _initialWeights)
+        {
+            SetBlendshape(kvp.Key, kvp.Value);
+        }
+    }
+
+    public void ResetToInitialWeights()
+    {
+        ApplyInitialWeights();
+    }
+    
     private IEnumerator BlinkRoutine()
     {
         while (true)

@@ -62,6 +62,30 @@ public class DualCircularProgressBar : MonoBehaviour
         timer = updateInterval;
     }
 
+    void OnValidate()
+    {
+        if (minValueRef != null && maxValueRef != null)
+        {
+            float min = minValueRef.GetValue();
+            float max = maxValueRef.GetValue();
+            if (min >= max)
+            {
+                Debug.LogWarning($"{name}: minValueRef ({min}) should be less than maxValueRef ({max}). Values will be adjusted at runtime.");
+            }
+        }
+
+        if (minValueRef != null && maxValueRef != null && dividerValueRef != null)
+        {
+            float min = minValueRef.GetValue();
+            float max = maxValueRef.GetValue();
+            float divider = dividerValueRef.GetValue();
+            if (divider <= min || divider >= max)
+            {
+                Debug.LogWarning($"{name}: dividerValueRef ({divider}) should be between minValueRef ({min}) and maxValueRef ({max}). Values will be adjusted at runtime.");
+            }
+        }
+    }
+
     void Update()
     {
         // Increment the timer
@@ -100,26 +124,27 @@ public class DualCircularProgressBar : MonoBehaviour
         float dividerValue = dividerValueRef.GetValue();
         float currentVal = currentValue.GetValue();
 
-        //Debug.Log($"UpdateProgressBar called. minValue: {minValue}, maxValue: {maxValue}, dividerValue: {dividerValue}, currentValue: {currentVal}");
+        // Ensure valid min and max values
+        ProgressBarUtils.ValidateMinMax(ref minValue, ref maxValue);
 
-        // Ensure minValue < dividerValue < maxValue
-        if (minValue >= dividerValue || dividerValue >= maxValue)
+        // Ensure divider is between min and max
+        if (dividerValue <= minValue || dividerValue >= maxValue)
         {
-            Debug.LogError("Invalid values: Ensure that minValue < dividerValue < maxValue.");
-            return;
+            Debug.LogWarning("Invalid dividerValue: Clamping to be within min and max values.");
+            dividerValue = Mathf.Clamp(dividerValue, minValue + Mathf.Epsilon, maxValue - Mathf.Epsilon);
         }
 
         // Clamp the current value within min and max
         float clampedValue = Mathf.Clamp(currentVal, minValue, maxValue);
-        //Debug.Log($"clampedValue: {clampedValue}");
+        
 
         // Calculate the normalized value (0 to 1) from minValue to maxValue
         float normalizedValue = (clampedValue - minValue) / (maxValue - minValue);
-        //Debug.Log($"normalizedValue: {normalizedValue}");
+       
 
         // Calculate the divider position in normalized space
         float dividerPosition = (dividerValue - minValue) / (maxValue - minValue);
-        //Debug.Log($"dividerPosition: {dividerPosition}");
+        
 
         // Start smooth transition
         if (transitionCoroutine != null)

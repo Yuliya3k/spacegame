@@ -117,6 +117,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        ValidateButtons();
         // Add listeners to all UI navigation buttons
         AddButtonListeners(characterButtons, OpenCharacterUI);
         AddButtonListeners(skillsButtons, OpenSkillsUI);
@@ -678,10 +679,69 @@ public class UIManager : MonoBehaviour
 
     private void AddButtonClickListener(Button button, UnityEngine.Events.UnityAction action)
     {
+        if (button == null)
+        {
+            Debug.LogError("Button reference is null in AddButtonClickListener.");
+            return;
+        }
         button.onClick.AddListener(() => OnButtonClicked(action));
     }
 
 
+
+    #if UNITY_EDITOR
+    private void OnValidate()
+    {
+        ValidateButtons();
+    }
+#endif
+
+    private void ValidateButtons()
+    {
+        ValidateButton(gameCharacterButton, nameof(gameCharacterButton));
+        ValidateButton(gameSkillsButton, nameof(gameSkillsButton));
+        ValidateButton(gameCookButton, nameof(gameCookButton));
+        ValidateButton(gameCraftingButton, nameof(gameCraftingButton));
+        ValidateButton(gameOptionsButton, nameof(gameOptionsButton));
+        ValidateButton(characterCloseButton, nameof(characterCloseButton));
+        ValidateButton(skillsCloseButton, nameof(skillsCloseButton));
+        ValidateButton(cookCloseButton, nameof(cookCloseButton));
+        ValidateButton(craftingCloseButton, nameof(craftingCloseButton));
+        ValidateButton(optionsCloseButton, nameof(optionsCloseButton));
+
+        ValidateButtonList(characterButtons, nameof(characterButtons));
+        ValidateButtonList(skillsButtons, nameof(skillsButtons));
+        ValidateButtonList(cookButtons, nameof(cookButtons));
+        ValidateButtonList(craftingButtons, nameof(craftingButtons));
+        ValidateButtonList(optionsButtons, nameof(optionsButtons));
+    }
+
+    private void ValidateButton(Button button, string name)
+    {
+        if (button == null)
+        {
+            Debug.LogWarning($"{name} is unassigned in UIManager.");
+        }
+    }
+
+    private void ValidateButtonList(List<Button> buttons, string name)
+    {
+        if (buttons == null)
+        {
+            Debug.LogWarning($"{name} list is unassigned in UIManager.");
+            return;
+        }
+
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            if (buttons[i] == null)
+            {
+                Debug.LogWarning($"{name} contains an unassigned button at index {i}.");
+            }
+        }
+    }
+
+    
     private void OnEnable()
     {
         inputActions.UI.Enable();

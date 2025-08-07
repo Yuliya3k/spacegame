@@ -14,7 +14,7 @@ public class ExerciseUIManager : MonoBehaviour
 
 
     // UI that appears when exercise is in progress, with a "Stop" button
-    public GameObject exerciseInProgressUIPanel;    // Panel shown during exercise
+    [SerializeField] private GameObject exerciseInProgressUIPanel;    // Panel shown during exercise
     public Button stopExerciseButton;
 
     [Header("UI Management")]
@@ -30,19 +30,23 @@ public class ExerciseUIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (exerciseUIPanel == null || exerciseInProgressUIPanel == null)
+        if (exerciseUIPanel == null)
         {
-            if (exerciseUIPanel == null)
-                Debug.LogError("ExerciseUIManager: exerciseUIPanel reference is not assigned.");
-
-            if (exerciseInProgressUIPanel == null)
-                Debug.LogError("ExerciseUIManager: exerciseInProgressUIPanel reference is not assigned.");
-
-            return;
+            Debug.LogError("ExerciseUIManager: exerciseUIPanel reference is not assigned.");
+        }
+        else
+        {
+            exerciseUIPanel.SetActive(false);
         }
 
-        exerciseUIPanel.SetActive(false);
-        exerciseInProgressUIPanel.SetActive(false);
+        if (exerciseInProgressUIPanel == null)
+        {
+            Debug.LogWarning("ExerciseUIManager: exerciseInProgressUIPanel reference is not assigned.");
+        }
+        else
+        {
+            exerciseInProgressUIPanel.SetActive(false);
+        }
 
         exerciseSlider.minValue = 1;
         exerciseSlider.maxValue = 5;
@@ -76,8 +80,10 @@ public class ExerciseUIManager : MonoBehaviour
     public void OpenExerciseUI(InteractableExerciseMachine exerciseMachine)
     {
         currentExerciseMachine = exerciseMachine;
-        exerciseUIPanel.SetActive(true);
-        exerciseInProgressUIPanel.SetActive(false);
+        if (exerciseUIPanel != null)
+            exerciseUIPanel.SetActive(true);
+        if (exerciseInProgressUIPanel != null)
+            exerciseInProgressUIPanel.SetActive(false);
 
         
 
@@ -116,7 +122,8 @@ public class ExerciseUIManager : MonoBehaviour
 
     public void CloseExerciseUI()
     {
-        exerciseUIPanel.SetActive(false);
+        if (exerciseUIPanel != null)
+            exerciseUIPanel.SetActive(false);
 
         // If we are closing the selection UI, re-enable stuff
         if (playerInteraction != null)
@@ -139,7 +146,8 @@ public class ExerciseUIManager : MonoBehaviour
     private void OnStartExerciseButtonClicked()
     {
         int exerciseHours = (int)exerciseSlider.value;
-        exerciseUIPanel.SetActive(false);
+        if (exerciseUIPanel != null)
+            exerciseUIPanel.SetActive(false);
 
         // Start the exercise process via ExerciseManager
         if (exerciseManager != null)
@@ -155,7 +163,8 @@ public class ExerciseUIManager : MonoBehaviour
     // Called by ExerciseManager when exercise actually starts
     public void ShowInProgressUI()
     {
-        exerciseInProgressUIPanel.SetActive(true);
+        if (exerciseInProgressUIPanel != null)
+            exerciseInProgressUIPanel.SetActive(true);
     }
 
     private void OnStopExerciseButtonClicked()
@@ -169,13 +178,14 @@ public class ExerciseUIManager : MonoBehaviour
 
     public void CloseInProgressUI()
     {
-        exerciseInProgressUIPanel.SetActive(false);
+        if (exerciseInProgressUIPanel != null)
+            exerciseInProgressUIPanel.SetActive(false);
     }
 
     private void Update()
     {
         // Close UI if player presses E again and if in selection UI
-        if (exerciseUIPanel.activeSelf && Input.GetKeyDown(KeyCode.E))
+        if (exerciseUIPanel != null && exerciseUIPanel.activeSelf && Input.GetKeyDown(KeyCode.E))
         {
             CloseExerciseUI();
         }

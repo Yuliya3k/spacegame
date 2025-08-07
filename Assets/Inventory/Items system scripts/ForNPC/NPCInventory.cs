@@ -124,25 +124,31 @@ public class NPCInventory : Inventory
     {
         float availableVolume = characterStats.stomachCapacity - characterStats.currentFullness;
         List<EatableItemData> candidates = new List<EatableItemData>();
-
+        EatableItemData fallback = null;
         foreach (InventoryItem item in dishes)
         {
-            if (item.data is EatableItemData eatable && eatable.canEat && eatable.volume <= availableVolume)
+            if (item.data is EatableItemData eatable)
             {
-                candidates.Add(eatable);
+                if (fallback == null)
+                    fallback = eatable;
+                if (eatable.volume <= availableVolume)
+                    candidates.Add(eatable);
             }
         }
 
         foreach (InventoryItem item in ingredients)
         {
-            if (item.data is EatableItemData eatable && eatable.canEat && eatable.volume <= availableVolume)
+            if (item.data is EatableItemData eatable)
             {
-                candidates.Add(eatable);
+                if (fallback == null)
+                    fallback = eatable;
+                if (eatable.volume <= availableVolume)
+                    candidates.Add(eatable);
             }
         }
 
         if (candidates.Count == 0)
-            return null;
+            return fallback;
 
         EatableItemData best = null;
         float bestScore = float.NegativeInfinity;
@@ -184,29 +190,53 @@ public class NPCInventory : Inventory
     // Implement method for consuming items
     public void EatItem(ItemData _item)
     {
-        if (_item is EatableItemData eatableData)
-        {
-            // Check if the NPC can eat based on current fullness and item volume
-            if (characterStats.currentFullness + eatableData.volume <= characterStats.stomachCapacity)
-            {
-                // Check if consuming negative hydration would drop below minHydration
-                if (eatableData.hydration < 0f && characterStats.currentHydration + eatableData.hydration < characterStats.minHydration)
-                {
-                    Debug.Log($"{gameObject.name} cannot consume item: Hydration would fall below minimum.");
-                    return;
-                }
+        EatableItemData eatableData = _item as EatableItemData;
 
-                // Start the eating coroutine
-                StartCoroutine(EatingCoroutine(_item, eatableData));
-            }
-            else
+        if (eatableData == null)
+        {
+            foreach (var item in dishes)
             {
-                Debug.Log($"{gameObject.name} is too full to eat!");
+                if (item.data is EatableItemData eatable)
+                {
+                    eatableData = eatable;
+                    _item = eatable;
+                    break;
+                }
             }
+
+            if (eatableData == null)
+            {
+                foreach (var item in ingredients)
+                {
+                    if (item.data is EatableItemData eatable)
+                    {
+                        eatableData = eatable;
+                        _item = eatable;
+                        break;
+                    }
+                }
+            }
+
+            if (eatableData == null)
+            {
+                Debug.LogWarning("No food available for NPC to eat.");
+                return;
+            }
+        }
+
+        if (characterStats.currentFullness + eatableData.volume <= characterStats.stomachCapacity)
+        {
+            if (eatableData.hydration < 0f && characterStats.currentHydration + eatableData.hydration < characterStats.minHydration)
+            {
+                Debug.Log($"{gameObject.name} cannot consume item: Hydration would fall below minimum.");
+                return;
+            }
+
+            StartCoroutine(EatingCoroutine(_item, eatableData));
         }
         else
         {
-            Debug.LogError($"Item '{_item.objectName}' is not eatable!");
+            Debug.Log($"{gameObject.name} is too full to eat!");
         }
     }
 

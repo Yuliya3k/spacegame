@@ -64,6 +64,19 @@ public class DualProgressBar : MonoBehaviour
         timer = updateInterval;
     }
 
+    void OnValidate()
+    {
+        if (minValueRef != null && maxValueRef != null)
+        {
+            float min = minValueRef.GetValue();
+            float max = maxValueRef.GetValue();
+            if (min >= max)
+            {
+                Debug.LogWarning($"{name}: minValueRef ({min}) should be less than maxValueRef ({max}). Values will be adjusted at runtime.");
+            }
+        }
+    }
+
     void Update()
     {
         // Increment the timer
@@ -99,13 +112,8 @@ public class DualProgressBar : MonoBehaviour
         float maxValue = maxValueRef.GetValue();
         float currentVal = currentValue.GetValue();
 
-        // Debug.Log($"UpdateProgressBar called. minValue: {minValue}, maxValue: {maxValue}, currentValue: {currentVal}");
-
-        if (minValue >= maxValue)
-        {
-            // Debug.LogError("minValue should be less than maxValue.");
-            return;
-        }
+        // Ensure valid min and max values
+        ProgressBarUtils.ValidateMinMax(ref minValue, ref maxValue);
 
         // Clamp the current value within min and max
         float clampedValue = Mathf.Clamp(currentVal, minValue, maxValue);
