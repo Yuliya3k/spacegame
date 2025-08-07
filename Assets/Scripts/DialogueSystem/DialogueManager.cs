@@ -40,7 +40,7 @@ public class DialogueManager : MonoBehaviour
             currentNPC.SetInteractionAnimation(currentLine.animationTrigger);
         }
         dialoguePanel.SetActive(true);
-        if (InputFreezeManager.instance != null)
+        if (InputFreezeManager.instance != null && !InputFreezeManager.instance.IsFrozen)
         {
             InputFreezeManager.instance.FreezePlayerAndCursor();
         }

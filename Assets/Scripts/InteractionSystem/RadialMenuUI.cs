@@ -97,7 +97,7 @@ public class RadialMenuUI : MonoBehaviour
         // Unfreeze player controls before starting dialogue so that
         // DialogueManager can manage freezing independently.
         // This prevents the player from remaining frozen after the dialogue ends.
-        CloseMenu(false);
+        CloseMenu(true);
 
         if (npc != null)
         {
