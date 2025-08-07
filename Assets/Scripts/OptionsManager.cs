@@ -254,14 +254,14 @@ public class OptionsManager : MonoBehaviour
         mouseSensitivitySlider.value = sensitivity;
         SetMouseSensitivity(sensitivity);
 
-        // Load Invert Y
-        bool invert = PlayerPrefs.GetInt("InvertY", 0) == 1;
-        if (invertYToggle != null)
-        {
-            invertYToggle.isOn = invert;
-        }
-        SetInvertY(invert);
-        // Audio settings are loaded in InitializeAudioSettings()
+        // // Load Invert Y
+        // bool invert = PlayerPrefs.GetInt("InvertY", 0) == 1;
+        // if (invertYToggle != null)
+        // {
+        //     invertYToggle.isOn = invert;
+        // }
+        // SetInvertY(invert);
+        // // Audio settings are loaded in InitializeAudioSettings()
     }
 
     public void SaveSettings()
@@ -334,14 +334,24 @@ public class OptionsManager : MonoBehaviour
 
     private void InitializeInvertYSetting()
     {
-        bool invert = PlayerPrefs.GetInt("InvertY", 0) == 1;
+        bool invert;
+
+        if (CinemachineCameraController.instance != null &&
+            CinemachineCameraController.instance.CurrentProfile != null)
+        {
+            invert = CinemachineCameraController.instance.CurrentProfile.invertY;
+        }
+        else
+        {
+            invert = PlayerPrefs.GetInt("InvertY", 0) == 1;
+        }
         if (invertYToggle != null)
         {
             invertYToggle.isOn = invert;
             invertYToggle.onValueChanged.AddListener(SetInvertY);
         }
 
-        SetInvertY(invert);
+        
     }
 
     public void SetInvertY(bool invert)

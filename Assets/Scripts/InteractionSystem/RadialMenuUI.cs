@@ -94,7 +94,10 @@ public class RadialMenuUI : MonoBehaviour
     private void OnTalkSelected()
     {
         var npc = currentNPC;
-        CloseMenu(true);
+        // Unfreeze player controls before starting dialogue so that
+        // DialogueManager can manage freezing independently.
+        // This prevents the player from remaining frozen after the dialogue ends.
+        CloseMenu(false);
 
         if (npc != null)
         {
@@ -104,6 +107,7 @@ public class RadialMenuUI : MonoBehaviour
             if (dialogueComponent != null && DialogueManager.instance != null)
             {
                 DialogueManager.instance.StartDialogue(dialogueComponent.startingLine, npc);
+                
             }
         }
         // if (InputFreezeManager.instance != null)
