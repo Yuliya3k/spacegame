@@ -57,7 +57,7 @@ namespace LLama
         /// <param name="logger"></param>
         public StatelessExecutor(LLamaWeights weights, IContextParams @params, ILogger? logger = null)
         {
-            Images = [ ];
+            Images = new List<byte[]>();
             _weights = weights;
             _params = @params;
             _logger = logger;

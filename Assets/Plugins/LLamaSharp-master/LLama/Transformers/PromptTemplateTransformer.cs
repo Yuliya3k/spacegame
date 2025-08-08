@@ -37,7 +37,7 @@ public class PromptTemplateTransformer : IHistoryTransform
     /// <inheritdoc />
     public ChatHistory TextToHistory(AuthorRole role, string text)
     {
-        return new ChatHistory([new ChatHistory.Message(role, text)]);
+        return new ChatHistory(new[] { new ChatHistory.Message(role, text) });
     }
 
     /// <inheritdoc />
