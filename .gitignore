@@ -122,7 +122,7 @@ Assets/_Project/Scenes/**/LightingData.asset
 
 # ── Prefabs, scenes, animation controllers ────────────────
 
-*.gguf
+
 
 # ── Lighting / baked data ─────────────────────────────────
 Lightmap-*.exr

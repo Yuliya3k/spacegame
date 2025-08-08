@@ -22,7 +22,7 @@ internal static class SpanExtensions
         // Copy back to span
         tempSpan.CopyTo(span);
     }
-#elif !NET6_0_OR_GREATER && !NETSTANDARD2_1_OR_GREATER
+#elif !NET6_0_OR_GREATER && !NETSTANDARD2_1_OR_GREATER && !NET_STANDARD_2_1
 #error Target framework not supported!
 #endif
 }
