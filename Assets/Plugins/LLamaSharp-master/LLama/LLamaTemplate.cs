@@ -21,7 +21,7 @@ public sealed class LLamaTemplate
     /// <summary>
     /// Keep a cache of roles converted into bytes. Roles are very frequently re-used, so this saves converting them many times.
     /// </summary>
-    private readonly Dictionary<string, ReadOnlyMemory<byte>> _roleCache = [];
+    private readonly Dictionary<string, ReadOnlyMemory<byte>> _roleCache = new Dictionary<string, ReadOnlyMemory<byte>>();
 
     /// <summary>
     /// Array of messages. The <see cref="Count"/> property indicates how many messages there are
@@ -46,7 +46,7 @@ public sealed class LLamaTemplate
     /// <summary>
     /// Result bytes of last call to <see cref="Apply"/>
     /// </summary>
-    private byte[] _result = [];
+    private byte[] _result = Array.Empty<byte>();
 
     /// <summary>
     /// Indicates if this template has been modified and needs regenerating
@@ -200,7 +200,7 @@ public sealed class LLamaTemplate
         Count = 0;
 
         _resultLength = 0;
-        _result = [];
+        _result = Array.Empty<byte>();
         _nativeChatMessages = new LLamaChatMessage[4];
 
         _dirty = true;

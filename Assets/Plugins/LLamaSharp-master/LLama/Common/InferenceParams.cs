@@ -26,7 +26,7 @@ namespace LLama.Common
         /// <summary>
         /// Sequences where the model will stop generating further tokens.
         /// </summary>
-        public IReadOnlyList<string> AntiPrompts { get; set; } = [];
+        public IReadOnlyList<string> AntiPrompts { get; set; } = new List<string>();
 
         /// <inheritdoc />
         public ISamplingPipeline SamplingPipeline { get; set; } = new DefaultSamplingPipeline();

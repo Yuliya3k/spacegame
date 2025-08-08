@@ -262,15 +262,41 @@ public sealed class BatchedExecutor
         Task<DecodeResult> DecodeAsync(LLamaContext ctx, CancellationToken token);
     }
     
-    private class TokenBatch(LLamaBatch batch)
-        : IBatch
+    private class TokenBatch : IBatch
     {
-        public readonly LLamaBatch Batch = batch;
-        public int ItemCount => Batch.TokenCount;
+        private readonly LLamaBatch _batch;
+
+        public TokenBatch(LLamaBatch batch)
+        {
+            _batch = batch;
+        }
+
+        public LLamaBatch Batch => _batch;
+
+        public int ItemCount => _batch.TokenCount;
 
         public Task<DecodeResult> DecodeAsync(LLamaContext ctx, CancellationToken token)
         {
-            return ctx.DecodeAsync(Batch, token);
+            return ctx.DecodeAsync(_batch, token);
+        }
+    }
+
+    private class EmbeddingBatch : IBatch
+    {
+        private readonly LLamaBatchEmbeddings _batch;
+
+        public EmbeddingBatch(LLamaBatchEmbeddings batch)
+        {
+            _batch = batch;
+        }
+
+        public LLamaBatchEmbeddings Batch => _batch;
+
+        public int ItemCount => _batch.EmbeddingsCount;
+
+        public Task<DecodeResult> DecodeAsync(LLamaContext ctx, CancellationToken token)
+        {
+            return ctx.DecodeAsync(_batch, token);
         }
     }
     

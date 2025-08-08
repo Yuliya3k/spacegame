@@ -124,7 +124,7 @@ public static class LLamaExecutorExtensions
             else
             {
                 // Stateless executor with IsPromptRun = false: use only the last message.
-                history.AddMessage(AuthorRole.User, string.Concat(messages.LastOrDefault()?.Contents.OfType<TextContent>() ?? []));
+                history.AddMessage(AuthorRole.User, string.Concat(messages.LastOrDefault()?.Contents.OfType<TextContent>() ?? Array.Empty<TextContent>()));
             }
          
             return _historyTransform.HistoryToText(history);
