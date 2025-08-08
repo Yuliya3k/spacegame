@@ -120,6 +120,34 @@ public class NPCInventory : Inventory
         // Since NPCs don't have UI, we don't need to update it
     }
 
+    public ItemData FindItemByKeyword(string keyword)
+    {
+        if (string.IsNullOrEmpty(keyword))
+            return null;
+
+        keyword = keyword.ToLower();
+
+        foreach (var item in equipment)
+        {
+            if (item.data != null && item.data.objectName.ToLower().Contains(keyword))
+                return item.data;
+        }
+
+        foreach (var item in dishes)
+        {
+            if (item.data != null && item.data.objectName.ToLower().Contains(keyword))
+                return item.data;
+        }
+
+        foreach (var item in ingredients)
+        {
+            if (item.data != null && item.data.objectName.ToLower().Contains(keyword))
+                return item.data;
+        }
+
+        return null;
+    }
+
     public ItemData ChooseFood(DietPreference preference)
     {
         float availableVolume = characterStats.stomachCapacity - characterStats.currentFullness;

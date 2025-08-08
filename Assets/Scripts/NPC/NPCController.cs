@@ -20,6 +20,7 @@ public class NPCController : MonoBehaviour
     public Text locationText;
     public CharacterStats characterStats;
     public Inventory inventory;
+    public CharacterProfile npcProfile;
     public DietPreference dietPreference = DietPreference.HighVolumeLowCalories;
 
     [Header("Movement Settings")]
@@ -160,8 +161,8 @@ public class NPCController : MonoBehaviour
         // Save global in-game time
         data.inGameTime = new DateTimeData(SaveSystem.instance.timeManager.GetCurrentInGameTime());
 
-        // Save chosen character profile if available
-        CharacterProfile chosenProfile = CharacterProfileManager.instance.chosenProfile;
+        // Save NPC character profile if available
+        CharacterProfile chosenProfile = npcProfile;
         if (chosenProfile != null)
         {
             CharacterProfileData profileData = new CharacterProfileData();
@@ -182,7 +183,7 @@ public class NPCController : MonoBehaviour
                 profileData.baseBlendShapes.Add(bsd);
             }
 
-            data.chosenProfileData = profileData;
+            data.npcProfileData = profileData;
         }
 
         // Save planner state if attached

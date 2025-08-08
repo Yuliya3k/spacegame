@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class RadialMenuUI : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class RadialMenuUI : MonoBehaviour
 
     [Header("Camera Settings")]
     [SerializeField] private int cameraProfileIndex = 2;
+
+    [Header("Game Screen UI Panels")]
+    public List<GameObject> gameScreenUIs;  // Register UIs to be hidden when opening the radial menu
 
     private int previousCameraProfileIndex = -1;
 
@@ -50,6 +54,7 @@ public class RadialMenuUI : MonoBehaviour
         currentNPC = npc;
 
         menuRoot.SetActive(true);
+        HideGameScreenUIs();
         if (InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.FreezePlayerAndCursor();
@@ -78,6 +83,7 @@ public class RadialMenuUI : MonoBehaviour
         {
             currentNPC.Unfreeze();
         }
+        ShowGameScreenUIs();
         if (!keepCursorFrozen && InputFreezeManager.instance != null)
         {
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
@@ -89,6 +95,22 @@ public class RadialMenuUI : MonoBehaviour
             previousCameraProfileIndex = -1;
         }
         currentNPC = null;
+    }
+
+    private void HideGameScreenUIs()
+    {
+        foreach (var ui in gameScreenUIs)
+        {
+            if (ui.activeSelf) ui.SetActive(false);
+        }
+    }
+
+    private void ShowGameScreenUIs()
+    {
+        foreach (var ui in gameScreenUIs)
+        {
+            if (!ui.activeSelf) ui.SetActive(true);
+        }
     }
 
     private void OnTalkSelected()
@@ -107,14 +129,14 @@ public class RadialMenuUI : MonoBehaviour
             if (dialogueComponent != null && DialogueManager.instance != null)
             {
                 DialogueManager.instance.StartDialogue(dialogueComponent.startingLine, npc);
-                
+
             }
         }
         // if (InputFreezeManager.instance != null)
         // {
         //     InputFreezeManager.instance.UnfreezePlayerAndCursor();
         // }
-        
+
     }
 
     private void OnTradeSelected()

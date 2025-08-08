@@ -799,20 +799,20 @@ public class SaveSystem : MonoBehaviour
                 if (npcData.inGameTime != null)
                     timeManager.SetInGameTime(npcData.inGameTime.ToDateTime());
 
-                if (npcData.chosenProfileData != null)
+                if (npcData.npcProfileData != null)
                 {
                     CharacterProfile loadedProfile = new CharacterProfile();
-                    loadedProfile.characterName = npcData.chosenProfileData.profileName;
-                    loadedProfile.enableBoobGain = npcData.chosenProfileData.enableBoobGain;
-                    loadedProfile.enableTorsoGain = npcData.chosenProfileData.enableTorsoGain;
-                    loadedProfile.enableThighsGain = npcData.chosenProfileData.enableThighsGain;
-                    loadedProfile.enableShinsGain = npcData.chosenProfileData.enableShinsGain;
-                    loadedProfile.enableArmsGain = npcData.chosenProfileData.enableArmsGain;
-                    loadedProfile.enableWholeBodyGain = npcData.chosenProfileData.enableWholeBodyGain;
-                    loadedProfile.enableGlutesGain = npcData.chosenProfileData.enableGlutesGain;
+                    loadedProfile.characterName = npcData.npcProfileData.profileName;
+                    loadedProfile.enableBoobGain = npcData.npcProfileData.enableBoobGain;
+                    loadedProfile.enableTorsoGain = npcData.npcProfileData.enableTorsoGain;
+                    loadedProfile.enableThighsGain = npcData.npcProfileData.enableThighsGain;
+                    loadedProfile.enableShinsGain = npcData.npcProfileData.enableShinsGain;
+                    loadedProfile.enableArmsGain = npcData.npcProfileData.enableArmsGain;
+                    loadedProfile.enableWholeBodyGain = npcData.npcProfileData.enableWholeBodyGain;
+                    loadedProfile.enableGlutesGain = npcData.npcProfileData.enableGlutesGain;
 
                     loadedProfile.baseBlendShapes = new List<BlendShapeSetting>();
-                    foreach (var bsd in npcData.chosenProfileData.baseBlendShapes)
+                    foreach (var bsd in npcData.npcProfileData.baseBlendShapes)
                     {
                         BlendShapeSetting setting = new BlendShapeSetting();
                         setting.blendShapeName = bsd.blendShapeName;

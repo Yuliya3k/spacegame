@@ -22,5 +22,5 @@ public class NPCSaveData
     public List<NPCActionTaskState> taskStates; // Progress of each planner task
     public DateTimeData inGameTime;
     public CharacterRuntimeStateData runtimeState;
-    public CharacterProfileData chosenProfileData;
+    public CharacterProfileData npcProfileData;
 }

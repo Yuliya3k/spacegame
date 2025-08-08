@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public Transform responsesParent;
     public Button responseButtonPrefab;
-
+    public TMP_InputField playerInputField;
     private DialogueLine currentLine;
     private NPCController currentNPC;
     private Dictionary<string, float> savedBlendShapes = new Dictionary<string, float>();
@@ -40,6 +40,14 @@ public class DialogueManager : MonoBehaviour
             currentNPC.SetInteractionAnimation(currentLine.animationTrigger);
         }
         dialoguePanel.SetActive(true);
+
+        if (playerInputField != null)
+        {
+            playerInputField.gameObject.SetActive(true);
+            playerInputField.text = string.Empty;
+            playerInputField.onSubmit.AddListener(HandlePlayerInput);
+            playerInputField.ActivateInputField();
+        }
         if (InputFreezeManager.instance != null && !InputFreezeManager.instance.IsFrozen)
         {
             InputFreezeManager.instance.FreezePlayerAndCursor();
@@ -71,6 +79,62 @@ public class DialogueManager : MonoBehaviour
             InputFreezeManager.instance.UnfreezePlayerAndCursor();
             // InputFreezeManager.instance.UnfreezePlayerAndCursor();
         }
+
+        if (playerInputField != null)
+        {
+            playerInputField.onSubmit.RemoveListener(HandlePlayerInput);
+            playerInputField.text = string.Empty;
+            playerInputField.gameObject.SetActive(false);
+        }
+
+    }
+
+    private void HandlePlayerInput(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return;
+
+        var inventory = currentNPC != null ? currentNPC.GetComponent<NPCInventory>() : null;
+        if (inventory == null)
+            return;
+
+        string lower = input.ToLower().Trim();
+        string[] parts = lower.Split(' ', 2);
+        if (parts.Length < 2)
+        {
+            dialogueText.text = "Sorry, I do not have this item.";
+            playerInputField.text = string.Empty;
+            return;
+        }
+
+        string verb = parts[0];
+        string keyword = parts[1];
+        ItemData item = inventory.FindItemByKeyword(keyword);
+
+        if (item == null)
+        {
+            dialogueText.text = "Sorry, I do not have this item.";
+        }
+        else
+        {
+            if (verb == "wear")
+            {
+                inventory.EquipItem(item);
+                dialogueText.text = $"Wearing {item.objectName}.";
+            }
+            else if (verb == "eat")
+            {
+                inventory.EatItem(item);
+                dialogueText.text = $"Eating {item.objectName}.";
+            }
+            else
+            {
+                dialogueText.text = "Sorry, I do not have this item.";
+            }
+        }
+
+        playerInputField.text = string.Empty;
+        playerInputField.ActivateInputField();
 
     }
 
