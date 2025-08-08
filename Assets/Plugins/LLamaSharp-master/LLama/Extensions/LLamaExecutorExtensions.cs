@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using LLama.Common;
 using LLama.Sampling;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Logging;
 
 namespace LLama.Abstractions;
 

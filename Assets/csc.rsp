@@ -1,1 +1,9 @@
 -langversion:latest
+-unsafe
+-r:Assets/Plugins/SystemTextJson/System.Text.Json.dll
+-r:Assets/Plugins/SystemTextJson/System.Text.Encodings.Web.dll
+-r:Assets/Plugins/SystemTextJson/Microsoft.Bcl.AsyncInterfaces.dll
+-r:Assets/Plugins/SystemTextJson/System.Buffers.dll
+-r:Assets/Plugins/SystemTextJson/System.Memory.dll
+-r:Assets/Plugins/SystemTextJson/System.Runtime.CompilerServices.Unsafe.dll
+-r:Assets/Plugins/SystemTextJson/System.Threading.Tasks.Extensions.dll

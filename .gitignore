@@ -187,6 +187,14 @@ tools/git-hooks/* text eol=lf
 # Keep Unity package manifest for dependency management
 !/Packages/manifest.json
 
+# Allow CommunityToolkit.HighPerformance DLL for LLamaSharp
+!Assets/Plugins/LLamaSharp-master/LLama/CommunityToolkit.HighPerformance.dll
+# Allow committed System.Text.Json binaries for JSON serialization
+!Assets/Plugins/SystemTextJson/*.dll
+# Unignore System.Numerics.Tensors library for LLamaSharp
+!Assets/Plugins/System.Numerics.Tensors.dll
+
+
 ########################
 # End of file
 ########################
