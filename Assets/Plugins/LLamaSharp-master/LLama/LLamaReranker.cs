@@ -73,7 +73,7 @@ public sealed partial class LLamaReranker
         for(var idx = 0; idx < documents.Count; idx++)
         {
             var docTokens = Context.Tokenize(documents[idx] ?? "");
-            LLamaToken[] tokens = [.. inputTokens, .. docTokens];
+            LLamaToken[] tokens = inputTokens.Concat(docTokens).ToArray();
 
             if (batch.TokenCount + tokens.Length > Context.ContextSize)
             {
@@ -108,7 +108,7 @@ public sealed partial class LLamaReranker
     {
         var inputTokens = Context.Tokenize(input);
         var docTokens = Context.Tokenize(document);
-        LLamaToken[] tokens = [..inputTokens, ..docTokens];
+        LLamaToken[] tokens = inputTokens.Concat(docTokens).ToArray();
         var batch = new LLamaBatch();
         for (var i = 0; i < tokens.Length; i++)
             batch.Add(tokens[i], i, LLamaSeqId.Zero, true);

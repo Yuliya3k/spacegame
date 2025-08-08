@@ -4,12 +4,20 @@ namespace LLama.Native
     /// <summary>
     /// Information of a native library file.
     /// </summary>
-    /// <param name="NativeLibraryName">Which kind of library it is.</param>
-    /// <param name="UseCuda">Whether it's compiled with cublas.</param>
-    /// <param name="UseVulkan">Whether it's compiled with vulkan.</param>
-    /// <param name="AvxLevel">Which AvxLevel it's compiled with.</param>
-    public record class NativeLibraryMetadata(NativeLibraryName NativeLibraryName, bool UseCuda, bool UseVulkan, AvxLevel AvxLevel)
+    public record class NativeLibraryMetadata
     {
+        public NativeLibraryName NativeLibraryName { get; init; }
+        public bool UseCuda { get; init; }
+        public bool UseVulkan { get; init; }
+        public AvxLevel AvxLevel { get; init; }
+
+        public NativeLibraryMetadata(NativeLibraryName nativeLibraryName, bool useCuda, bool useVulkan, AvxLevel avxLevel)
+        {
+            NativeLibraryName = nativeLibraryName;
+            UseCuda = useCuda;
+            UseVulkan = useVulkan;
+            AvxLevel = avxLevel;
+        }
         /// <inheritdoc/>
         public override string ToString()
         {

@@ -302,7 +302,7 @@ public sealed class Conversation
     {
         AssertCanBePrompted();
         
-        Span<LLamaToken> span = [ token ];
+        Span<LLamaToken> span = stackalloc LLamaToken[] { token };
         Prompt(span);
     }
 
@@ -575,7 +575,17 @@ public sealed class Conversation
     }
 
 
-    private record SerializableConversationState(int Version, int TokenCount);
+    private record SerializableConversationState
+    {
+        public int Version { get; init; }
+        public int TokenCount { get; init; }
+
+        public SerializableConversationState(int version, int tokenCount)
+        {
+            Version = version;
+            TokenCount = tokenCount;
+        }
+    }
 
     private sealed class PrivateState
         : State

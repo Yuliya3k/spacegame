@@ -1,4 +1,5 @@
 using LLama.Abstractions;
+using System;
 using System.Collections.Generic;
 
 namespace LLama.Native
@@ -41,10 +42,10 @@ namespace LLama.Native
             if (systemInfo.OSPlatform != OSPlatform.Windows && systemInfo.OSPlatform != OSPlatform.Linux && !_skipCheck)
             {
                 // Not supported on systems other than Windows and Linux.
-                return [];
+                return Array.Empty<string>();
             }
             var path = GetAvxPath(systemInfo, _avxLevel, logCallback);
-            return path is null ? [] : [path];
+            return path is null ? Array.Empty<string>() : new[] { path };
         }
 
         private string? GetAvxPath(SystemInfo systemInfo, AvxLevel avxLevel, NativeLogConfig.LLamaLogCallback? logCallback)

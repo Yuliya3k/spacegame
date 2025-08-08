@@ -9,11 +9,18 @@ namespace LLama.Native
     /// <summary>
     /// Operating system information.
     /// </summary>
-    /// <param name="OSPlatform"></param>
-    /// <param name="CudaMajorVersion"></param>
-    /// <param name="VulkanVersion"></param>
-    public record SystemInfo(OSPlatform OSPlatform, int CudaMajorVersion, string? VulkanVersion)
+    public record class SystemInfo
     {
+        public OSPlatform OSPlatform { get; init; }
+        public int CudaMajorVersion { get; init; }
+        public string? VulkanVersion { get; init; }
+
+        public SystemInfo(OSPlatform oSPlatform, int cudaMajorVersion, string? vulkanVersion)
+        {
+            OSPlatform = oSPlatform;
+            CudaMajorVersion = cudaMajorVersion;
+            VulkanVersion = vulkanVersion;
+        }
         /// <summary>
         /// Get the system information of the current machine.
         /// </summary>
@@ -22,15 +29,15 @@ namespace LLama.Native
         public static SystemInfo Get()
         {
             OSPlatform platform;
-            if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 platform = OSPlatform.Windows;
             }
-            else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 platform = OSPlatform.Linux;
             }
-            else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 platform = OSPlatform.OSX;
             }
@@ -147,11 +154,11 @@ namespace LLama.Native
                     return ExtractMajorVersion(ref env_version);
                 }
                 // List of default cuda paths
-                string[] defaultCudaPaths =
-                [
-                    "/usr/local/bin/cuda",
-                    "/usr/local/cuda",
-                ];
+                string[] defaultCudaPaths = new string[]
+            {
+                "/usr/local/bin/cuda",
+                "/usr/local/cuda",
+            };
                 // Loop through every default path to find the version
                 foreach (var path in defaultCudaPaths)
                 {

@@ -246,9 +246,28 @@ namespace LLama.Native
         /// <param name="SkipCheck"></param>
         /// <param name="SearchDirectories"></param>
         /// <param name="UseVulkan"></param>
-        public record Description(string? Path, NativeLibraryName Library, bool UseCuda, bool UseVulkan, AvxLevel AvxLevel, bool AllowFallback, bool SkipCheck, 
-            string[] SearchDirectories)
+        public record class Description
         {
+            public string? Path { get; init; }
+            public NativeLibraryName Library { get; init; }
+            public bool UseCuda { get; init; }
+            public bool UseVulkan { get; init; }
+            public AvxLevel AvxLevel { get; init; }
+            public bool AllowFallback { get; init; }
+            public bool SkipCheck { get; init; }
+            public string[] SearchDirectories { get; init; }
+
+            public Description(string? path, NativeLibraryName library, bool useCuda, bool useVulkan, AvxLevel avxLevel, bool allowFallback, bool skipCheck, string[] searchDirectories)
+            {
+                Path = path;
+                Library = library;
+                UseCuda = useCuda;
+                UseVulkan = useVulkan;
+                AvxLevel = avxLevel;
+                AllowFallback = allowFallback;
+                SkipCheck = skipCheck;
+                SearchDirectories = searchDirectories;
+            }
             /// <inheritdoc/>
             public override string ToString()
             {

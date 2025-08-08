@@ -168,7 +168,7 @@ namespace LLama.Abstractions
         /// <inheritdoc/>
         public override TensorSplitsCollection Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var arr = JsonSerializer.Deserialize<float[]>(ref reader, options) ?? [ ];
+            var arr = JsonSerializer.Deserialize<float[]>(ref reader, options) ?? Array.Empty<float>();
             return new TensorSplitsCollection(arr);
         }
 
@@ -326,6 +326,18 @@ namespace LLama.Abstractions
             writer.WriteEndObject();
         }
 
-        private record KeyTypeValue(int Type, string Key, JsonElement Value);
+        private record KeyTypeValue
+        {
+            public int Type { get; init; }
+            public string Key { get; init; }
+            public JsonElement Value { get; init; }
+
+            public KeyTypeValue(int type, string key, JsonElement value)
+            {
+                Type = type;
+                Key = key;
+                Value = value;
+            }
+        }
     }
 }

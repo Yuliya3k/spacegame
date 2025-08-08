@@ -28,25 +28,32 @@ public static class LLamaExecutorExtensions
         ITextStreamTransform? outputTransform = null) =>
         new LLamaExecutorChatClient(
             executor ?? throw new ArgumentNullException(nameof(executor)),
-            historyTransform, 
+            historyTransform,
             outputTransform);
 
-    private sealed class LLamaExecutorChatClient(
-        ILLamaExecutor executor,
-        IHistoryTransform? historyTransform = null,
-        ITextStreamTransform? outputTransform = null) : IChatClient
+    private sealed class LLamaExecutorChatClient : IChatClient
     {
         private static readonly ChatClientMetadata s_metadata = new(nameof(LLamaExecutorChatClient));
         private static readonly InferenceParams s_defaultParams = new();
         private static readonly DefaultSamplingPipeline s_defaultPipeline = new();
-        private static readonly string[] s_antiPrompts = ["User:", "Assistant:", "System:"];
+        private static readonly string[] s_antiPrompts = new[] { "User:", "Assistant:", "System:" };
         [ThreadStatic]
         private static Random? t_random;
 
-        private readonly ILLamaExecutor _executor = executor;
-        private readonly IHistoryTransform _historyTransform = historyTransform ?? new AppendAssistantHistoryTransform();
-        private readonly ITextStreamTransform _outputTransform = outputTransform ??
-            new LLamaTransforms.KeywordTextOutputStreamTransform(s_antiPrompts);
+        private readonly ILLamaExecutor _executor;
+        private readonly IHistoryTransform _historyTransform;
+        private readonly ITextStreamTransform _outputTransform;
+
+        public LLamaExecutorChatClient(
+            ILLamaExecutor executor,
+            IHistoryTransform? historyTransform = null,
+            ITextStreamTransform? outputTransform = null)
+        {
+            _executor = executor;
+            _historyTransform = historyTransform ?? new AppendAssistantHistoryTransform();
+            _outputTransform = outputTransform ??
+                new LLamaTransforms.KeywordTextOutputStreamTransform(s_antiPrompts);
+        }
 
         /// <inheritdoc/>
         public void Dispose() { }
@@ -135,7 +142,7 @@ public static class LLamaExecutorExtensions
         {
             InferenceParams ip = options?.RawRepresentationFactory?.Invoke(this) as InferenceParams ?? new();
 
-            ip.AntiPrompts = [.. s_antiPrompts, .. ip.AntiPrompts];
+            ip.AntiPrompts = s_antiPrompts.Concat(ip.AntiPrompts).ToList();
             ip.MaxTokens = options?.MaxOutputTokens ?? 256; // arbitrary upper limit
             ip.SamplingPipeline = new DefaultSamplingPipeline()
             {

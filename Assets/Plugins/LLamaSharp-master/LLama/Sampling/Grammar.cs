@@ -1,8 +1,16 @@
 namespace LLama.Sampling;
 
 /// <summary>
-/// A grammar in GBNF form
+/// A grammar in GBNF form.
 /// </summary>
-/// <param name="Gbnf"></param>
-/// <param name="Root"></param>
-public record Grammar(string Gbnf, string Root);
+public record class Grammar
+{
+    public string Gbnf { get; init; }
+    public string Root { get; init; }
+
+    public Grammar(string gbnf, string root)
+    {
+        Gbnf = gbnf;
+        Root = root;
+    }
+}

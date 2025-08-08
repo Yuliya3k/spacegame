@@ -742,7 +742,7 @@ public record SessionState
             inputTransforms = File.Exists(inputTransformFilepath) ?
                 (JsonSerializer.Deserialize<ITextTransform[]>(File.ReadAllText(inputTransformFilepath))
                 ?? throw new ArgumentException("Input transform file is invalid", nameof(path)))
-                : [];
+                : Array.Empty<ITextTransform>();
         }
         catch (JsonException)
         {
