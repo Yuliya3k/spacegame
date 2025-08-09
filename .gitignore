@@ -135,7 +135,7 @@ Occlusion*.data
 *.terrainlayer
 
 # ── Binary plugins & packages ─────────────────────────────
-*.dll
+# *.dll
 *.pdb
 *.so
 *.jar
